@@ -81,3 +81,4 @@ deploy:
   type: git
   repo: https://github.com/GmwEnterprise/gmwenterprise.github.io.git 
     # github: git@github.com:GmwEnterprise/gmwenterprise.github.io.git
+  branch: master
