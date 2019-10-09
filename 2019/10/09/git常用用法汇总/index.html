@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Gmw的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="由于在开发过程中经常使用vscode自带的工具进行一些简单的sync、merge等操作，使得我很难熟记git的命令，故记录于此，免得以后到处google。几个术语： workingtree 工作区（当前本地文件夹） index / state 暂存区（add之后commit之前） HEAD 当前活跃分支的游标，也是workingtree、index的修改最终要提交到的位置几个概念： git相对于其">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gmw的博客">
+<meta property="og:url" content="http://gmwenterprise.github.io/2019/10/09/git常用用法汇总/index.html">
+<meta property="og:site_name" content="Gmw的博客">
+<meta property="og:description" content="由于在开发过程中经常使用vscode自带的工具进行一些简单的sync、merge等操作，使得我很难熟记git的命令，故记录于此，免得以后到处google。几个术语： workingtree 工作区（当前本地文件夹） index / state 暂存区（add之后commit之前） HEAD 当前活跃分支的游标，也是workingtree、index的修改最终要提交到的位置几个概念： git相对于其">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2019-10-09T02:04:49.013Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gmw的博客">
+<meta name="twitter:description" content="由于在开发过程中经常使用vscode自带的工具进行一些简单的sync、merge等操作，使得我很难熟记git的命令，故记录于此，免得以后到处google。几个术语： workingtree 工作区（当前本地文件夹） index / state 暂存区（add之后commit之前） HEAD 当前活跃分支的游标，也是workingtree、index的修改最终要提交到的位置几个概念： git相对于其">
+  
+    <link rel="alternate" href="/atom.xml" title="Gmw的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Gmw的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://gmwenterprise.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-git常用用法汇总" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/09/git常用用法汇总/" class="article-date">
+  <time datetime="2019-10-09T01:50:51.668Z" itemprop="datePublished">2019-10-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="由于在开发过程中经常使用vscode自带的工具进行一些简单的sync、merge等操作，使得我很难熟记git的命令，故记录于此，免得以后到处google。"><a href="#由于在开发过程中经常使用vscode自带的工具进行一些简单的sync、merge等操作，使得我很难熟记git的命令，故记录于此，免得以后到处google。" class="headerlink" title="由于在开发过程中经常使用vscode自带的工具进行一些简单的sync、merge等操作，使得我很难熟记git的命令，故记录于此，免得以后到处google。"></a>由于在开发过程中经常使用vscode自带的工具进行一些简单的sync、merge等操作，使得我很难熟记git的命令，故记录于此，免得以后到处google。</h2><h3 id="几个术语："><a href="#几个术语：" class="headerlink" title="几个术语："></a>几个术语：</h3><ul>
+<li>workingtree 工作区（当前本地文件夹）</li>
+<li>index / state 暂存区（add之后commit之前）</li>
+<li>HEAD 当前活跃分支的游标，也是workingtree、index的修改最终要提交到的位置<br>几个概念：</li>
+<li>git相对于其他VCS工具，主要的一个区别是，操作的是“修改”，而不是“文件”。这个很重要，对理解git的很多命令有帮助</li>
+<li>修改的提交过程是：workingtree -&gt; index -&gt; HEAD （本地），提交到了index和HEAD的修改都可以通过命令回退，但workingtree的修改一旦撤回，则不可找回，将彻底回退到指定的状态</li>
+<li>当前文件夹，特指当前执行命令所在的文件夹位置</li>
+<li>版本库中的每一个提交节点，类似于一个列表，各个分支其实就是不同的指针，分别指向特定的节点，而HEAD就是指向当前分支的游标；切换分支实际上就是切换HEAD游标指向的分支指针<h3 id="初始化repository"><a href="#初始化repository" class="headerlink" title="初始化repository"></a>初始化repository</h3></li>
+<li><strong>git init</strong> # 用于将当前文件夹初始化为一个repo</li>
+<li><strong>git clone 「remote repo site」</strong> # 克隆远程仓库于本地文件夹<br>本地的git单独分支操作</li>
+<li><strong>git add 「singlefile」</strong> # 将workingtree的指定文件的修改提交至index</li>
+<li><strong>git add .</strong> # 将workingtree的当前文件夹所有修改提交至index</li>
+<li><strong>git branch 「branch_name」</strong> # 创建分支</li>
+<li><strong>git branch –set-upstream-to 「local_branch」 origin/「origin_branch」</strong> # 关联本地分支与远程分支</li>
+<li><strong>git checkout 「branch_name」</strong> # 切换到现有分支</li>
+<li><strong>git checkout -b 「branch_name」</strong> # 切换到一个新的分支（创建并切换）</li>
+<li><strong>git checkout – 「file_path」</strong> # 撤销workingtree指定文件的修改（不可找回）</li>
+<li><strong>git config –list</strong> # 查询当前repo的一些配置</li>
+<li><strong>git config –list –global</strong> # 查询全局配置</li>
+<li><strong>git config user.name “yourname”</strong> # 配置你的用户名</li>
+<li><strong>git config user.email “youremail”</strong> # 配置你的邮箱</li>
+<li><strong>git diff</strong> # 查看workingtree与index的区别</li>
+<li><strong>git diff –cached</strong> # 查看index与HEAD的区别</li>
+<li><strong>git diff HEAD</strong> # 查看workingtree与HEAD的区别</li>
+<li><strong>git diff HEAD – 「file_path」</strong> # 查看workingtree与HEAD指定文件的区别</li>
+<li><strong>git log</strong> # 查看提交历史记录，每一条记录都对应一个版本号</li>
+<li><strong>git log –pretty=oneline</strong> # 查看提交历史记录，显示于一行</li>
+<li><strong>git reset –mixed HEAD</strong> # 回退index，使其对应HEAD最新版本，–mixed为默认值，可以省略为：git reset HEAD</li>
+<li><strong>git reset –mixed HEAD 「file_path」</strong> # 回退index指定文件，使其对应HEAD最新版本</li>
+<li><strong>git reset –hard HEAD</strong> # 回退workingtree，使其对应HEAD最新版本（慎用，工作区不可找回）</li>
+<li><strong>git reset –soft HEAD~</strong> # 回退HEAD到前一个版本，workingtree和index都不会改变</li>
+<li><strong>git reset HEAD~「number」</strong> # 回退到前第number个版本（–「mode」可用）</li>
+<li><strong>git reset 「version number」</strong> # 回退到指定版本（–「mode」可用）</li>
+<li><strong>git reflog</strong> # 查看当前用户的命令历史</li>
+<li><strong>git rm 「file_path」</strong> # 从版本库中（index &amp; HEAD）删除指定文件</li>
+<li><strong>git status</strong> # 查看当前修改状态<h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3></li>
+<li><strong>git remote add origin 「remote git repository address」</strong> # 将本地已有的仓库与指定远程仓库关联，yourname为你的远程仓库账户名，yourrepo为你的远程仓库名，origin为远程仓库命名，这是git默认，不用修改（一看就是远程仓库）</li>
+<li><strong>git push -u origin master</strong> # 将本地库内容推送到远程库。第一次推送时，“-u”参数加上后，不但会推送内容，还会把本地的master分支与origin的master分支关联起来，之后就可以省略这个参数了</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://gmwenterprise.github.io/2019/10/09/git常用用法汇总/" data-id="ck1in5yso0001s00zokb676x1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/09/30/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/10/09/git常用用法汇总/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/30/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Gmw<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
