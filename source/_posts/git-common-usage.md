@@ -4,8 +4,9 @@ date: 2019-09-10 14:22:07
 tags:
 ---
 由于在开发过程中经常使用vscode自带的工具进行一些简单的sync、merge等操作，使得我很难熟记git的命令，故记录于此，免得以后到处google。
----
-### 几个术语：
+
+### 几个术语
+
 * workingtree 工作区（当前本地文件夹）
 * index / state 暂存区（add之后commit之前）
 * HEAD 当前活跃分支的游标，也是workingtree、index的修改最终要提交到的位置
@@ -14,7 +15,9 @@ tags:
 * 修改的提交过程是：workingtree -> index -> HEAD （本地），提交到了index和HEAD的修改都可以通过命令回退，但workingtree的修改一旦撤回，则不可找回，将彻底回退到指定的状态
 * 当前文件夹，特指当前执行命令所在的文件夹位置
 * 版本库中的每一个提交节点，类似于一个列表，各个分支其实就是不同的指针，分别指向特定的节点，而HEAD就是指向当前分支的游标；切换分支实际上就是切换HEAD游标指向的分支指针
+
 ### 初始化repository
+
 * **git init** # 用于将当前文件夹初始化为一个repo
 * **git clone 「remote repo site」** # 克隆远程仓库于本地文件夹
 本地的git单独分支操作
@@ -44,6 +47,8 @@ tags:
 * **git reflog** # 查看当前用户的命令历史
 * **git rm 「file_path」** # 从版本库中（index & HEAD）删除指定文件
 * **git status** # 查看当前修改状态
+
 ### 远程仓库
+
 * **git remote add origin 「remote git repository address」** # 将本地已有的仓库与指定远程仓库关联，yourname为你的远程仓库账户名，yourrepo为你的远程仓库名，origin为远程仓库命名，这是git默认，不用修改（一看就是远程仓库）
 * **git push -u origin master** # 将本地库内容推送到远程库。第一次推送时，“-u”参数加上后，不但会推送内容，还会把本地的master分支与origin的master分支关联起来，之后就可以省略这个参数了
