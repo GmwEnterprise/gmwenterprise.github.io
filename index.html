@@ -106,7 +106,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/10/10/how_detectable_use/" data-id="ck1lrc2je0002io0zklyjo3se" class="article-share-link">Share</a>
+      <a data-url="http://gmwenterprise.github.io/2019/10/10/how_detectable_use/" data-id="ck1lu0khx0000q40zfv6hyypu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -118,8 +118,8 @@
   
     <article id="post-git-common-usage" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/10/10/git-common-usage/" class="article-date">
-  <time datetime="2019-10-10T06:22:07.000Z" itemprop="datePublished">2019-10-10</time>
+    <a href="/2019/09/10/git-common-usage/" class="article-date">
+  <time datetime="2019-09-10T06:22:07.000Z" itemprop="datePublished">2019-09-10</time>
 </a>
     
   </div>
@@ -130,7 +130,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/10/git-common-usage/">Git常用汇总</a>
+      <a class="article-title" href="/2019/09/10/git-common-usage/">Git常用汇总</a>
     </h1>
   
 
@@ -138,14 +138,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="由于在开发过程中经常使用vscode自带的工具进行一些简单的sync、merge等操作，使得我很难熟记git的命令，故记录于此，免得以后到处google。"><a href="#由于在开发过程中经常使用vscode自带的工具进行一些简单的sync、merge等操作，使得我很难熟记git的命令，故记录于此，免得以后到处google。" class="headerlink" title="由于在开发过程中经常使用vscode自带的工具进行一些简单的sync、merge等操作，使得我很难熟记git的命令，故记录于此，免得以后到处google。"></a>由于在开发过程中经常使用vscode自带的工具进行一些简单的sync、merge等操作，使得我很难熟记git的命令，故记录于此，免得以后到处google。</h2><h3 id="几个术语："><a href="#几个术语：" class="headerlink" title="几个术语："></a>几个术语：</h3><ul>
+        <p>由于在开发过程中经常使用vscode自带的工具进行一些简单的sync、merge等操作，使得我很难熟记git的命令，故记录于此，免得以后到处google。</p>
+<h3 id="几个术语"><a href="#几个术语" class="headerlink" title="几个术语"></a>几个术语</h3><ul>
 <li>workingtree 工作区（当前本地文件夹）</li>
 <li>index / state 暂存区（add之后commit之前）</li>
 <li>HEAD 当前活跃分支的游标，也是workingtree、index的修改最终要提交到的位置<br>几个概念：</li>
 <li>git相对于其他VCS工具，主要的一个区别是，操作的是“修改”，而不是“文件”。这个很重要，对理解git的很多命令有帮助</li>
 <li>修改的提交过程是：workingtree -&gt; index -&gt; HEAD （本地），提交到了index和HEAD的修改都可以通过命令回退，但workingtree的修改一旦撤回，则不可找回，将彻底回退到指定的状态</li>
 <li>当前文件夹，特指当前执行命令所在的文件夹位置</li>
-<li>版本库中的每一个提交节点，类似于一个列表，各个分支其实就是不同的指针，分别指向特定的节点，而HEAD就是指向当前分支的游标；切换分支实际上就是切换HEAD游标指向的分支指针<h3 id="初始化repository"><a href="#初始化repository" class="headerlink" title="初始化repository"></a>初始化repository</h3></li>
+<li>版本库中的每一个提交节点，类似于一个列表，各个分支其实就是不同的指针，分别指向特定的节点，而HEAD就是指向当前分支的游标；切换分支实际上就是切换HEAD游标指向的分支指针</li>
+</ul>
+<h3 id="初始化repository"><a href="#初始化repository" class="headerlink" title="初始化repository"></a>初始化repository</h3><ul>
 <li><strong>git init</strong> # 用于将当前文件夹初始化为一个repo</li>
 <li><strong>git clone 「remote repo site」</strong> # 克隆远程仓库于本地文件夹<br>本地的git单独分支操作</li>
 <li><strong>git add 「singlefile」</strong> # 将workingtree的指定文件的修改提交至index</li>
@@ -173,7 +176,9 @@
 <li><strong>git reset 「version number」</strong> # 回退到指定版本（–「mode」可用）</li>
 <li><strong>git reflog</strong> # 查看当前用户的命令历史</li>
 <li><strong>git rm 「file_path」</strong> # 从版本库中（index &amp; HEAD）删除指定文件</li>
-<li><strong>git status</strong> # 查看当前修改状态<h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3></li>
+<li><strong>git status</strong> # 查看当前修改状态</li>
+</ul>
+<h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><ul>
 <li><strong>git remote add origin 「remote git repository address」</strong> # 将本地已有的仓库与指定远程仓库关联，yourname为你的远程仓库账户名，yourrepo为你的远程仓库名，origin为远程仓库命名，这是git默认，不用修改（一看就是远程仓库）</li>
 <li><strong>git push -u origin master</strong> # 将本地库内容推送到远程库。第一次推送时，“-u”参数加上后，不但会推送内容，还会把本地的master分支与origin的master分支关联起来，之后就可以省略这个参数了</li>
 </ul>
@@ -181,56 +186,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/10/10/git-common-usage/" data-id="ck1lrc2j20001io0z2wlwjllz" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/30/hello-world/" class="article-date">
-  <time datetime="2019-09-30T07:11:48.754Z" itemprop="datePublished">2019-09-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/30/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/09/30/hello-world/" data-id="ck1lrc2ix0000io0zpzb7qavu" class="article-share-link">Share</a>
+      <a data-url="http://gmwenterprise.github.io/2019/09/10/git-common-usage/" data-id="ck1lu0ki20001q40z3m4z1rnc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -275,11 +231,7 @@
           </li>
         
           <li>
-            <a href="/2019/10/10/git-common-usage/">Git常用汇总</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/30/hello-world/">Hello World</a>
+            <a href="/2019/09/10/git-common-usage/">Git常用汇总</a>
           </li>
         
       </ul>
