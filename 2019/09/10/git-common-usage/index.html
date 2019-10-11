@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Gmw的博客">
 <meta property="og:description" content="由于在开发过程中经常使用vscode自带的工具进行一些简单的sync、merge等操作，使得我很难熟记git的命令，故记录于此，免得以后到处google。 几个术语 workingtree 工作区（当前本地文件夹） index / state 暂存区（add之后commit之前） HEAD 当前活跃分支的游标，也是workingtree、index的修改最终要提交到的位置几个概念： git相对于其">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-10-11T07:50:48.295Z">
+<meta property="og:updated_time" content="2019-10-11T07:52:49.513Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git常用汇总">
 <meta name="twitter:description" content="由于在开发过程中经常使用vscode自带的工具进行一些简单的sync、merge等操作，使得我很难熟记git的命令，故记录于此，免得以后到处google。 几个术语 workingtree 工作区（当前本地文件夹） index / state 暂存区（add之后commit之前） HEAD 当前活跃分支的游标，也是workingtree、index的修改最终要提交到的位置几个概念： git相对于其">
@@ -97,44 +97,44 @@
 <li>版本库中的每一个提交节点，类似于一个列表，各个分支其实就是不同的指针，分别指向特定的节点，而HEAD就是指向当前分支的游标；切换分支实际上就是切换HEAD游标指向的分支指针</li>
 </ul>
 <h3 id="初始化repository"><a href="#初始化repository" class="headerlink" title="初始化repository"></a>初始化repository</h3><ul>
-<li><strong>git init</strong> # 用于将当前文件夹初始化为一个repo</li>
-<li><strong>git clone 「remote repo site」</strong> # 克隆远程仓库于本地文件夹<br>本地的git单独分支操作</li>
-<li><strong>git add 「singlefile」</strong> # 将workingtree的指定文件的修改提交至index</li>
-<li><strong>git add .</strong> # 将workingtree的当前文件夹所有修改提交至index</li>
-<li><strong>git branch 「branch_name」</strong> # 创建分支</li>
-<li><strong>git branch –set-upstream-to 「local_branch」 origin/「origin_branch」</strong> # 关联本地分支与远程分支</li>
-<li><strong>git checkout 「branch_name」</strong> # 切换到现有分支</li>
-<li><strong>git checkout -b 「branch_name」</strong> # 切换到一个新的分支（创建并切换）</li>
-<li><strong>git checkout – 「file_path」</strong> # 撤销workingtree指定文件的修改（不可找回）</li>
-<li><strong>git config –list</strong> # 查询当前repo的一些配置</li>
-<li><strong>git config –list –global</strong> # 查询全局配置</li>
-<li><strong>git config user.name “yourname”</strong> # 配置你的用户名</li>
-<li><strong>git config user.email “youremail”</strong> # 配置你的邮箱</li>
-<li><strong>git diff</strong> # 查看workingtree与index的区别</li>
-<li><strong>git diff –cached</strong> # 查看index与HEAD的区别</li>
-<li><strong>git diff HEAD</strong> # 查看workingtree与HEAD的区别</li>
-<li><strong>git diff HEAD – 「file_path」</strong> # 查看workingtree与HEAD指定文件的区别</li>
-<li><strong>git log</strong> # 查看提交历史记录，每一条记录都对应一个版本号</li>
-<li><strong>git log –pretty=oneline</strong> # 查看提交历史记录，显示于一行</li>
-<li><strong>git reset –mixed HEAD</strong> # 回退index，使其对应HEAD最新版本，–mixed为默认值，可以省略为：git reset HEAD</li>
-<li><strong>git reset –mixed HEAD 「file_path」</strong> # 回退index指定文件，使其对应HEAD最新版本</li>
-<li><strong>git reset –hard HEAD</strong> # 回退workingtree，使其对应HEAD最新版本（慎用，工作区不可找回）</li>
-<li><strong>git reset –soft HEAD~</strong> # 回退HEAD到前一个版本，workingtree和index都不会改变</li>
-<li><strong>git reset HEAD~「number」</strong> # 回退到前第number个版本（–「mode」可用）</li>
-<li><strong>git reset 「version number」</strong> # 回退到指定版本（–「mode」可用）</li>
-<li><strong>git reflog</strong> # 查看当前用户的命令历史</li>
-<li><strong>git rm 「file_path」</strong> # 从版本库中（index &amp; HEAD）删除指定文件</li>
-<li><strong>git status</strong> # 查看当前修改状态</li>
+<li><code>git init</code> # 用于将当前文件夹初始化为一个repo</li>
+<li><code>git clone 「remote repo site」</code> # 克隆远程仓库于本地文件夹<br>本地的git单独分支操作</li>
+<li><code>git add 「singlefile」</code> # 将workingtree的指定文件的修改提交至index</li>
+<li><code>git add .</code> # 将workingtree的当前文件夹所有修改提交至index</li>
+<li><code>git branch 「branch_name」</code> # 创建分支</li>
+<li><code>git branch --set-upstream-to 「local_branch」 origin/「origin_branch」</code> # 关联本地分支与远程分支</li>
+<li><code>git checkout 「branch_name」</code> # 切换到现有分支</li>
+<li><code>git checkout -b 「branch_name」</code> # 切换到一个新的分支（创建并切换）</li>
+<li><code>git checkout -- 「file_path」</code> # 撤销workingtree指定文件的修改（不可找回）</li>
+<li><code>git config --list</code> # 查询当前repo的一些配置</li>
+<li><code>git config --list --global</code> # 查询全局配置</li>
+<li><code>git config user.name &quot;yourname&quot;</code> # 配置你的用户名</li>
+<li><code>git config user.email &quot;youremail&quot;</code> # 配置你的邮箱</li>
+<li><code>git diff</code> # 查看workingtree与index的区别</li>
+<li><code>git diff --cached</code> # 查看index与HEAD的区别</li>
+<li><code>git diff HEAD</code> # 查看workingtree与HEAD的区别</li>
+<li><code>git diff HEAD -- 「file_path」</code> # 查看workingtree与HEAD指定文件的区别</li>
+<li><code>git log</code> # 查看提交历史记录，每一条记录都对应一个版本号</li>
+<li><code>git log --pretty=oneline</code> # 查看提交历史记录，显示于一行</li>
+<li><code>git reset --mixed HEAD</code> # 回退index，使其对应HEAD最新版本，–mixed为默认值，可以省略为：git reset HEAD</li>
+<li><code>git reset --mixed HEAD 「file_path」</code> # 回退index指定文件，使其对应HEAD最新版本</li>
+<li><code>git reset --hard HEAD</code> # 回退workingtree，使其对应HEAD最新版本（慎用，工作区不可找回）</li>
+<li><code>git reset --soft HEAD~</code> # 回退HEAD到前一个版本，workingtree和index都不会改变</li>
+<li><code>git reset HEAD~「number」</code> # 回退到前第number个版本（–「mode」可用）</li>
+<li><code>git reset 「version number」</code> # 回退到指定版本（–「mode」可用）</li>
+<li><code>git reflog</code> # 查看当前用户的命令历史</li>
+<li><code>git rm 「file_path」</code> # 从版本库中（index &amp; HEAD）删除指定文件</li>
+<li><code>git status</code> # 查看当前修改状态</li>
 </ul>
 <h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><ul>
-<li><strong>git remote add origin 「remote git repository address」</strong> # 将本地已有的仓库与指定远程仓库关联，yourname为你的远程仓库账户名，yourrepo为你的远程仓库名，origin为远程仓库命名，这是git默认，不用修改（一看就是远程仓库）</li>
-<li><strong>git push -u origin master</strong> # 将本地库内容推送到远程库。第一次推送时，“-u”参数加上后，不但会推送内容，还会把本地的master分支与origin的master分支关联起来，之后就可以省略这个参数了</li>
+<li><code>git remote add origin 「remote git repository address」</code> # 将本地已有的仓库与指定远程仓库关联，yourname为你的远程仓库账户名，yourrepo为你的远程仓库名，origin为远程仓库命名，这是git默认，不用修改（一看就是远程仓库）</li>
+<li><code>git push -u origin master</code> # 将本地库内容推送到远程库。第一次推送时，“-u”参数加上后，不但会推送内容，还会把本地的master分支与origin的master分支关联起来，之后就可以省略这个参数了</li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/09/10/git-common-usage/" data-id="ck1lu0ki20001q40z3m4z1rnc" class="article-share-link">Share</a>
+      <a data-url="http://gmwenterprise.github.io/2019/09/10/git-common-usage/" data-id="ck1lu30dp0001uw0zrqhj71wt" class="article-share-link">Share</a>
       
       
     </footer>
