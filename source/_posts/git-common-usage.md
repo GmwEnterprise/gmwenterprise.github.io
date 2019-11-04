@@ -1,7 +1,7 @@
 ---
 title: Git常用汇总
 date: 2019-09-10 14:22:07
-tags:
+tags: git
 ---
 由于在开发过程中经常使用vscode自带的工具进行一些简单的sync、merge等操作，使得我很难熟记git的命令，故记录于此，免得以后到处google。
 
