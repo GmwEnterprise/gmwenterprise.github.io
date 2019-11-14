@@ -62,10 +62,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-这个你看得懂吧哇哈哈哈" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-aliyun-ubuntu-init" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/11/09/这个你看得懂吧哇哈哈哈/" class="article-date">
-  <time datetime="2019-11-09T14:43:28.000Z" itemprop="datePublished">2019-11-09</time>
+    <a href="/2019/11/14/aliyun-ubuntu-init/" class="article-date">
+  <time datetime="2019-11-14T02:25:27.000Z" itemprop="datePublished">2019-11-14</time>
 </a>
     
   </div>
@@ -76,7 +76,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/09/这个你看得懂吧哇哈哈哈/">这个你看得懂吧哇哈哈哈</a>
+      <a class="article-title" href="/2019/11/14/aliyun-ubuntu-init/">从阿里云上安装ubuntu server作为一个运行javaweb程序的服务器</a>
     </h1>
   
 
@@ -84,15 +84,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>MC阿甘新建此文章于2019年11月9日 22:43:59</p>
+        <p>写这篇文章的目的在于详细记录一下初始化一台服务器的一些基本操作，本来是可以用的，结果最近笔者的服务器遭到了黑客攻击，丢失了好几条<strong>宝贵</strong>的数据不说，还被威胁说不给0.03个btc就删了我的备份。。。</p>
+<p>因为我图方便，希望能够在家里或者公司都能自由连接上我的服务器以便开发我的个人小博客网站，所以开放了端口。。。</p>
+<p><strong>血的教训！</strong></p>
+<p>以下是正文</p>
+<hr>
+<p>使用的镜像为ubuntu18.04，惊喜的是系统自带SSH，不需要像老版本一样需要安装额外的ssh包才能使用xshell进行远程登录。</p>
+<h4 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h4><p>我先前使用的数据库是mysql8.0，所以此时我要给服务器安装mysql8.0，但是apt search能找到的包只有mysql5.7，所以得自己另寻办法：</p>
+<ol>
+<li>从这个<a href="https://dev.mysql.com/downloads/repo/apt/" target="_blank" rel="noopener">链接</a>去下载一个mysql-apt-config-xxxxxx.deb包，然后通过xftp上传到服务器。我将它上传到了根目录；</li>
+<li>安装：<code>dpkg -i /mysql-apt-config_0.8.14-1_all.deb</code>，会弹出粉色背景的安装界面，根据需求选择后选择OK；</li>
+<li><code>apt update</code>更新下载列表，然后<code>apt upgrade</code>更新。至此，已可以通过<code>apt install mysql-server</code>来安装mysql8；</li>
+<li><code>apt install mysql-server</code>即可安装，选择密码加密方式时选择了mysql5.7的mysql_native_password加密方式，因为目前默认的客户端管理工具都不支持新版加密方式；</li>
+<li>安装好后，修改mysql.user表root用户的host字段为’%’，然后重启mysql服务<code>service mysql restart</code>便开启了mysql8的远程登录。</li>
+</ol>
+<h4 id="安装jdk"><a href="#安装jdk" class="headerlink" title="安装jdk"></a>安装jdk</h4><p>未完待续…</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/11/09/这个你看得懂吧哇哈哈哈/" data-id="ck2rok1at0009a00z8ndpnsjy" class="article-share-link">Share</a>
+      <a data-url="http://gmwenterprise.github.io/2019/11/14/aliyun-ubuntu-init/" data-id="ck2ykpo2l0000hs0zlp6ct8vw" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂谈/">杂谈</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
 
     </footer>
   </div>
@@ -138,7 +152,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/11/04/springmvc-global-exp/" data-id="ck2rok1ab0001a00zgw3az788" class="article-share-link">Share</a>
+      <a data-url="http://gmwenterprise.github.io/2019/11/04/springmvc-global-exp/" data-id="ck2ykpo380007hs0zqd9c524z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -150,9 +164,9 @@
 
 
   
-    <article id="post-how_detectable_use" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-how-detectable-use" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/10/10/how_detectable_use/" class="article-date">
+    <a href="/2019/10/10/how-detectable-use/" class="article-date">
   <time datetime="2019-10-10T06:29:19.000Z" itemprop="datePublished">2019-10-10</time>
 </a>
     
@@ -164,7 +178,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/10/how_detectable_use/">异常代码检测执行器Detectable（模仿java.utils.Optional类）</a>
+      <a class="article-title" href="/2019/10/10/how-detectable-use/">异常代码检测执行器Detectable（模仿java.utils.Optional类）</a>
     </h1>
   
 
@@ -194,7 +208,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/10/10/how_detectable_use/" data-id="ck2rok1a50000a00zaefto92n" class="article-share-link">Share</a>
+      <a data-url="http://gmwenterprise.github.io/2019/10/10/how-detectable-use/" data-id="ck2ykpo360006hs0z54j9aqpe" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -276,7 +290,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/09/10/git-common-usage/" data-id="ck2rok1ae0003a00z90xqtsh4" class="article-share-link">Share</a>
+      <a data-url="http://gmwenterprise.github.io/2019/09/10/git-common-usage/" data-id="ck2ykpo2q0001hs0zliadaf0m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
@@ -301,7 +315,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂谈/">杂谈</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li></ul>
     </div>
   </div>
 
@@ -311,7 +325,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/杂谈/" style="font-size: 10px;">杂谈</a>
+      <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a>
     </div>
   </div>
 
@@ -333,7 +347,7 @@
       <ul>
         
           <li>
-            <a href="/2019/11/09/这个你看得懂吧哇哈哈哈/">这个你看得懂吧哇哈哈哈</a>
+            <a href="/2019/11/14/aliyun-ubuntu-init/">从阿里云上安装ubuntu server作为一个运行javaweb程序的服务器</a>
           </li>
         
           <li>
@@ -341,7 +355,7 @@
           </li>
         
           <li>
-            <a href="/2019/10/10/how_detectable_use/">异常代码检测执行器Detectable（模仿java.utils.Optional类）</a>
+            <a href="/2019/10/10/how-detectable-use/">异常代码检测执行器Detectable（模仿java.utils.Optional类）</a>
           </li>
         
           <li>
