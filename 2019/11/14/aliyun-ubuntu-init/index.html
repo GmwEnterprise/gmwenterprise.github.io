@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Gmw的博客">
 <meta property="og:description" content="写这篇文章的目的在于详细记录一下初始化一台服务器的一些基本操作，本来是可以用的，结果最近笔者的服务器遭到了黑客攻击，丢失了好几条宝贵的数据不说，还被威胁说不给0.03个btc就删了我的备份。。。 因为我图方便，希望能够在家里或者公司都能自由连接上我的服务器以便开发我的个人小博客网站，所以开放了端口。。。 血的教训！ 以下是正文  使用的镜像为ubuntu18.04，惊喜的是系统自带SSH，不需要像">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-11-14T10:29:46.747Z">
+<meta property="og:updated_time" content="2019-11-18T02:09:18.604Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从阿里云上安装ubuntu server作为一个运行javaweb程序的服务器">
 <meta name="twitter:description" content="写这篇文章的目的在于详细记录一下初始化一台服务器的一些基本操作，本来是可以用的，结果最近笔者的服务器遭到了黑客攻击，丢失了好几条宝贵的数据不说，还被威胁说不给0.03个btc就删了我的备份。。。 因为我图方便，希望能够在家里或者公司都能自由连接上我的服务器以便开发我的个人小博客网站，所以开放了端口。。。 血的教训！ 以下是正文  使用的镜像为ubuntu18.04，惊喜的是系统自带SSH，不需要像">
@@ -100,13 +100,14 @@
 <li><code>apt update</code>更新下载列表，然后<code>apt upgrade</code>更新。至此，已可以通过<code>apt install mysql-server</code>来安装mysql8；</li>
 <li><code>apt install mysql-server</code>即可安装，选择密码加密方式时选择了mysql5.7的mysql_native_password加密方式，因为目前默认的客户端管理工具都不支持新版加密方式；</li>
 <li>安装好后，修改mysql.user表root用户的host字段为’%’，然后重启mysql服务<code>service mysql restart</code>便开启了mysql8的远程登录。</li>
+<li>为了安全性的考虑，只好设置Mysql数据库的3306端口IP限制，每次换个地方，换了网络，就要把自己的外网IP给替换为当前的限制IP，这样也算是比较有效降低了被黑客入侵的风险。。。</li>
 </ol>
-<h4 id="安装jdk"><a href="#安装jdk" class="headerlink" title="安装jdk"></a>安装jdk</h4><p>未完待续…</p>
+<h4 id="安装jdk"><a href="#安装jdk" class="headerlink" title="安装jdk"></a>安装jdk</h4><h4 id="安装redis"><a href="#安装redis" class="headerlink" title="安装redis"></a>安装redis</h4><h4 id="尝试使用docker"><a href="#尝试使用docker" class="headerlink" title="尝试使用docker"></a>尝试使用docker</h4><p>未完待续…</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/11/14/aliyun-ubuntu-init/" data-id="ck2ykpo2l0000hs0zlp6ct8vw" class="article-share-link">Share</a>
+      <a data-url="http://gmwenterprise.github.io/2019/11/14/aliyun-ubuntu-init/" data-id="ck33ulzxj0000aw0zfabwzah4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -116,6 +117,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2019/11/15/mybatis-generator-usage/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          mybatis-generator插件的用法简单总结
+        
+      </div>
+    </a>
   
   
     <a href="/2019/11/04/springmvc-global-exp/" id="article-nav-older" class="article-nav-link-wrap">
@@ -139,7 +149,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li></ul>
     </div>
   </div>
 
@@ -149,7 +159,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a>
+      <a href="/tags/angular/" style="font-size: 10px;">angular</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a>
     </div>
   </div>
 
@@ -171,19 +181,23 @@
       <ul>
         
           <li>
+            <a href="/2019/11/18/how-simple-website-create-01/">简单的网站搭建-01</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/18/markdown-common-usage/">markdown-common-usage</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/15/mybatis-generator-usage/">mybatis-generator插件的用法简单总结</a>
+          </li>
+        
+          <li>
             <a href="/2019/11/14/aliyun-ubuntu-init/">从阿里云上安装ubuntu server作为一个运行javaweb程序的服务器</a>
           </li>
         
           <li>
             <a href="/2019/11/04/springmvc-global-exp/">SpringMvc处理全局异常</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/10/how-detectable-use/">异常代码检测执行器Detectable（模仿java.utils.Optional类）</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/10/git-common-usage/">Git常用汇总</a>
           </li>
         
       </ul>

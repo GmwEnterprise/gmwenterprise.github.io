@@ -5,20 +5,22 @@
   
 
   
-  <title>SpringMvc处理全局异常 | Gmw的博客</title>
+  <title>简单的网站搭建-01 | Gmw的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="处理全局异常的方法主要为两种：  实现HandlerExceptionResolver接口 @ControllerAdvice注解  第一种方法的一个局限性是，必须返回ModelAndView实例，如果有返回Json数据需求的话，就力不从心了; 第二种方法我使用的比较多，通过给处理类加上@ControllerAdvice注解或@RestControllerAdvice注解，然后给类中的方法加上@E">
-<meta name="keywords" content="java">
+  <meta name="description" content="前言遭遇闹心的黑客事件后，由于数据都丢了，况且之前一直认为自己做的小网站不太好看，也不方便，所以再做一次。 使用的技术组合为：后端程序[spring-boot] + 后台管理界面[vue-elements] + 前台界面[angular-material] + 数据库[mysql8]。整个搭建不会太复杂，比较简单，没有考虑到太多东西，用来做一个个人站点还是OK了，访问量不大的话。后期也可能尝试更丰">
+<meta name="keywords" content="java,spring,angular,vue,mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringMvc处理全局异常">
-<meta property="og:url" content="http://gmwenterprise.github.io/2019/11/04/springmvc-global-exp/index.html">
+<meta property="og:title" content="简单的网站搭建-01">
+<meta property="og:url" content="http://gmwenterprise.github.io/2019/11/18/how-simple-website-create-01/index.html">
 <meta property="og:site_name" content="Gmw的博客">
-<meta property="og:description" content="处理全局异常的方法主要为两种：  实现HandlerExceptionResolver接口 @ControllerAdvice注解  第一种方法的一个局限性是，必须返回ModelAndView实例，如果有返回Json数据需求的话，就力不从心了; 第二种方法我使用的比较多，通过给处理类加上@ControllerAdvice注解或@RestControllerAdvice注解，然后给类中的方法加上@E">
+<meta property="og:description" content="前言遭遇闹心的黑客事件后，由于数据都丢了，况且之前一直认为自己做的小网站不太好看，也不方便，所以再做一次。 使用的技术组合为：后端程序[spring-boot] + 后台管理界面[vue-elements] + 前台界面[angular-material] + 数据库[mysql8]。整个搭建不会太复杂，比较简单，没有考虑到太多东西，用来做一个个人站点还是OK了，访问量不大的话。后期也可能尝试更丰">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-11-04T02:20:19.550Z">
+<meta property="og:image" content="http://gmwenterprise.github.io/2019/11/18/how-simple-website-create-01/how-simple-website-create-01/mysql-create-tables.png">
+<meta property="og:updated_time" content="2019-11-18T03:06:38.404Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SpringMvc处理全局异常">
-<meta name="twitter:description" content="处理全局异常的方法主要为两种：  实现HandlerExceptionResolver接口 @ControllerAdvice注解  第一种方法的一个局限性是，必须返回ModelAndView实例，如果有返回Json数据需求的话，就力不从心了; 第二种方法我使用的比较多，通过给处理类加上@ControllerAdvice注解或@RestControllerAdvice注解，然后给类中的方法加上@E">
+<meta name="twitter:title" content="简单的网站搭建-01">
+<meta name="twitter:description" content="前言遭遇闹心的黑客事件后，由于数据都丢了，况且之前一直认为自己做的小网站不太好看，也不方便，所以再做一次。 使用的技术组合为：后端程序[spring-boot] + 后台管理界面[vue-elements] + 前台界面[angular-material] + 数据库[mysql8]。整个搭建不会太复杂，比较简单，没有考虑到太多东西，用来做一个个人站点还是OK了，访问量不大的话。后期也可能尝试更丰">
+<meta name="twitter:image" content="http://gmwenterprise.github.io/2019/11/18/how-simple-website-create-01/how-simple-website-create-01/mysql-create-tables.png">
   
     <link rel="alternate" href="/atom.xml" title="Gmw的博客" type="application/atom+xml">
   
@@ -65,10 +67,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-springmvc-global-exp" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-how-simple-website-create-01" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/11/04/springmvc-global-exp/" class="article-date">
-  <time datetime="2019-11-04T02:16:01.000Z" itemprop="datePublished">2019-11-04</time>
+    <a href="/2019/11/18/how-simple-website-create-01/" class="article-date">
+  <time datetime="2019-11-18T02:50:18.000Z" itemprop="datePublished">2019-11-18</time>
 </a>
     
   </div>
@@ -79,7 +81,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      SpringMvc处理全局异常
+      简单的网站搭建-01
     </h1>
   
 
@@ -87,25 +89,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>处理全局异常的方法主要为两种：</p>
-<ul>
-<li>实现<code>HandlerExceptionResolver</code>接口</li>
-<li><code>@ControllerAdvice</code>注解</li>
-</ul>
-<p>第一种方法的一个局限性是，必须返回<code>ModelAndView</code>实例，如果有返回Json数据需求的话，就力不从心了;</p>
-<p>第二种方法我使用的比较多，通过给处理类加上<code>@ControllerAdvice</code>注解或<code>@RestControllerAdvice</code>注解，然后给类中的方法加上<code>@ExceptionHandler</code>注解并指定异常类型，便使得其中的方法成为了指定异常处理器。返回的类型类似于Controller，添加了<code>@ResponseBody</code>注解便会返回REST资源，不添加则返回视图。</p>
-<p>假定这样的需求：以.json结尾的请求出现异常则返回Json数据；以.page结尾的请求出现异常则返回视图，那么只需要这么写：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringMvcExceptionAdvice</span> </span>&#123;</span><br><span class="line">  <span class="meta">@ExceptionHandler</span>(Throwable.class)</span><br><span class="line">  <span class="function"><span class="keyword">public</span> Object <span class="title">throwableHandler</span><span class="params">(HttpServletRequest request, Throwable exp)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (request.getRequestURL().toString().endsWith(<span class="string">".json"</span>)) &#123;</span><br><span class="line">      <span class="keyword">return</span> AjaxResponse.fail(<span class="string">"请求JSON数据异常"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"errorPage"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>异常处理器的参数可以注入request，response，exception，类似于controller却有不同。</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>遭遇闹心的黑客事件后，由于数据都丢了，况且之前一直认为自己做的小网站不太好看，也不方便，所以再做一次。</p>
+<p>使用的技术组合为：后端程序[<code>spring-boot</code>] + 后台管理界面[<code>vue-elements</code>] + 前台界面[<code>angular-material</code>] + 数据库[<code>mysql8</code>]。整个搭建不会太复杂，比较简单，没有考虑到太多东西，用来做一个个人站点还是OK了，访问量不大的话。后期也可能尝试更丰富的功能补充，或架构改进，不过那都是后话了。</p>
+<h3 id="本章内容"><a href="#本章内容" class="headerlink" title="本章内容"></a>本章内容</h3><h4 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h4><p>首先自然就是创建数据库了。不是很会使用数据库设计工具，所以表结构不会设置太过复杂。之前的文章已经在阿里云服务器上创建好了mysql8服务端，所以这里直接使用navicat连接数据库进行数据库创建了。<br><img src="./how-simple-website-create-01/mysql-create-tables.png" alt="主要的表"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/11/04/springmvc-global-exp/" data-id="ck33ulzyc000law0zq2kxhvu1" class="article-share-link">Share</a>
+      <a data-url="http://gmwenterprise.github.io/2019/11/18/how-simple-website-create-01/" data-id="ck33ulzxr0003aw0zvhjaoplm" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
 
     </footer>
   </div>
@@ -113,19 +107,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/11/14/aliyun-ubuntu-init/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          从阿里云上安装ubuntu server作为一个运行javaweb程序的服务器
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/10/10/how-detectable-use/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/11/18/markdown-common-usage/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">异常代码检测执行器Detectable（模仿java.utils.Optional类）</div>
+      <div class="article-nav-title">markdown-common-usage</div>
     </a>
   
 </nav>

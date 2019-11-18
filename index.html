@@ -62,6 +62,212 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-how-simple-website-create-01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/18/how-simple-website-create-01/" class="article-date">
+  <time datetime="2019-11-18T02:50:18.000Z" itemprop="datePublished">2019-11-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/18/how-simple-website-create-01/">简单的网站搭建-01</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>遭遇闹心的黑客事件后，由于数据都丢了，况且之前一直认为自己做的小网站不太好看，也不方便，所以再做一次。</p>
+<p>使用的技术组合为：后端程序[<code>spring-boot</code>] + 后台管理界面[<code>vue-elements</code>] + 前台界面[<code>angular-material</code>] + 数据库[<code>mysql8</code>]。整个搭建不会太复杂，比较简单，没有考虑到太多东西，用来做一个个人站点还是OK了，访问量不大的话。后期也可能尝试更丰富的功能补充，或架构改进，不过那都是后话了。</p>
+<h3 id="本章内容"><a href="#本章内容" class="headerlink" title="本章内容"></a>本章内容</h3><h4 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h4><p>首先自然就是创建数据库了。不是很会使用数据库设计工具，所以表结构不会设置太过复杂。之前的文章已经在阿里云服务器上创建好了mysql8服务端，所以这里直接使用navicat连接数据库进行数据库创建了。<br><img src="./how-simple-website-create-01/mysql-create-tables.png" alt="主要的表"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://gmwenterprise.github.io/2019/11/18/how-simple-website-create-01/" data-id="ck33ulzxr0003aw0zvhjaoplm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-markdown-common-usage" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/18/markdown-common-usage/" class="article-date">
+  <time datetime="2019-11-18T02:42:15.000Z" itemprop="datePublished">2019-11-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/18/markdown-common-usage/">markdown-common-usage</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="常用语法"><a href="#常用语法" class="headerlink" title="常用语法"></a>常用语法</h3><h4 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h4><blockquote>
+<p>语法格式：** ‘#’+’空格’+’文本’ **</p>
+</blockquote>
+<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><blockquote>
+<p>无序列表语法格式：** ‘-‘ + ‘空格’ ＋ ‘文本’ **</p>
+</blockquote>
+<ul>
+<li>文本一</li>
+<li>文本二</li>
+<li>文本三</li>
+</ul>
+<blockquote>
+<p>有序列表语法格式：** ‘数字’ + ‘.’ + ‘空格’ + ‘文本’ **</p>
+</blockquote>
+<ol>
+<li>文本一</li>
+<li>文本二</li>
+<li>文本三</li>
+</ol>
+<blockquote>
+<p>任务列表语法格式：** ‘-‘ + ‘空格’ + ‘[ ]’ + ‘文本’ **</p>
+</blockquote>
+<ul>
+<li><input checked disabled type="checkbox"> 文本一</li>
+<li><input disabled type="checkbox"> 文本二</li>
+<li><input disabled type="checkbox"> 文本三</li>
+</ul>
+<h4 id="链接和图片"><a href="#链接和图片" class="headerlink" title="链接和图片"></a>链接和图片</h4><p>在 Markdown 中插入链接不需要其他按钮，你只需要使用<code>［显示文本］(链接地址)</code>这样的格式语法即可。例如：<br><a href="https://gold.xitu.io" target="_blank" rel="noopener">稀土掘金</a><br>插入图片的语法与插入链接的语法很像，只是前面多了一个 <code>!</code>.语法如下：<br><code>![图片的标注](图片链接地址)</code></p>
+<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><blockquote>
+<p>语法：** ‘&gt;’+’空格’+’文本’ **</p>
+</blockquote>
+<p>例如：</p>
+<blockquote>
+<p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。</p>
+</blockquote>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>如下是代码段的语法：</p>
+<pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这是代码段</span><br></pre></td></tr></table></figure>
+
+</pre>
+
+<p>例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubbleSort</span><span class="params">(alist)</span>:</span></span><br><span class="line"> <span class="keyword">for</span> passnum <span class="keyword">in</span> range(len(alist)<span class="number">-1</span>,<span class="number">0</span>,<span class="number">-1</span>):</span><br><span class="line"> <span class="comment">#print alist,passnum</span></span><br><span class="line"> <span class="keyword">for</span> i <span class="keyword">in</span> range(passnum):</span><br><span class="line"> <span class="keyword">if</span> alist[i]&gt;alist[i+<span class="number">1</span>]:</span><br><span class="line"> temp = alist[i]</span><br><span class="line"> alist[i] = alist[i+<span class="number">1</span>]</span><br><span class="line"> alist[i+<span class="number">1</span>] = temp</span><br><span class="line"> <span class="keyword">return</span> alist</span><br></pre></td></tr></table></figure>
+
+<h4 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h4><p><strong>Markdown　Extra</strong>　表格语法：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>价格</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>iPhone</td>
+<td>$560</td>
+</tr>
+<tr>
+<td>iPad</td>
+<td>$780</td>
+</tr>
+<tr>
+<td>iMac</td>
+<td>$1000</td>
+</tr>
+</tbody></table>
+<p>可以使用冒号来定义对齐方式：</p>
+<table>
+<thead>
+<tr>
+<th align="left">项目</th>
+<th align="right">价格</th>
+<th align="center">数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">iPhone</td>
+<td align="right">6000 元</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="left">iPad</td>
+<td align="right">3800 元</td>
+<td align="center">12</td>
+</tr>
+<tr>
+<td align="left">iMac</td>
+<td align="right">10000 元</td>
+<td align="center">234</td>
+</tr>
+</tbody></table>
+<h4 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h4><p>以上是最常见的 Markdown 的语法和格式，如果你还希望深入的学习 Markdown，可以参考这里<a href="https://www.appinn.com/markdown/" target="_blank" rel="noopener">Markdown语法</a>。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://gmwenterprise.github.io/2019/11/18/markdown-common-usage/" data-id="ck33ulzy8000jaw0zcv3xnai2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mybatis-generator-usage" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/15/mybatis-generator-usage/" class="article-date">
+  <time datetime="2019-11-15T14:40:44.000Z" itemprop="datePublished">2019-11-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/15/mybatis-generator-usage/">mybatis-generator插件的用法简单总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://gmwenterprise.github.io/2019/11/15/mybatis-generator-usage/" data-id="ck33ulzya000kaw0zj1k63ptu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-aliyun-ubuntu-init" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/11/14/aliyun-ubuntu-init/" class="article-date">
@@ -97,13 +303,14 @@
 <li><code>apt update</code>更新下载列表，然后<code>apt upgrade</code>更新。至此，已可以通过<code>apt install mysql-server</code>来安装mysql8；</li>
 <li><code>apt install mysql-server</code>即可安装，选择密码加密方式时选择了mysql5.7的mysql_native_password加密方式，因为目前默认的客户端管理工具都不支持新版加密方式；</li>
 <li>安装好后，修改mysql.user表root用户的host字段为’%’，然后重启mysql服务<code>service mysql restart</code>便开启了mysql8的远程登录。</li>
+<li>为了安全性的考虑，只好设置Mysql数据库的3306端口IP限制，每次换个地方，换了网络，就要把自己的外网IP给替换为当前的限制IP，这样也算是比较有效降低了被黑客入侵的风险。。。</li>
 </ol>
-<h4 id="安装jdk"><a href="#安装jdk" class="headerlink" title="安装jdk"></a>安装jdk</h4><p>未完待续…</p>
+<h4 id="安装jdk"><a href="#安装jdk" class="headerlink" title="安装jdk"></a>安装jdk</h4><h4 id="安装redis"><a href="#安装redis" class="headerlink" title="安装redis"></a>安装redis</h4><h4 id="尝试使用docker"><a href="#尝试使用docker" class="headerlink" title="尝试使用docker"></a>尝试使用docker</h4><p>未完待续…</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/11/14/aliyun-ubuntu-init/" data-id="ck2ykpo2l0000hs0zlp6ct8vw" class="article-share-link">Share</a>
+      <a data-url="http://gmwenterprise.github.io/2019/11/14/aliyun-ubuntu-init/" data-id="ck33ulzxj0000aw0zfabwzah4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -152,7 +359,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/11/04/springmvc-global-exp/" data-id="ck2ykpo380007hs0zqd9c524z" class="article-share-link">Share</a>
+      <a data-url="http://gmwenterprise.github.io/2019/11/04/springmvc-global-exp/" data-id="ck33ulzyc000law0zq2kxhvu1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -208,7 +415,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/10/10/how-detectable-use/" data-id="ck2ykpo360006hs0z54j9aqpe" class="article-share-link">Share</a>
+      <a data-url="http://gmwenterprise.github.io/2019/10/10/how-detectable-use/" data-id="ck33ulzxs0004aw0zp9hier99" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -290,7 +497,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/09/10/git-common-usage/" data-id="ck2ykpo2q0001hs0zliadaf0m" class="article-share-link">Share</a>
+      <a data-url="http://gmwenterprise.github.io/2019/09/10/git-common-usage/" data-id="ck33ulzxo0001aw0zolfd0rly" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
@@ -315,7 +522,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li></ul>
     </div>
   </div>
 
@@ -325,7 +532,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a>
+      <a href="/tags/angular/" style="font-size: 10px;">angular</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/vue/" style="font-size: 10px;">vue</a>
     </div>
   </div>
 
@@ -347,19 +554,23 @@
       <ul>
         
           <li>
+            <a href="/2019/11/18/how-simple-website-create-01/">简单的网站搭建-01</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/18/markdown-common-usage/">markdown-common-usage</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/15/mybatis-generator-usage/">mybatis-generator插件的用法简单总结</a>
+          </li>
+        
+          <li>
             <a href="/2019/11/14/aliyun-ubuntu-init/">从阿里云上安装ubuntu server作为一个运行javaweb程序的服务器</a>
           </li>
         
           <li>
             <a href="/2019/11/04/springmvc-global-exp/">SpringMvc处理全局异常</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/10/how-detectable-use/">异常代码检测执行器Detectable（模仿java.utils.Optional类）</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/10/git-common-usage/">Git常用汇总</a>
           </li>
         
       </ul>
