@@ -14,7 +14,7 @@ tags: java
 
 ## 源码
 
-```java
+``` java
 @FunctionalInterface
 public interface Runner {
   void run() throws Throwable;
@@ -28,7 +28,7 @@ public interface RunnerWithReturnValue<R> {
 }
 ```
 
-```java
+``` java
 /**
  * 其实直接使用{@link java.lang.Runnable}也可以
  */
@@ -38,7 +38,7 @@ public interface ElseRun {
 }
 ```
 
-```java
+``` java
 public final class Detectable<R> {
   private R returnValue;
   private Throwable throwable;
