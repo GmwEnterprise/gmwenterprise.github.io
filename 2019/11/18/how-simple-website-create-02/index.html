@@ -5,15 +5,24 @@
   
 
   
-  <title>Gmw的博客</title>
+  <title>简单的网站搭建-02-SpringBoot后台搭建 | Gmw的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Gmw的博客">
-<meta property="og:url" content="http://gmwenterprise.github.io/index.html">
+  <meta name="description" content="SpringBoot搭建后台获取初始代码使用Intellij idea或者http://start.spring.io/来生成初始结构，选择这三个依赖即可：生成好了以后用idea打开它，等待maven的依赖下载完成后，便可以开始配置了。 配置骨架首先要添加一些依赖，便于后面的开发： 123456789101112131415&amp;lt;dependency&amp;gt;&amp;lt;!-- JWT，用于生成前后端">
+<meta name="keywords" content="java,spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单的网站搭建-02-SpringBoot后台搭建">
+<meta property="og:url" content="http://gmwenterprise.github.io/2019/11/18/how-simple-website-create-02/index.html">
 <meta property="og:site_name" content="Gmw的博客">
+<meta property="og:description" content="SpringBoot搭建后台获取初始代码使用Intellij idea或者http://start.spring.io/来生成初始结构，选择这三个依赖即可：生成好了以后用idea打开它，等待maven的依赖下载完成后，便可以开始配置了。 配置骨架首先要添加一些依赖，便于后面的开发： 123456789101112131415&amp;lt;dependency&amp;gt;&amp;lt;!-- JWT，用于生成前后端">
 <meta property="og:locale" content="zh">
+<meta property="og:image" content="http://gmwenterprise.github.io/2019/11/18/how-simple-website-create-02/1.png">
+<meta property="og:image" content="http://gmwenterprise.github.io/2019/11/18/how-simple-website-create-02/2.png">
+<meta property="og:image" content="http://gmwenterprise.github.io/2019/11/18/how-simple-website-create-02/3.png">
+<meta property="og:updated_time" content="2019-11-19T03:02:23.446Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gmw的博客">
+<meta name="twitter:title" content="简单的网站搭建-02-SpringBoot后台搭建">
+<meta name="twitter:description" content="SpringBoot搭建后台获取初始代码使用Intellij idea或者http://start.spring.io/来生成初始结构，选择这三个依赖即可：生成好了以后用idea打开它，等待maven的依赖下载完成后，便可以开始配置了。 配置骨架首先要添加一些依赖，便于后面的开发： 123456789101112131415&amp;lt;dependency&amp;gt;&amp;lt;!-- JWT，用于生成前后端">
+<meta name="twitter:image" content="http://gmwenterprise.github.io/2019/11/18/how-simple-website-create-02/1.png">
   
     <link rel="alternate" href="/atom.xml" title="Gmw的博客" type="application/atom+xml">
   
@@ -60,9 +69,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-how-simple-website-create-02" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-how-simple-website-create-02" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/11/18/how-simple-website-create-02/" class="article-date">
   <time datetime="2019-11-18T14:34:42.000Z" itemprop="datePublished">2019-11-18</time>
@@ -79,8 +86,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/18/how-simple-website-create-02/">简单的网站搭建-02-SpringBoot后台搭建</a>
+    <h1 class="article-title" itemprop="name">
+      简单的网站搭建-02-SpringBoot后台搭建
     </h1>
   
 
@@ -161,466 +168,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-how-simple-website-create-01" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/11/18/how-simple-website-create-01/" class="article-date">
-  <time datetime="2019-11-18T02:50:18.000Z" itemprop="datePublished">2019-11-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/简单网站搭建/">简单网站搭建</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/18/how-simple-website-create-01/">简单的网站搭建-01-数据库设计</a>
-    </h1>
+    <a href="/2019/11/18/how-simple-website-create-01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">简单的网站搭建-01-数据库设计</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>遭遇闹心的黑客事件后，由于数据都丢了，况且之前一直认为自己做的小网站不太好看，也不方便，所以再做一次。</p>
-<p>使用的技术组合为：后端程序[<code>spring-boot</code>] + 后台管理界面[<code>vue-elements</code>] + 前台界面[<code>angular-material</code>] + 数据库[<code>mysql8</code>]。整个搭建不会太复杂，比较简单，没有考虑到太多东西，用来做一个个人站点还是OK了，访问量不大的话。后期也可能尝试更丰富的功能补充，或架构改进，不过那都是后话了。</p>
-<h3 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h3><p>首先自然就是创建数据库了。本网站很简单，就是一个可以自己发文章的个人网站，后续可能会考虑到一些其他内容的添加，不过目前先完成这个基本内容好了。不是很会使用数据库设计工具，所以表结构不会设置太过复杂。之前的文章已经在阿里云服务器上创建好了mysql8服务端，所以这里直接使用navicat连接数据库进行数据库创建了。</p>
-<p>这里给出建表数据，供参考:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">-- Table structure for article_body</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`article_body`</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`article_body`</span>  (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'主键'</span>,</span><br><span class="line">  <span class="string">`url_number`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'链接编号'</span>,</span><br><span class="line">  <span class="string">`content`</span> mediumtext <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_general_ci <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'内容'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>) <span class="keyword">USING</span> BTREE</span><br><span class="line">) <span class="keyword">ENGINE</span> = <span class="keyword">InnoDB</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> = utf8mb4 <span class="keyword">COLLATE</span> = utf8mb4_general_ci ROW_FORMAT = Dynamic;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">-- Table structure for article_draft</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`article_draft`</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`article_draft`</span>  (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'主键'</span>,</span><br><span class="line">  <span class="string">`title`</span> <span class="built_in">varchar</span>(<span class="number">128</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_general_ci <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'标题'</span>,</span><br><span class="line">  <span class="string">`introduction`</span> <span class="built_in">varchar</span>(<span class="number">256</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_general_ci <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'介绍'</span>,</span><br><span class="line">  <span class="string">`tags`</span> <span class="built_in">varchar</span>(<span class="number">256</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_general_ci <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'标签'</span>,</span><br><span class="line">  <span class="string">`content`</span> mediumtext <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_general_ci <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'内容'</span>,</span><br><span class="line">  <span class="string">`writer`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'创建者'</span>,</span><br><span class="line">  <span class="string">`version`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="number">1</span> <span class="keyword">COMMENT</span> <span class="string">'草稿版本'</span>,</span><br><span class="line">  <span class="string">`published`</span> <span class="built_in">tinyint</span>(<span class="number">4</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'是否已发布'</span>,</span><br><span class="line">  <span class="string">`create_time`</span> datetime(<span class="number">0</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">COMMENT</span> <span class="string">'创建时间'</span>,</span><br><span class="line">  <span class="string">`last_update_time`</span> datetime(<span class="number">0</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">CURRENT_TIMESTAMP</span>(<span class="number">0</span>) <span class="keyword">COMMENT</span> <span class="string">'最后一次更新时间'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>) <span class="keyword">USING</span> BTREE</span><br><span class="line">) <span class="keyword">ENGINE</span> = <span class="keyword">InnoDB</span> AUTO_INCREMENT = <span class="number">1</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> = utf8mb4 <span class="keyword">COLLATE</span> = utf8mb4_general_ci ROW_FORMAT = Dynamic;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">-- Table structure for article_metadata</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`article_metadata`</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`article_metadata`</span>  (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'主键'</span>,</span><br><span class="line">  <span class="string">`url_number`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'链接编号'</span>,</span><br><span class="line">  <span class="string">`title`</span> <span class="built_in">varchar</span>(<span class="number">128</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_general_ci <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'标题'</span>,</span><br><span class="line">  <span class="string">`introduction`</span> <span class="built_in">varchar</span>(<span class="number">256</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_general_ci <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'介绍'</span>,</span><br><span class="line">  <span class="string">`tags`</span> <span class="built_in">varchar</span>(<span class="number">256</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_general_ci <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'标签'</span>,</span><br><span class="line">  <span class="string">`writer`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'作者'</span>,</span><br><span class="line">  <span class="string">`published_time`</span> datetime(<span class="number">0</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">COMMENT</span> <span class="string">'发布时间'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>) <span class="keyword">USING</span> BTREE</span><br><span class="line">) <span class="keyword">ENGINE</span> = <span class="keyword">InnoDB</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> = utf8mb4 <span class="keyword">COLLATE</span> = utf8mb4_general_ci ROW_FORMAT = Dynamic;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">-- Table structure for sys_permission</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`sys_permission`</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`sys_permission`</span>  (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'主键'</span>,</span><br><span class="line">  <span class="string">`permission`</span> <span class="built_in">varchar</span>(<span class="number">64</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_general_ci <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'权限字符串'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>) <span class="keyword">USING</span> BTREE</span><br><span class="line">) <span class="keyword">ENGINE</span> = <span class="keyword">InnoDB</span> AUTO_INCREMENT = <span class="number">1</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> = utf8mb4 <span class="keyword">COLLATE</span> = utf8mb4_general_ci ROW_FORMAT = Dynamic;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">-- Table structure for sys_role</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`sys_role`</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`sys_role`</span>  (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'主键'</span>,</span><br><span class="line">  <span class="string">`role_name`</span> <span class="built_in">varchar</span>(<span class="number">32</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_general_ci <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'角色名'</span>,</span><br><span class="line">  <span class="string">`role`</span> <span class="built_in">varchar</span>(<span class="number">32</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_general_ci <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'角色'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>) <span class="keyword">USING</span> BTREE</span><br><span class="line">) <span class="keyword">ENGINE</span> = <span class="keyword">InnoDB</span> AUTO_INCREMENT = <span class="number">1</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> = utf8mb4 <span class="keyword">COLLATE</span> = utf8mb4_general_ci ROW_FORMAT = Dynamic;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">-- Table structure for sys_role_permission</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`sys_role_permission`</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`sys_role_permission`</span>  (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'主键'</span>,</span><br><span class="line">  <span class="string">`role_id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'角色ID'</span>,</span><br><span class="line">  <span class="string">`permission_id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'权限ID'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>) <span class="keyword">USING</span> BTREE</span><br><span class="line">) <span class="keyword">ENGINE</span> = <span class="keyword">InnoDB</span> AUTO_INCREMENT = <span class="number">1</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> = utf8mb4 <span class="keyword">COLLATE</span> = utf8mb4_general_ci ROW_FORMAT = Dynamic;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">-- Table structure for sys_user</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`sys_user`</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`sys_user`</span>  (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'主键'</span>,</span><br><span class="line">  <span class="string">`nickname`</span> <span class="built_in">varchar</span>(<span class="number">32</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_general_ci <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'昵称'</span>,</span><br><span class="line">  <span class="string">`username`</span> <span class="built_in">varchar</span>(<span class="number">64</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_general_ci <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'登录用户名'</span>,</span><br><span class="line">  <span class="string">`password`</span> <span class="built_in">varchar</span>(<span class="number">255</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_general_ci <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'密码'</span>,</span><br><span class="line">  <span class="string">`salt`</span> <span class="built_in">varchar</span>(<span class="number">32</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_general_ci <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'盐'</span>,</span><br><span class="line">  <span class="string">`phone`</span> <span class="built_in">varchar</span>(<span class="number">32</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_general_ci <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'手机号码'</span>,</span><br><span class="line">  <span class="string">`email`</span> <span class="built_in">varchar</span>(<span class="number">256</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_general_ci <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'邮箱'</span>,</span><br><span class="line">  <span class="string">`create_time`</span> datetime(<span class="number">0</span>) <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">COMMENT</span> <span class="string">'创建时间'</span>,</span><br><span class="line">  <span class="string">`update_time`</span> datetime(<span class="number">0</span>) <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">CURRENT_TIMESTAMP</span>(<span class="number">0</span>) <span class="keyword">COMMENT</span> <span class="string">'上次更新时间'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>) <span class="keyword">USING</span> BTREE</span><br><span class="line">) <span class="keyword">ENGINE</span> = <span class="keyword">InnoDB</span> AUTO_INCREMENT = <span class="number">1</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> = utf8mb4 <span class="keyword">COLLATE</span> = utf8mb4_general_ci ROW_FORMAT = Dynamic;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="comment">-- Table structure for sys_user_role</span></span><br><span class="line"><span class="comment">-- ----------------------------</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> <span class="string">`sys_user_role`</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`sys_user_role`</span>  (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'主键'</span>,</span><br><span class="line">  <span class="string">`user_id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'用户ID'</span>,</span><br><span class="line">  <span class="string">`role_id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'角色ID'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>) <span class="keyword">USING</span> BTREE</span><br><span class="line">) <span class="keyword">ENGINE</span> = <span class="keyword">InnoDB</span> AUTO_INCREMENT = <span class="number">1</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> = utf8mb4 <span class="keyword">COLLATE</span> = utf8mb4_general_ci ROW_FORMAT = Dynamic;</span><br></pre></td></tr></table></figure>
-
-<p>系统主要使用到的三张表为article_draft文章草稿（存放编辑时的草稿）、article_metadata文章元信息（存取完整文章除内容外的所有基本信息）、以及article_content（文章内容）。另外五张表自然就是RBAC权限系统设计所需要的基础结构了。spring security的功能对我这个小网站来说还是太过臃肿，所以我打算自己编写拦截器或者过滤器来完成系统的权限安全设计，也不会太复杂。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/11/18/how-simple-website-create-01/" data-id="ck359wqrf0007go0zp0gpxme5" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-markdown-common-usage" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/11/18/markdown-common-usage/" class="article-date">
-  <time datetime="2019-11-18T02:42:15.000Z" itemprop="datePublished">2019-11-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/18/markdown-common-usage/">markdown-common-usage</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="常用语法"><a href="#常用语法" class="headerlink" title="常用语法"></a>常用语法</h3><h4 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h4><blockquote>
-<p>语法格式：** ‘#’+’空格’+’文本’ **</p>
-</blockquote>
-<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><blockquote>
-<p>无序列表语法格式：** ‘-‘ + ‘空格’ ＋ ‘文本’ **</p>
-</blockquote>
-<ul>
-<li>文本一</li>
-<li>文本二</li>
-<li>文本三</li>
-</ul>
-<blockquote>
-<p>有序列表语法格式：** ‘数字’ + ‘.’ + ‘空格’ + ‘文本’ **</p>
-</blockquote>
-<ol>
-<li>文本一</li>
-<li>文本二</li>
-<li>文本三</li>
-</ol>
-<blockquote>
-<p>任务列表语法格式：** ‘-‘ + ‘空格’ + ‘[ ]’ + ‘文本’ **</p>
-</blockquote>
-<ul>
-<li><input checked disabled type="checkbox"> 文本一</li>
-<li><input disabled type="checkbox"> 文本二</li>
-<li><input disabled type="checkbox"> 文本三</li>
-</ul>
-<h4 id="链接和图片"><a href="#链接和图片" class="headerlink" title="链接和图片"></a>链接和图片</h4><p>在 Markdown 中插入链接不需要其他按钮，你只需要使用<code>［显示文本］(链接地址)</code>这样的格式语法即可。例如：<br><a href="https://gold.xitu.io" target="_blank" rel="noopener">稀土掘金</a><br>插入图片的语法与插入链接的语法很像，只是前面多了一个 <code>!</code>.语法如下：<br><code>![图片的标注](图片链接地址)</code></p>
-<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><blockquote>
-<p>语法：** ‘&gt;’+’空格’+’文本’ **</p>
-</blockquote>
-<p>例如：</p>
-<blockquote>
-<p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。</p>
-</blockquote>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>如下是代码段的语法：</p>
-<pre>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这是代码段</span><br></pre></td></tr></table></figure>
-
-</pre>
-
-<p>例如：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubbleSort</span><span class="params">(alist)</span>:</span></span><br><span class="line"> <span class="keyword">for</span> passnum <span class="keyword">in</span> range(len(alist)<span class="number">-1</span>,<span class="number">0</span>,<span class="number">-1</span>):</span><br><span class="line"> <span class="comment">#print alist,passnum</span></span><br><span class="line"> <span class="keyword">for</span> i <span class="keyword">in</span> range(passnum):</span><br><span class="line"> <span class="keyword">if</span> alist[i]&gt;alist[i+<span class="number">1</span>]:</span><br><span class="line"> temp = alist[i]</span><br><span class="line"> alist[i] = alist[i+<span class="number">1</span>]</span><br><span class="line"> alist[i+<span class="number">1</span>] = temp</span><br><span class="line"> <span class="keyword">return</span> alist</span><br></pre></td></tr></table></figure>
-
-<h4 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h4><p><strong>Markdown　Extra</strong>　表格语法：</p>
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th>价格</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>iPhone</td>
-<td>$560</td>
-</tr>
-<tr>
-<td>iPad</td>
-<td>$780</td>
-</tr>
-<tr>
-<td>iMac</td>
-<td>$1000</td>
-</tr>
-</tbody></table>
-<p>可以使用冒号来定义对齐方式：</p>
-<table>
-<thead>
-<tr>
-<th align="left">项目</th>
-<th align="right">价格</th>
-<th align="center">数量</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">iPhone</td>
-<td align="right">6000 元</td>
-<td align="center">5</td>
-</tr>
-<tr>
-<td align="left">iPad</td>
-<td align="right">3800 元</td>
-<td align="center">12</td>
-</tr>
-<tr>
-<td align="left">iMac</td>
-<td align="right">10000 元</td>
-<td align="center">234</td>
-</tr>
-</tbody></table>
-<h4 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h4><p>以上是最常见的 Markdown 的语法和格式，如果你还希望深入的学习 Markdown，可以参考这里<a href="https://www.appinn.com/markdown/" target="_blank" rel="noopener">Markdown语法</a>。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/11/18/markdown-common-usage/" data-id="ck359wqrk000cgo0zlvrlxsog" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-mybatis-generator-usage" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/11/15/mybatis-generator-usage/" class="article-date">
-  <time datetime="2019-11-15T14:40:44.000Z" itemprop="datePublished">2019-11-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/15/mybatis-generator-usage/">mybatis-generator插件的用法简单总结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/11/15/mybatis-generator-usage/" data-id="ck359wqrm000ego0z18kdjx81" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-aliyun-ubuntu-init" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/11/14/aliyun-ubuntu-init/" class="article-date">
-  <time datetime="2019-11-14T02:25:27.000Z" itemprop="datePublished">2019-11-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/14/aliyun-ubuntu-init/">从阿里云上安装ubuntu server作为一个运行javaweb程序的服务器</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>写这篇文章的目的在于详细记录一下初始化一台服务器的一些基本操作，本来是可以用的，结果最近笔者的服务器遭到了黑客攻击，丢失了好几条<strong>宝贵</strong>的数据不说，还被威胁说不给0.03个btc就删了我的备份。。。</p>
-<p>因为我图方便，希望能够在家里或者公司都能自由连接上我的服务器以便开发我的个人小博客网站，所以开放了端口。。。</p>
-<p><strong>血的教训！</strong></p>
-<p>以下是正文</p>
-<hr>
-<p>使用的镜像为ubuntu18.04，惊喜的是系统自带SSH，不需要像老版本一样需要安装额外的ssh包才能使用xshell进行远程登录。</p>
-<h4 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h4><p>我先前使用的数据库是mysql8.0，所以此时我要给服务器安装mysql8.0，但是apt search能找到的包只有mysql5.7，所以得自己另寻办法：</p>
-<ol>
-<li>从这个<a href="https://dev.mysql.com/downloads/repo/apt/" target="_blank" rel="noopener">链接</a>去下载一个mysql-apt-config-xxxxxx.deb包，然后通过xftp上传到服务器。我将它上传到了根目录；</li>
-<li>安装：<code>dpkg -i /mysql-apt-config_0.8.14-1_all.deb</code>，会弹出粉色背景的安装界面，根据需求选择后选择OK；</li>
-<li><code>apt update</code>更新下载列表，然后<code>apt upgrade</code>更新。至此，已可以通过<code>apt install mysql-server</code>来安装mysql8；</li>
-<li><code>apt install mysql-server</code>即可安装，选择密码加密方式时选择了mysql5.7的mysql_native_password加密方式，因为目前默认的客户端管理工具都不支持新版加密方式；</li>
-<li>安装好后，修改mysql.user表root用户的host字段为’%’，然后重启mysql服务<code>service mysql restart</code>便开启了mysql8的远程登录。</li>
-<li>为了安全性的考虑，只好设置Mysql数据库的3306端口IP限制，每次换个地方，换了网络，就要把自己的外网IP给替换为当前的限制IP，这样也算是比较有效降低了被黑客入侵的风险。。。</li>
-</ol>
-<h4 id="安装jdk"><a href="#安装jdk" class="headerlink" title="安装jdk"></a>安装jdk</h4><h4 id="安装redis"><a href="#安装redis" class="headerlink" title="安装redis"></a>安装redis</h4><h4 id="尝试使用docker"><a href="#尝试使用docker" class="headerlink" title="尝试使用docker"></a>尝试使用docker</h4><p>未完待续…</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/11/14/aliyun-ubuntu-init/" data-id="ck359wqqq0000go0zao0eyrpg" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-springmvc-global-exp" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/11/04/springmvc-global-exp/" class="article-date">
-  <time datetime="2019-11-04T02:16:01.000Z" itemprop="datePublished">2019-11-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/04/springmvc-global-exp/">SpringMvc处理全局异常</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>处理全局异常的方法主要为两种：</p>
-<ul>
-<li>实现<code>HandlerExceptionResolver</code>接口</li>
-<li><code>@ControllerAdvice</code>注解</li>
-</ul>
-<p>第一种方法的一个局限性是，必须返回<code>ModelAndView</code>实例，如果有返回Json数据需求的话，就力不从心了;</p>
-<p>第二种方法我使用的比较多，通过给处理类加上<code>@ControllerAdvice</code>注解或<code>@RestControllerAdvice</code>注解，然后给类中的方法加上<code>@ExceptionHandler</code>注解并指定异常类型，便使得其中的方法成为了指定异常处理器。返回的类型类似于Controller，添加了<code>@ResponseBody</code>注解便会返回REST资源，不添加则返回视图。</p>
-<p>假定这样的需求：以.json结尾的请求出现异常则返回Json数据；以.page结尾的请求出现异常则返回视图，那么只需要这么写：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringMvcExceptionAdvice</span> </span>&#123;</span><br><span class="line">  <span class="meta">@ExceptionHandler</span>(Throwable.class)</span><br><span class="line">  <span class="function"><span class="keyword">public</span> Object <span class="title">throwableHandler</span><span class="params">(HttpServletRequest request, Throwable exp)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (request.getRequestURL().toString().endsWith(<span class="string">".json"</span>)) &#123;</span><br><span class="line">      <span class="keyword">return</span> AjaxResponse.fail(<span class="string">"请求JSON数据异常"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"errorPage"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>异常处理器的参数可以注入request，response，exception，类似于controller却有不同。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/11/04/springmvc-global-exp/" data-id="ck359wqrh0009go0zhgkupvda" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-how-detectable-use" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/10/10/how-detectable-use/" class="article-date">
-  <time datetime="2019-10-10T06:29:19.000Z" itemprop="datePublished">2019-10-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/10/how-detectable-use/">异常代码检测执行器Detectable（模仿java.utils.Optional类）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>工作中经常遇到一些代码，比如微服务调用的方法就是个很基本的增删改查功能，非要给你抛出一个<code>Exception</code>，很反感，我不是一个喜欢在代码里加try…catch…的人，也不太愿意抛异常，因为在我看来有一些错误是应该在开发过程中就完全避免的。但团队协作开发，，，以及一些公司自带的依赖实在是难以启齿。故仿照着<code>java.util.Optional</code>写了一个差不多模式的类：<code>Detectable</code>。没错，连名字风格都一样。</p>
-<h2 id="主要构成"><a href="#主要构成" class="headerlink" title="主要构成"></a>主要构成</h2><ol>
-<li><code>final class Detectable</code>，提供两个公开的静态方法，类似于<code>Optional.ofNullable</code>方法;</li>
-<li><code>functionalInterface Runner</code>，没有返回值的执行器；</li>
-<li><code>functionalInterface RunnerWithReturnValue</code>，有返回值的执行器</li>
-<li><code>functionalInterface ElseRun</code>，没有返回值的最终执行器。</li>
-</ol>
-<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Runner</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> <span class="keyword">throws</span> Throwable</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RunnerWithReturnValue</span>&lt;<span class="title">R</span>&gt; </span>&#123;</span><br><span class="line">  <span class="function">R <span class="title">run</span><span class="params">()</span> <span class="keyword">throws</span> Throwable</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 其实直接使用&#123;<span class="doctag">@link</span> java.lang.Runnable&#125;也可以</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ElseRun</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Detectable</span>&lt;<span class="title">R</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> R returnValue;</span><br><span class="line">  <span class="keyword">private</span> Throwable throwable;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="title">Detectable</span><span class="params">(R returnValue, Throwable throwable)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.returnValue = returnValue;</span><br><span class="line">    <span class="keyword">this</span>.throwable = throwable;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> R <span class="title">orElse</span><span class="params">(R backup)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.throwable == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.returnValue;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.throwable.printStackTrace();</span><br><span class="line">    <span class="keyword">return</span> backup;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">orElseRun</span><span class="params">(ElseRun runner)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.throwable != <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.throwable.printStackTrace();</span><br><span class="line">      runner.run();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Throwable <span class="title">getThrowableIfError</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.throwable;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// #########################################</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> Detectable&lt;?&gt; ofThrowable(Runner runner) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      runner.run();</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> Detectable&lt;&gt;(<span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> Detectable&lt;&gt;(<span class="keyword">null</span>, t);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;R&gt; <span class="function">Detectable&lt;R&gt; <span class="title">ofThrowable</span><span class="params">(RunnerWithReturnValue&lt;R&gt; runner)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      R value = runner.run();</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> Detectable&lt;&gt;(value, <span class="keyword">null</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> Detectable&lt;&gt;(<span class="keyword">null</span>, t);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] params)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 执行普通方法</span></span><br><span class="line">    Detectable</span><br><span class="line">      .ofThrowable(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"这个方法始终抛出一个异常"</span>);</span><br><span class="line">      &#125;)</span><br><span class="line">      .orElseRun(() -&gt; System.err.println(<span class="string">"产生异常！"</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 执行带有返回值的方法</span></span><br><span class="line">    <span class="comment">// 如果com.mysql.cj.jdbc.Driver不存在，则driverClass为null</span></span><br><span class="line">    Class&lt;?&gt; driverClass = Detectable</span><br><span class="line">      .ofThrowable(() -&gt; Class.forName(<span class="string">"com.mysql.cj.jdbc.Driver"</span>))</span><br><span class="line">      .orElse(<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取异常</span></span><br><span class="line">    <span class="comment">// 如果代码没有异常则返回null</span></span><br><span class="line">    Throwable throwable = Detectable</span><br><span class="line">      .ofThrowable(() -&gt; &#123;</span><br><span class="line">        Class.forName(<span class="string">"java.error.ThisClassDoesNotExist"</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">      .getThrowableIfError();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 异常向下转型</span></span><br><span class="line">    ClassNotFoundException exp = (ClassNotFoundException) throwable;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实也就模仿了Optional常用的使用方式，总体比较简单，但总算不用再写恶心的try…catch…了</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/10/10/how-detectable-use/" data-id="ck359wqre0006go0zvdwf4w3n" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-git-common-usage" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/10/git-common-usage/" class="article-date">
-  <time datetime="2019-09-10T06:22:07.000Z" itemprop="datePublished">2019-09-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/10/git-common-usage/">Git常用汇总</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>由于在开发过程中经常使用vscode自带的工具进行一些简单的sync、merge等操作，使得我很难熟记git的命令，故记录于此，免得以后到处google。</p>
-<h3 id="几个术语"><a href="#几个术语" class="headerlink" title="几个术语"></a>几个术语</h3><ul>
-<li>workingtree 工作区（当前本地文件夹）</li>
-<li>index / state 暂存区（add之后commit之前）</li>
-<li>HEAD 当前活跃分支的游标，也是workingtree、index的修改最终要提交到的位置<br>几个概念：</li>
-<li>git相对于其他VCS工具，主要的一个区别是，操作的是“修改”，而不是“文件”。这个很重要，对理解git的很多命令有帮助</li>
-<li>修改的提交过程是：workingtree -&gt; index -&gt; HEAD （本地），提交到了index和HEAD的修改都可以通过命令回退，但workingtree的修改一旦撤回，则不可找回，将彻底回退到指定的状态</li>
-<li>当前文件夹，特指当前执行命令所在的文件夹位置</li>
-<li>版本库中的每一个提交节点，类似于一个列表，各个分支其实就是不同的指针，分别指向特定的节点，而HEAD就是指向当前分支的游标；切换分支实际上就是切换HEAD游标指向的分支指针</li>
-</ul>
-<h3 id="初始化repository"><a href="#初始化repository" class="headerlink" title="初始化repository"></a>初始化repository</h3><ul>
-<li><code>git init</code> # 用于将当前文件夹初始化为一个repo</li>
-<li><code>git clone 「remote repo site」</code> # 克隆远程仓库于本地文件夹<br>本地的git单独分支操作</li>
-<li><code>git add 「singlefile」</code> # 将workingtree的指定文件的修改提交至index</li>
-<li><code>git add .</code> # 将workingtree的当前文件夹所有修改提交至index</li>
-<li><code>git branch 「branch_name」</code> # 创建分支</li>
-<li><code>git branch --set-upstream-to 「local_branch」 origin/「origin_branch」</code> # 关联本地分支与远程分支</li>
-<li><code>git checkout 「branch_name」</code> # 切换到现有分支</li>
-<li><code>git checkout -b 「branch_name」</code> # 切换到一个新的分支（创建并切换）</li>
-<li><code>git checkout -- 「file_path」</code> # 撤销workingtree指定文件的修改（不可找回）</li>
-<li><code>git config --list</code> # 查询当前repo的一些配置</li>
-<li><code>git config --list --global</code> # 查询全局配置</li>
-<li><code>git config user.name &quot;yourname&quot;</code> # 配置你的用户名</li>
-<li><code>git config user.email &quot;youremail&quot;</code> # 配置你的邮箱</li>
-<li><code>git diff</code> # 查看workingtree与index的区别</li>
-<li><code>git diff --cached</code> # 查看index与HEAD的区别</li>
-<li><code>git diff HEAD</code> # 查看workingtree与HEAD的区别</li>
-<li><code>git diff HEAD -- 「file_path」</code> # 查看workingtree与HEAD指定文件的区别</li>
-<li><code>git log</code> # 查看提交历史记录，每一条记录都对应一个版本号</li>
-<li><code>git log --pretty=oneline</code> # 查看提交历史记录，显示于一行</li>
-<li><code>git reset --mixed HEAD</code> # 回退index，使其对应HEAD最新版本，–mixed为默认值，可以省略为：git reset HEAD</li>
-<li><code>git reset --mixed HEAD 「file_path」</code> # 回退index指定文件，使其对应HEAD最新版本</li>
-<li><code>git reset --hard HEAD</code> # 回退workingtree，使其对应HEAD最新版本（慎用，工作区不可找回）</li>
-<li><code>git reset --soft HEAD~</code> # 回退HEAD到前一个版本，workingtree和index都不会改变</li>
-<li><code>git reset HEAD~「number」</code> # 回退到前第number个版本（–「mode」可用）</li>
-<li><code>git reset 「version number」</code> # 回退到指定版本（–「mode」可用）</li>
-<li><code>git reflog</code> # 查看当前用户的命令历史</li>
-<li><code>git rm 「file_path」</code> # 从版本库中（index &amp; HEAD）删除指定文件</li>
-<li><code>git status</code> # 查看当前修改状态</li>
-</ul>
-<h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><ul>
-<li><code>git remote add origin 「remote git repository address」</code> # 将本地已有的仓库与指定远程仓库关联，yourname为你的远程仓库账户名，yourrepo为你的远程仓库名，origin为远程仓库命名，这是git默认，不用修改（一看就是远程仓库）</li>
-<li><code>git push -u origin master</code> # 将本地库内容推送到远程库。第一次推送时，“-u”参数加上后，不但会推送内容，还会把本地的master分支与origin的master分支关联起来，之后就可以省略这个参数了</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://gmwenterprise.github.io/2019/09/10/git-common-usage/" data-id="ck359wqqv0001go0zcykqfada" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
