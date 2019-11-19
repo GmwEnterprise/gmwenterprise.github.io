@@ -1,6 +1,7 @@
 ---
-title: 简单的网站搭建-01-SpringBoot后台搭建
+title: 简单的网站搭建-02-SpringBoot后台搭建
 date: 2019-11-18 22:34:42
+categories: 简单网站搭建
 tags:
   - spring
   - java
@@ -11,12 +12,13 @@ tags:
 #### 获取初始代码
 
 使用Intellij idea或者[http://start.spring.io/](http://start.spring.io/)来生成初始结构，选择这三个依赖即可：
-![springboot依赖](../images/how-simple-website-create-02/1.png)
+![springboot依赖](how-simple-website-create-02/1.png)
 生成好了以后用idea打开它，等待maven的依赖下载完成后，便可以开始配置了。
 
 #### 配置骨架
 
 首先要添加一些依赖，便于后面的开发：
+
 ``` xml
 <dependency><!-- JWT，用于生成前后端分离鉴权使用的token -->
   <groupId>com.nimbusds</groupId>
@@ -36,6 +38,7 @@ tags:
 ```
 
 resources/application.properties文件改名为后缀.yml，然后配置：
+
 ``` yaml
 server:
   port: 4399 #端口配置，空闲端口爱多少多少
@@ -74,7 +77,7 @@ cn:
         # 配置类
         interceptor:
           # 全局配置拦截器
-      common: 
+      common:
         # 公共类
       domain:
         # 实体
@@ -97,6 +100,7 @@ cn:
 #### 生成基本的DATA ACCESS OBJECT和DOMAIN
 
 接下来使用mybatis-generator代码生成工具来生成数据库表对应的domain, dao, mapper。首先在src/main/resources目录下新建generatorConfig.xml文件：
+
 ``` xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE generatorConfiguration
@@ -151,6 +155,7 @@ cn:
 对于mybatis generator配置有疑问可以百度一下官网，文档是英文的，也可以看其他小伙伴写的博客，这里不多加赘述，只为了生成代码，减少工作而已。
 
 然后在pom.xml中添加插件：
+
 ``` xml
 <build>
     <plugins>
@@ -178,11 +183,11 @@ cn:
 
 然后点击右侧的maven控制栏，如图所示：
 
-![maven控制栏选项](../images/how-simple-website-create-02/2.png)
+![maven控制栏选项](how-simple-website-create-02/2.png)
 
 之后就生成了对应的24个文件：
 
-![生成的代码文件](../images/how-simple-website-create-02/3.png)
+![生成的代码文件](how-simple-website-create-02/3.png)
 
 目前为止已经生成好了所有数据库表对应的实体类、持久层访问类。
 
@@ -340,6 +345,7 @@ public final class AuthorizationHolder {
 ```
 
 如何定义接口是否需要验证权限呢？很简单，一个注解搞定：
+
 ``` java
 package cn.gmwenterprise.presevere.common;
 
@@ -361,8 +367,323 @@ public @interface AuthRequire {
 }
 ```
 
-... 未完待续
-
 #### 权限核心拦截器
 
+上述工具类完成后，便开始编写两个拦截器。第一个拦截器的功能是获取请求中携带的token并解析为用户数据保存在当前请求线程中，在当前请求结束后删除掉用户数据。
+
+``` java
+package cn.gmwenterprise.presevere.config.security;
+
+import cn.gmwenterprise.presevere.common.AuthorizationHolder;
+import cn.gmwenterprise.presevere.common.TokenHelper;
+import cn.gmwenterprise.presevere.domain.SysUser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@Component
+public class AuthenticationInterceptor implements HandlerInterceptor {
+    private static final Logger log = LoggerFactory.getLogger(AuthenticationInterceptor.class);
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        // 通常的做法就是将token设置在请求头Authorization字段中
+        String token = request.getHeader("Authorization");
+        if (!StringUtils.isEmpty(token)) {
+            log.info("Authorization: [{}]", token);
+            SysUser currentUser = TokenHelper.parseToken(token, SysUser.class);
+            if (currentUser != null) {
+                AuthorizationHolder.setCurrentUser(currentUser);
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        AuthorizationHolder.removeCurrentUser();
+    }
+}
+```
+
+第二个拦截器则是判断接口是否需要验证权限，若需要则进行认证，认证成功予以通过，失败则返回错误信息。
+通过我自己编写拦截器后进行测试，发现在拦截器的preHandle函数中第四个参数`Object handler`的类型只有在访问对应控制器接口的时候类型才会为HandlerMethod，而我添加控制器权限接口也是添加在method上，所以通过这个方式来判断method是否被我自己定义的`AuthRequire`注解所修饰；如果被修饰，则进行进一步操作。
+
+``` java
+package cn.gmwenterprise.presevere.config.security;
+
+import cn.gmwenterprise.presevere.common.AuthRequire;
+import cn.gmwenterprise.presevere.common.AuthorizationHolder;
+import cn.gmwenterprise.presevere.common.Constants;
+import cn.gmwenterprise.presevere.domain.SysPermission;
+import cn.gmwenterprise.presevere.domain.SysUser;
+import cn.gmwenterprise.presevere.service.UserService;
+import cn.gmwenterprise.presevere.vo.AjaxResult;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Component
+public class SecurityInterceptor implements HandlerInterceptor {
+    private static final Logger log = LoggerFactory.getLogger(SecurityInterceptor.class);
+
+    @Resource
+    UserService userService;
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        String[] permissions = getPermissions(handler);
+        if (permissions != null && permissions.length > 0) {
+            log.info("进入安全拦截器, 请求URL = [{}]", request.getRequestURL());
+            SysUser currentUser = AuthorizationHolder.getCurrentUser();
+            if (currentUser != null) {
+                List<SysPermission> permissionList = userService.getAllPermissions(currentUser.getId());
+                if (permissionList != null && permissionList.size() >= permissions.length) {
+                    boolean hasPermission = permissionList.stream()
+                        .map(SysPermission::getPermission)
+                        .collect(Collectors.toList())
+                        .containsAll(Arrays.asList(permissions));
+                    if (hasPermission) {
+                        return true;
+                    }
+                }
+                return noAccess(response, "当前用户无访问权限");
+            }
+            return noAccess(response, "禁止访问，需要登陆");
+        }
+        return true;
+    }
+
+    @Resource
+    ObjectMapper objectMapper;
+
+    private boolean noAccess(HttpServletResponse response, String errorMsg) throws IOException {
+        response.setCharacterEncoding(Constants.UTF_8);
+        response.setContentType(Constants.APPLICATION_JSON);
+        PrintWriter writer = response.getWriter();
+        writer.write(objectMapper.writeValueAsString(AjaxResult.fail(errorMsg)));
+        writer.flush();
+        writer.close();
+        return false;
+    }
+
+    private String[] getPermissions(Object handler) {
+        if (handler instanceof HandlerMethod) {
+            Method targetMethod = ((HandlerMethod) handler).getMethod();
+            if (targetMethod.isAnnotationPresent(AuthRequire.class)) {
+                String[] value = targetMethod.getAnnotation(AuthRequire.class).value();
+                return value.length > 0 ? value : null;
+            }
+        }
+        return null;
+    }
+}
+
+```
+
+同时这里用到了AjaxResult类，自己封装的一个Restful参数返回的类，结构比较简单：
+
+``` java
+package cn.gmwenterprise.presevere.vo;
+
+public class AjaxResult {
+    private static final int CODE_SUCCESS = 200;
+    private static final String MESSAGE_SUCCESS = "request success";
+    private static final int CODE_ERROR = 500;
+    private static final String MESSAGE_ERROR = "request error";
+
+    public static AjaxResult ok(Object data) {
+        return new AjaxResult(CODE_SUCCESS, MESSAGE_SUCCESS, data);
+    }
+
+    public static AjaxResult fail(Object data) {
+        return new AjaxResult(CODE_ERROR, MESSAGE_ERROR, data);
+    }
+
+    private int code;
+    private String message;
+    private Object data;
+
+    private AjaxResult(int code, String message, Object data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
+
+    // ...getter, setter
+}
+```
+
 #### 核心配置类
+
+相应的工具类、拦截器都写好了，接下来整合配置。也是比较简单，先把mybatis给配置了。只用到了一个注解，设置了basePackages，这样即便不给mapper接口添加注解spring也会去将其扫描为bean。
+
+``` java
+package cn.gmwenterprise.presevere.config;
+
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Repository;
+
+@Configuration
+@MapperScan(basePackages = "cn.gmwenterprise.presevere.dao")
+public class MybatisConfig {}
+```
+
+由于使用了java8时间类，所以mybatis需要添加一个关于JSR310的依赖：
+
+``` xml
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis-typehandlers-jsr310</artifactId>
+    <version>1.0.2</version>
+</dependency>
+```
+
+然后是springmvc的配置。实现WebMvcConfigurer接口，覆盖一些默认方法，添加EnableWebMvc注解，提供一些初始化bean即可。
+
+``` java
+package cn.gmwenterprise.presevere.config;
+
+import cn.gmwenterprise.presevere.config.security.AuthenticationInterceptor;
+import cn.gmwenterprise.presevere.config.security.SecurityInterceptor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.format.support.FormattingConversionService;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.config.annotation.*;
+
+import javax.annotation.Resource;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
+import java.util.List;
+
+import static cn.gmwenterprise.presevere.common.DateUtils.*;
+
+@Configuration
+@EnableWebMvc
+public class SpringMvcConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        // 跨域配置,cors方式跨域
+        registry.addMapping("/**");
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // 静态资源放行
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+    }
+
+    // 导入两个拦截器
+    @Resource
+    AuthenticationInterceptor authenticationInterceptor;
+    @Resource
+    SecurityInterceptor securityInterceptor;
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        // 添加拦截器并使用order指定执行顺序，数值越小越优先
+        registry.addInterceptor(authenticationInterceptor).order(1);
+        registry.addInterceptor(securityInterceptor).order(2);
+    }
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        // 添加消息转换器，由于我使用了java8的时间类，所以这里要使用自定义的objectMapper
+        converters.add(new MappingJackson2HttpMessageConverter(objectMapper()));
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        // 自定义的objectMapper，添加了时间转换模块
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(javaTimeModule());
+        return objectMapper;
+    }
+
+    @Bean
+    public JavaTimeModule javaTimeModule() {
+        // 自定义java8时间转换模块
+        JavaTimeModule javaTimeModule = new JavaTimeModule();
+        javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DATE_TIME_FORMATTER));
+        javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer(DATE_FORMATTER));
+        javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(TIME_FORMATTER));
+        javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DATE_TIME_FORMATTER));
+        javaTimeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer(DATE_FORMATTER));
+        javaTimeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer(TIME_FORMATTER));
+        return javaTimeModule;
+    }
+
+    interface String2LocalDateTime extends Converter<String, LocalDateTime> {}
+
+    interface String2LocalDate extends Converter<String, LocalDate> {}
+
+    interface String2LocalTime extends Converter<String, LocalTime> {}
+
+    interface String2Date extends Converter<String, Date> {}
+
+    // 这里必须先显示定义好接口类型，不然下面的方法使用lambda方式会报错
+
+    /**
+     * 定义请求参数进入controller后的转换方式
+     */
+    @Component
+    static class ConvertersInitializer {
+        public ConvertersInitializer(FormattingConversionService formattingConversionService) {
+            formattingConversionService.addConverter((String2LocalDateTime) source -> LocalDateTime.parse(source, DATE_TIME_FORMATTER));
+            formattingConversionService.addConverter((String2LocalDate) source -> LocalDate.parse(source, DATE_TIME_FORMATTER));
+            formattingConversionService.addConverter((String2LocalTime) source -> LocalTime.parse(source, DATE_TIME_FORMATTER));
+            formattingConversionService.addConverter((String2Date) source -> {
+                try {
+                    return SIMPLE_DATE_FORMAT.parse(DATE_TIME_PATTERN);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            });
+        }
+    }
+}
+```
+
+如此便完成了基本配置。
+
+(... 未完待续)
+
+#### 系统初始化数据
+
+#### 额外配置

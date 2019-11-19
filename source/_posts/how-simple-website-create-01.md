@@ -1,6 +1,7 @@
 ---
 title: 简单的网站搭建-01-数据库设计
 date: 2019-11-18 10:50:18
+categories: 简单网站搭建
 tags:
   - mysql
 ---
