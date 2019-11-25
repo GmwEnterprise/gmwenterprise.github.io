@@ -681,9 +681,3 @@ public class SpringMvcConfig implements WebMvcConfigurer {
 ```
 
 如此便完成了基本配置。
-
-(... 未完待续)
-
-#### 系统初始化数据
-
-#### 额外配置
