@@ -48,3 +48,33 @@ It makes it easy to use data access technologies, relational and non-relational 
 > *-- integration: 集成（名词）*
 > *-- experimental: 实验性的*
 > *-- cross-store persistence: 跨存储持久性*
+
+### Main modules 主要模块
+
+- Spring Data Commons - Core Spring concepts underpinning every Spring Data module.
+- Spring Data JDBC - Spring Data repository support for JDBC.
+- Spring Data JDBC Ext - Support for database specific extensions to standard JDBC including support for Oracle RAC fast connection failover, AQ JMS support and support for using advanced data types.
+- Spring Data JPA - Spring Data repository support for JPA.
+- Spring Data KeyValue - `Map` based repositories and SPIs to easily build a Spring Data module for key_value stores.
+- Spring Data LDAP - Spring Data repository support for Spring LDAP.
+- Spring Data MongoDB - Spring based, object-document support and repositories for MongoDB.
+- Spring Data Redis - Easy configuration and access to Redis from Spring applications.
+- Spring Data REST - Exports Spring Data repositories as hypermedia-driven RESTful resources.
+- Spring Data for Apache Cassandra - Easy configuration and access to Apache Cassandra or large scale, highly available, data oriented Spring applications.
+- Spring Data for Apache Geode - Easy configuration and access to Apache Geode for highly consistent, low latency, data oriented Spring applications.
+- Spring Data for Apache Solr - Easy configuration and access to Apache Solr for your search oriented Spring applications.
+- Spring Data for Pivotal GemFire - Easy configuration and access to Pivotal GemFire for your high consistent low latency/high through-put, data oriented Spring applications.
+
+> - Spring Data Commons - 支撑着每一个Spring Data模块的核心概念
+> - Spring Data JDBC - Spring Data 库对JDBC的支持
+> - Spring Data JDBC Ext - 支持标准JDBC的数据库特定扩展，包括了对Oracle快速连接故障转移的支持，AQ JMS支持以及高级数据类型使用的支持
+> - Spring Data JPA - Spring Data库对JPA的支持
+> - Spring Data KeyValue - 轻松构建基于Map以及SPI的用于键值存储的Spring Data模块
+> - Spring Data LDAP - Spring Data 库对Spring LDAP的支持
+> - Spring Data MongoDB - 基于Spring的文档对象模型的支持以及适用MongoDB的库
+> - Spring Data Redis - 轻松配置且易于从Spring应用中访问Redis
+> - Spring Data REST - 将Spring Data存储库导出为超媒体驱动的RESTful资源
+> - Spring Data for Apache Cassandra - 轻松配置并访问Apache Cassandra或大规模、高可用，面向数据的Spring应用
+> - Spring Data for Apache Geode - 易于配置和访问Apache Geode，以实现高度一致、低延迟、面向数据的Spring应用
+> - Spring Data for Apache Solr - 易于配置，并可访问面向搜索的Spring应用的Apache Solr
+> - Spring Data for Pivotal GemFire -  轻松配置和访问Pivotal GemFire，以实现高度一致，低延迟/高吞吐量的面向数据的Spring应用程序
