@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="javascript,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Token无缝刷新前后端分离的系统，假如这个系统是给客服人员使用，客服人员可能要在长达八个小时的时间上不停地工作；为了安全考虑，不给token设定永久的时常，而是给它一个可刷新时间区域：在当前token刚刚过期后的一段时间发起的请求，系统可以无缝刷新一次token，从而为使用者带来更好的体验，这是非常重要的。 Axios中的实现原理简单阐述实现很简单，在拦截器当中检测返回数据，检测到刚刚过期可以刷">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于token在刚刚过期后的刷新问题">
+<meta property="og:url" content="http://gmwenterprise.github.io/2019/11/30/token-refresh/index.html">
+<meta property="og:site_name" content="Gmw的博客">
+<meta property="og:description" content="Token无缝刷新前后端分离的系统，假如这个系统是给客服人员使用，客服人员可能要在长达八个小时的时间上不停地工作；为了安全考虑，不给token设定永久的时常，而是给它一个可刷新时间区域：在当前token刚刚过期后的一段时间发起的请求，系统可以无缝刷新一次token，从而为使用者带来更好的体验，这是非常重要的。 Axios中的实现原理简单阐述实现很简单，在拦截器当中检测返回数据，检测到刚刚过期可以刷">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-30T14:52:40.227Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于token在刚刚过期后的刷新问题">
+<meta name="twitter:description" content="Token无缝刷新前后端分离的系统，假如这个系统是给客服人员使用，客服人员可能要在长达八个小时的时间上不停地工作；为了安全考虑，不给token设定永久的时常，而是给它一个可刷新时间区域：在当前token刚刚过期后的一段时间发起的请求，系统可以无缝刷新一次token，从而为使用者带来更好的体验，这是非常重要的。 Axios中的实现原理简单阐述实现很简单，在拦截器当中检测返回数据，检测到刚刚过期可以刷">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://gmwenterprise.github.io/2019/11/30/token-refresh/">
+
+
+
+
+
+  <title>关于token在刚刚过期后的刷新问题 | Gmw的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Gmw的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gmwenterprise.github.io/2019/11/30/token-refresh/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gmw">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gmw的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">关于token在刚刚过期后的刷新问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-30T22:29:23+08:00">
+                2019-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Token无缝刷新"><a href="#Token无缝刷新" class="headerlink" title="Token无缝刷新"></a>Token无缝刷新</h3><p>前后端分离的系统，假如这个系统是给客服人员使用，客服人员可能要在长达八个小时的时间上不停地工作；为了安全考虑，不给token设定永久的时常，而是给它一个可刷新时间区域：<em>在当前token刚刚过期后的一段时间发起的请求，系统可以无缝刷新一次token，从而为使用者带来更好的体验</em>，这是非常重要的。</p>
+<h4 id="Axios中的实现"><a href="#Axios中的实现" class="headerlink" title="Axios中的实现"></a>Axios中的实现</h4><h5 id="原理简单阐述"><a href="#原理简单阐述" class="headerlink" title="原理简单阐述"></a>原理简单阐述</h5><p>实现很简单，在拦截器当中检测返回数据，检测到刚刚过期可以刷新的情况，则在拦截器中直接发起刷新token的请求，获得到新token后保存，再执行一次失败的请求，执行完毕返回。</p>
+<h5 id="会遇到的问题"><a href="#会遇到的问题" class="headerlink" title="会遇到的问题"></a>会遇到的问题</h5><p>axios是异步执行的，假如在刷新token的过程中又有其他携带旧token并收到需要刷新的标识后，又如何处理呢？</p>
+<p>设置一个全局标识，表明当前是否正在刷新token，如果正在刷新，就拒绝。这样显然是不好的。在一次需求中可能要发起多个请求这是很正常的事情。为了不让其他请求失败，我的做法是，创建一个异步任务顺序执行器，在刷新token期间还携带旧token并返回过期的请求，则重新将本请求加入到这个执行器的末尾；而执行器则是在首次检测到过期时进行初始化，并开始执行第一个任务，也就是刷新token任务。</p>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><p>放代码之前我先给出一些解释：我并没有使用常规的http状态码来判断响应结果，而是在后端程序中讲所有非系统错误的大部分异常全部封装为了自定义的错误码并返回给前台，我在拦截器中自己来判断返回结果。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* eslint-disable no-unused-vars */</span></span><br><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span></span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">'../router.js'</span></span><br><span class="line"><span class="keyword">import</span> &#123; Notification, Message &#125; <span class="keyword">from</span> <span class="string">'element-ui'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Full config:  https://github.com/axios/axios#request-config</span></span><br><span class="line"><span class="comment">// axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || ''</span></span><br><span class="line"><span class="comment">// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN</span></span><br><span class="line"><span class="comment">// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> config = &#123;</span><br><span class="line">  <span class="comment">// baseURL: process.env.baseURL || process.env.apiUrl || ''</span></span><br><span class="line">  <span class="comment">// timeout: 60 * 1000, // Timeout</span></span><br><span class="line">  <span class="comment">// withCredentials: true, // Check cross-site Access-Control,</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> _axios = axios.create(config)</span><br><span class="line"></span><br><span class="line">_axios.interceptors.request.use(</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Do something before request is sent</span></span><br><span class="line">    <span class="keyword">if</span> (!config.url.includes(<span class="string">'http'</span>)) &#123;</span><br><span class="line">      config.url = <span class="string">'http://127.0.0.1:4399'</span> + config.url</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> token = localStorage.getItem(<span class="string">'token'</span>)</span><br><span class="line">    <span class="keyword">if</span> (token) &#123;</span><br><span class="line">      config.headers.Authorization = token</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> config</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Do something with request error</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> refreshTokenFlag = <span class="literal">false</span></span><br><span class="line"><span class="keyword">let</span> requestList = []</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">executeRequests</span>(<span class="params">index</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (index &lt; requestList.length) &#123;</span><br><span class="line">    requestList[index]().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      executeRequests(index + <span class="number">1</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    refreshTokenFlag = <span class="literal">false</span></span><br><span class="line">    requestList.splice(<span class="number">0</span>, requestList.length)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Add a response interceptor</span></span><br><span class="line">_axios.interceptors.response.use(</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">` &gt;&gt;&gt; 拦截器开始`</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(response.config.url)</span><br><span class="line">    <span class="built_in">console</span>.log(response.config.headers.Authorization)</span><br><span class="line">    <span class="built_in">console</span>.log(response.data)</span><br><span class="line">    <span class="comment">// Do something with response data</span></span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">     * 在这里返回Promise.reject会进入代码的catch块;</span></span><br><span class="line"><span class="comment">     * 返回Promise.resolve或正常数据会进入then块;</span></span><br><span class="line"><span class="comment">     * 不返回 = 返回undefined也会进入then块</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="comment">// 成功</span></span><br><span class="line">    <span class="keyword">if</span> (response.data.code === <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.data</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (response.data.code === <span class="number">2</span> || response.data.code === <span class="number">4</span>) &#123;</span><br><span class="line">      <span class="comment">// 失败 || 无权访问</span></span><br><span class="line">      Message(&#123;</span><br><span class="line">        message: response.data.data || <span class="string">'网络繁忙！'</span>,</span><br><span class="line">        type: <span class="string">'error'</span>,</span><br><span class="line">        center: <span class="literal">true</span></span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response.data)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (response.data.code === <span class="number">3</span>) &#123;</span><br><span class="line">      <span class="comment">// 需要登录验证权限</span></span><br><span class="line">      <span class="keyword">const</span> redirectUrl = router.currentRoute.fullPath</span><br><span class="line">      router.push(&#123;</span><br><span class="line">        path: <span class="string">'/login'</span>,</span><br><span class="line">        query: &#123;</span><br><span class="line">          redirectUrl</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response.data)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (response.data.code === <span class="number">5</span>) &#123;</span><br><span class="line">      <span class="comment">// 需要刷新token</span></span><br><span class="line">      <span class="keyword">const</span> userId = response.data.data</span><br><span class="line">      <span class="keyword">if</span> (refreshTokenFlag) &#123;</span><br><span class="line">        <span class="comment">// 正在刷新</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">          requestList.push(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">              <span class="keyword">const</span> r = <span class="keyword">await</span> _axios(response.config)</span><br><span class="line">              resolve(r)</span><br><span class="line">            &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">              reject(err)</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 未刷新</span></span><br><span class="line">        refreshTokenFlag = <span class="literal">true</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">          requestList.push(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">              <span class="keyword">const</span> result = <span class="keyword">await</span> _axios.post(<span class="string">`/sign/refreshToken/<span class="subst">$&#123;userId&#125;</span>`</span>)</span><br><span class="line">              localStorage.setItem(<span class="string">'token'</span>, result.data)</span><br><span class="line">              <span class="keyword">const</span> r = <span class="keyword">await</span> _axios(response.config)</span><br><span class="line">              resolve(r)</span><br><span class="line">            &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">              reject(err)</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;)</span><br><span class="line">          executeRequests(<span class="number">0</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Ajax系统错误'</span>)</span><br><span class="line">    Notification.error(&#123;</span><br><span class="line">      title: <span class="string">'系统错误'</span>,</span><br><span class="line">      message: <span class="string">`<span class="subst">$&#123;error || <span class="string">'No message available'</span>&#125;</span>`</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">Plugin.install = <span class="function"><span class="keyword">function</span> (<span class="params">Vue, options</span>) </span>&#123;</span><br><span class="line">  Vue.axios = _axios</span><br><span class="line">  <span class="built_in">window</span>.axios = _axios</span><br><span class="line">  <span class="built_in">Object</span>.defineProperties(Vue.prototype, &#123;</span><br><span class="line">    axios: &#123;</span><br><span class="line">      <span class="keyword">get</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> _axios</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    $axios: &#123;</span><br><span class="line">      <span class="keyword">get</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> _axios</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Vue.use(Plugin)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Plugin</span><br></pre></td></tr></table></figure>
+
+<h5 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h5><p>其实无痛刷新token的方法有很多，我在之前用到的方法则是在springmvc的Interceptor以及ResponseBodyAdvice中进行token的刷新，在返回结果中携带一个token刷新标志以及刷新后的token；这带来了一个问题：所有的token刷新都会在后端来解决，对于一个小系统，小网站来说，很可能会影响程序执行效率（当然大系统应该有自己的一套方案，这我就不知道了，若是有大佬路过也很期待您能在评论中给出一个小建议，感激不尽）。</p>
+<p>在实现通过前端来刷新的这个方法后，经过测试发现，体验还不错，在刷新的过程会有比较低的延迟但完全可以接受（延迟若是很大的话可能本身列入队列的请求也很复杂），所以写下这篇文章以便记录。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/28/html-contenteditable-usage/" rel="next" title="可编辑元素属性contenteditable详细用法记录">
+                <i class="fa fa-chevron-left"></i> 可编辑元素属性contenteditable详细用法记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/13/docker-common-usage/" rel="prev" title="docker-common-usage">
+                docker-common-usage <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Gmw</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Token无缝刷新"><span class="nav-number">1.</span> <span class="nav-text">Token无缝刷新</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Axios中的实现"><span class="nav-number">1.1.</span> <span class="nav-text">Axios中的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#原理简单阐述"><span class="nav-number">1.1.1.</span> <span class="nav-text">原理简单阐述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#会遇到的问题"><span class="nav-number">1.1.2.</span> <span class="nav-text">会遇到的问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代码"><span class="nav-number">1.1.3.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他"><span class="nav-number">1.1.4.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gmw</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

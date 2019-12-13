@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Gmw的博客">
 <meta property="og:description" content="Original link: https://spring.io/projects/spring-data#overview  Spring Data’s mission is to provide a familiar and consistent, Spring-based programming model for data access while still retaining the">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-23T19:19:29.000Z">
+<meta property="og:updated_time" content="2019-11-27T11:23:40.967Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Translate English offical document &#39;Spring Data Overview&#39;">
 <meta name="twitter:description" content="Original link: https://spring.io/projects/spring-data#overview  Spring Data’s mission is to provide a familiar and consistent, Spring-based programming model for data access while still retaining the">
@@ -305,7 +305,65 @@
 </blockquote>
 <p>Spring Data’s mission is to provide a familiar and consistent, Spring-based programming model for data access while still retaining the special traits of the underlying data store.</p>
 <blockquote>
-<p>Spring Data的目的是为数据访问提供一个熟悉且一致的，基于Spring的编程模型，同时仍保留了基础数据存储的特质。<br><em>– the special traits: 特质</em><br><em>– underlying data store: 基础数据存储</em><br><em>– retain: 保留</em></p>
+<p>Spring Data的目的是为数据访问提供一个熟悉且一致的，基于Spring的编程模型，同时仍保留了基础数据存储的特质。<br><em>– data access: 数据访问</em><br><em>– the special traits: 特质</em><br><em>– underlying data store: 基础数据存储</em><br><em>– retain: 保留</em></p>
+</blockquote>
+<p>It makes it easy to use data access technologies, relational and non-relational databases, map-reduce frameworks, and cloud-based data services. This is an umbrella project which contains many subprojects that are specific to a given database. The projects are developed by working together with many of the companies and developers that are behind these exciting technologies.</p>
+<blockquote>
+<p>他（Spring Data）使得数据访问技术，关系型和非关系型数据库，mapReduce框架，还有基于云的数据服务更易于使用。这是一个总括项目，其包含了众多的为给定数据库开发的子项目。这些项目是通过与这些令人激动的技术背后的许多公司和开发人员共同开发的。<br><em>– map-reduce: 由Google提出的一个软件架构，用于大规模数据集（大于1TB）的并行运算</em><br><em>– umbrella project: 总括项目，可以理解为聚合项目</em><br><em>– cloud-based data services: 基于云的数据服务</em></p>
+</blockquote>
+<h3 id="Features-特性"><a href="#Features-特性" class="headerlink" title="Features 特性"></a>Features 特性</h3><ul>
+<li>Powerful repository and custom object-mapping abstractions</li>
+<li>Dynamic query derivation from repository method names</li>
+<li>Implementation domain base classes providing basic properties</li>
+<li>Support for transparent auditing (created, last changed)</li>
+<li>Possibility to integrate custom repository code</li>
+<li>Easy Spring integration via JavaConfig and custom XML namespaces</li>
+<li>Advanced integration with Spring MVC controllers</li>
+<li>Experimental support for cross-store persistence</li>
+</ul>
+<blockquote>
+<ul>
+<li>强大的存储库和自定义对象映射抽象</li>
+<li>从存储库的方法名称来进行动态的查询推导</li>
+<li>支持数据变动可见（透明化）</li>
+<li>可以集成自定义的存储库代码</li>
+<li>可以通过JavaConfig或自定义的XML命名空间来集成Spring</li>
+<li>与Spring MVC 控制器的高级集成</li>
+<li>跨库持久化（实验性支持）</li>
+</ul>
+<p><em>– custom object-mapping abstractions: 自定义对象映射抽象</em><br><em>– dynamic query derivation: 动态查询推导（Spring Data 可以通过Repo接口的方法名称来推导生成对应的sql查询语句）</em><br><em>– transparent auditing: 透明审计（这里我翻译为了数据变动可见）</em><br><em>– integrate: 集成（动词）</em><br><em>– integration: 集成（名词）</em><br><em>– experimental: 实验性的</em><br><em>– cross-store persistence: 跨存储持久性</em></p>
+</blockquote>
+<h3 id="Main-modules-主要模块"><a href="#Main-modules-主要模块" class="headerlink" title="Main modules 主要模块"></a>Main modules 主要模块</h3><ul>
+<li>Spring Data Commons - Core Spring concepts underpinning every Spring Data module.</li>
+<li>Spring Data JDBC - Spring Data repository support for JDBC.</li>
+<li>Spring Data JDBC Ext - Support for database specific extensions to standard JDBC including support for Oracle RAC fast connection failover, AQ JMS support and support for using advanced data types.</li>
+<li>Spring Data JPA - Spring Data repository support for JPA.</li>
+<li>Spring Data KeyValue - <code>Map</code> based repositories and SPIs to easily build a Spring Data module for key_value stores.</li>
+<li>Spring Data LDAP - Spring Data repository support for Spring LDAP.</li>
+<li>Spring Data MongoDB - Spring based, object-document support and repositories for MongoDB.</li>
+<li>Spring Data Redis - Easy configuration and access to Redis from Spring applications.</li>
+<li>Spring Data REST - Exports Spring Data repositories as hypermedia-driven RESTful resources.</li>
+<li>Spring Data for Apache Cassandra - Easy configuration and access to Apache Cassandra or large scale, highly available, data oriented Spring applications.</li>
+<li>Spring Data for Apache Geode - Easy configuration and access to Apache Geode for highly consistent, low latency, data oriented Spring applications.</li>
+<li>Spring Data for Apache Solr - Easy configuration and access to Apache Solr for your search oriented Spring applications.</li>
+<li>Spring Data for Pivotal GemFire - Easy configuration and access to Pivotal GemFire for your high consistent low latency/high through-put, data oriented Spring applications.</li>
+</ul>
+<blockquote>
+<ul>
+<li>Spring Data Commons - 支撑着每一个Spring Data模块的核心概念</li>
+<li>Spring Data JDBC - Spring Data 库对JDBC的支持</li>
+<li>Spring Data JDBC Ext - 支持标准JDBC的数据库特定扩展，包括了对Oracle快速连接故障转移的支持，AQ JMS支持以及高级数据类型使用的支持</li>
+<li>Spring Data JPA - Spring Data库对JPA的支持</li>
+<li>Spring Data KeyValue - 轻松构建基于Map以及SPI的用于键值存储的Spring Data模块</li>
+<li>Spring Data LDAP - Spring Data 库对Spring LDAP的支持</li>
+<li>Spring Data MongoDB - 基于Spring的文档对象模型的支持以及适用MongoDB的库</li>
+<li>Spring Data Redis - 轻松配置且易于从Spring应用中访问Redis</li>
+<li>Spring Data REST - 将Spring Data存储库导出为超媒体驱动的RESTful资源</li>
+<li>Spring Data for Apache Cassandra - 轻松配置并访问Apache Cassandra或大规模、高可用，面向数据的Spring应用</li>
+<li>Spring Data for Apache Geode - 易于配置和访问Apache Geode，以实现高度一致、低延迟、面向数据的Spring应用</li>
+<li>Spring Data for Apache Solr - 易于配置，并可访问面向搜索的Spring应用的Apache Solr</li>
+<li>Spring Data for Pivotal GemFire -  轻松配置和访问Pivotal GemFire，以实现高度一致，低延迟/高吞吐量的面向数据的Spring应用程序</li>
+</ul>
 </blockquote>
 
       
@@ -348,6 +406,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/28/html-contenteditable-usage/" rel="prev" title="可编辑元素属性contenteditable详细用法记录">
+                可编辑元素属性contenteditable详细用法记录 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -399,8 +461,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -415,7 +486,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -437,7 +508,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -460,6 +531,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Features-特性"><span class="nav-number">1.</span> <span class="nav-text">Features 特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Main-modules-主要模块"><span class="nav-number">2.</span> <span class="nav-text">Main modules 主要模块</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

@@ -229,6 +229,387 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gmwenterprise.github.io/2019/12/13/docker-common-usage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gmw">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gmw的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/13/docker-common-usage/" itemprop="url">docker-common-usage</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-13T11:28:07+08:00">
+                2019-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Docker 常用命令<br>启动docker<br>sudo service docker start</p>
+<p>停止docker<br>sudo service docker stop</p>
+<p>重启docker<br>sudo service docker restart</p>
+<p>列出Docker CLI命令<br>docker<br>docker container –help</p>
+<p>显示Docker版本和信息<br>docker –version<br>docker version<br>docker info</p>
+<p>Execute Docker image<br>docker run hello-world</p>
+<p>列出镜像列表<br>docker image ls</p>
+<p>列出docker容器 (running, all, all in quiet mode)<br>docker container ls<br>docker container ls –all<br>docker container ls -aq</p>
+<p>作者：凌雲木<br>链接：(<a href="https://www.jianshu.com/p/cef32b054968)[https://www.jianshu.com/p/cef32b054968]" target="_blank" rel="noopener">https://www.jianshu.com/p/cef32b054968)[https://www.jianshu.com/p/cef32b054968]</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gmwenterprise.github.io/2019/11/30/token-refresh/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gmw">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gmw的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/30/token-refresh/" itemprop="url">关于token在刚刚过期后的刷新问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-30T22:29:23+08:00">
+                2019-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Token无缝刷新"><a href="#Token无缝刷新" class="headerlink" title="Token无缝刷新"></a>Token无缝刷新</h3><p>前后端分离的系统，假如这个系统是给客服人员使用，客服人员可能要在长达八个小时的时间上不停地工作；为了安全考虑，不给token设定永久的时常，而是给它一个可刷新时间区域：<em>在当前token刚刚过期后的一段时间发起的请求，系统可以无缝刷新一次token，从而为使用者带来更好的体验</em>，这是非常重要的。</p>
+<h4 id="Axios中的实现"><a href="#Axios中的实现" class="headerlink" title="Axios中的实现"></a>Axios中的实现</h4><h5 id="原理简单阐述"><a href="#原理简单阐述" class="headerlink" title="原理简单阐述"></a>原理简单阐述</h5><p>实现很简单，在拦截器当中检测返回数据，检测到刚刚过期可以刷新的情况，则在拦截器中直接发起刷新token的请求，获得到新token后保存，再执行一次失败的请求，执行完毕返回。</p>
+<h5 id="会遇到的问题"><a href="#会遇到的问题" class="headerlink" title="会遇到的问题"></a>会遇到的问题</h5><p>axios是异步执行的，假如在刷新token的过程中又有其他携带旧token并收到需要刷新的标识后，又如何处理呢？</p>
+<p>设置一个全局标识，表明当前是否正在刷新token，如果正在刷新，就拒绝。这样显然是不好的。在一次需求中可能要发起多个请求这是很正常的事情。为了不让其他请求失败，我的做法是，创建一个异步任务顺序执行器，在刷新token期间还携带旧token并返回过期的请求，则重新将本请求加入到这个执行器的末尾；而执行器则是在首次检测到过期时进行初始化，并开始执行第一个任务，也就是刷新token任务。</p>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><p>放代码之前我先给出一些解释：我并没有使用常规的http状态码来判断响应结果，而是在后端程序中讲所有非系统错误的大部分异常全部封装为了自定义的错误码并返回给前台，我在拦截器中自己来判断返回结果。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* eslint-disable no-unused-vars */</span></span><br><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span></span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">'../router.js'</span></span><br><span class="line"><span class="keyword">import</span> &#123; Notification, Message &#125; <span class="keyword">from</span> <span class="string">'element-ui'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Full config:  https://github.com/axios/axios#request-config</span></span><br><span class="line"><span class="comment">// axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || ''</span></span><br><span class="line"><span class="comment">// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN</span></span><br><span class="line"><span class="comment">// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> config = &#123;</span><br><span class="line">  <span class="comment">// baseURL: process.env.baseURL || process.env.apiUrl || ''</span></span><br><span class="line">  <span class="comment">// timeout: 60 * 1000, // Timeout</span></span><br><span class="line">  <span class="comment">// withCredentials: true, // Check cross-site Access-Control,</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> _axios = axios.create(config)</span><br><span class="line"></span><br><span class="line">_axios.interceptors.request.use(</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Do something before request is sent</span></span><br><span class="line">    <span class="keyword">if</span> (!config.url.includes(<span class="string">'http'</span>)) &#123;</span><br><span class="line">      config.url = <span class="string">'http://127.0.0.1:4399'</span> + config.url</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> token = localStorage.getItem(<span class="string">'token'</span>)</span><br><span class="line">    <span class="keyword">if</span> (token) &#123;</span><br><span class="line">      config.headers.Authorization = token</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> config</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Do something with request error</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> refreshTokenFlag = <span class="literal">false</span></span><br><span class="line"><span class="keyword">let</span> requestList = []</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">executeRequests</span>(<span class="params">index</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (index &lt; requestList.length) &#123;</span><br><span class="line">    requestList[index]().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      executeRequests(index + <span class="number">1</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    refreshTokenFlag = <span class="literal">false</span></span><br><span class="line">    requestList.splice(<span class="number">0</span>, requestList.length)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Add a response interceptor</span></span><br><span class="line">_axios.interceptors.response.use(</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">` &gt;&gt;&gt; 拦截器开始`</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(response.config.url)</span><br><span class="line">    <span class="built_in">console</span>.log(response.config.headers.Authorization)</span><br><span class="line">    <span class="built_in">console</span>.log(response.data)</span><br><span class="line">    <span class="comment">// Do something with response data</span></span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">     * 在这里返回Promise.reject会进入代码的catch块;</span></span><br><span class="line"><span class="comment">     * 返回Promise.resolve或正常数据会进入then块;</span></span><br><span class="line"><span class="comment">     * 不返回 = 返回undefined也会进入then块</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="comment">// 成功</span></span><br><span class="line">    <span class="keyword">if</span> (response.data.code === <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> response.data</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (response.data.code === <span class="number">2</span> || response.data.code === <span class="number">4</span>) &#123;</span><br><span class="line">      <span class="comment">// 失败 || 无权访问</span></span><br><span class="line">      Message(&#123;</span><br><span class="line">        message: response.data.data || <span class="string">'网络繁忙！'</span>,</span><br><span class="line">        type: <span class="string">'error'</span>,</span><br><span class="line">        center: <span class="literal">true</span></span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response.data)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (response.data.code === <span class="number">3</span>) &#123;</span><br><span class="line">      <span class="comment">// 需要登录验证权限</span></span><br><span class="line">      <span class="keyword">const</span> redirectUrl = router.currentRoute.fullPath</span><br><span class="line">      router.push(&#123;</span><br><span class="line">        path: <span class="string">'/login'</span>,</span><br><span class="line">        query: &#123;</span><br><span class="line">          redirectUrl</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(response.data)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (response.data.code === <span class="number">5</span>) &#123;</span><br><span class="line">      <span class="comment">// 需要刷新token</span></span><br><span class="line">      <span class="keyword">const</span> userId = response.data.data</span><br><span class="line">      <span class="keyword">if</span> (refreshTokenFlag) &#123;</span><br><span class="line">        <span class="comment">// 正在刷新</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">          requestList.push(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">              <span class="keyword">const</span> r = <span class="keyword">await</span> _axios(response.config)</span><br><span class="line">              resolve(r)</span><br><span class="line">            &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">              reject(err)</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 未刷新</span></span><br><span class="line">        refreshTokenFlag = <span class="literal">true</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">          requestList.push(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">              <span class="keyword">const</span> result = <span class="keyword">await</span> _axios.post(<span class="string">`/sign/refreshToken/<span class="subst">$&#123;userId&#125;</span>`</span>)</span><br><span class="line">              localStorage.setItem(<span class="string">'token'</span>, result.data)</span><br><span class="line">              <span class="keyword">const</span> r = <span class="keyword">await</span> _axios(response.config)</span><br><span class="line">              resolve(r)</span><br><span class="line">            &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">              reject(err)</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;)</span><br><span class="line">          executeRequests(<span class="number">0</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Ajax系统错误'</span>)</span><br><span class="line">    Notification.error(&#123;</span><br><span class="line">      title: <span class="string">'系统错误'</span>,</span><br><span class="line">      message: <span class="string">`<span class="subst">$&#123;error || <span class="string">'No message available'</span>&#125;</span>`</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">Plugin.install = <span class="function"><span class="keyword">function</span> (<span class="params">Vue, options</span>) </span>&#123;</span><br><span class="line">  Vue.axios = _axios</span><br><span class="line">  <span class="built_in">window</span>.axios = _axios</span><br><span class="line">  <span class="built_in">Object</span>.defineProperties(Vue.prototype, &#123;</span><br><span class="line">    axios: &#123;</span><br><span class="line">      <span class="keyword">get</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> _axios</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    $axios: &#123;</span><br><span class="line">      <span class="keyword">get</span>() &#123;</span><br><span class="line">        <span class="keyword">return</span> _axios</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Vue.use(Plugin)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Plugin</span><br></pre></td></tr></table></figure>
+
+<h5 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h5><p>其实无痛刷新token的方法有很多，我在之前用到的方法则是在springmvc的Interceptor以及ResponseBodyAdvice中进行token的刷新，在返回结果中携带一个token刷新标志以及刷新后的token；这带来了一个问题：所有的token刷新都会在后端来解决，对于一个小系统，小网站来说，很可能会影响程序执行效率（当然大系统应该有自己的一套方案，这我就不知道了，若是有大佬路过也很期待您能在评论中给出一个小建议，感激不尽）。</p>
+<p>在实现通过前端来刷新的这个方法后，经过测试发现，体验还不错，在刷新的过程会有比较低的延迟但完全可以接受（延迟若是很大的话可能本身列入队列的请求也很复杂），所以写下这篇文章以便记录。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gmwenterprise.github.io/2019/11/28/html-contenteditable-usage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gmw">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gmw的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/28/html-contenteditable-usage/" itemprop="url">可编辑元素属性contenteditable详细用法记录</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-28T13:04:46+08:00">
+                2019-11-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我要为我的小网站写一个自己使用的markdown编辑器，并且想使其能够拥有网页上类似Typora般的所见即所得体验，因此决定自己花时间开发一个。<code>textarea</code>不用考虑了，无法支持如此复杂的内容，所以考虑使用<code>div</code>属性<code>contenteditable</code>。本文将记录这个属性相关的使用方式。</p>
+<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">contenteditable</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>This is content<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如此便使得div以及其子元素可被编辑。</p>
+<hr>
+<p>经过一下午的思考后，作为</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gmwenterprise.github.io/2019/11/24/english-learning-01-translate/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -305,7 +686,65 @@
 </blockquote>
 <p>Spring Data’s mission is to provide a familiar and consistent, Spring-based programming model for data access while still retaining the special traits of the underlying data store.</p>
 <blockquote>
-<p>Spring Data的目的是为数据访问提供一个熟悉且一致的，基于Spring的编程模型，同时仍保留了基础数据存储的特质。<br><em>– the special traits: 特质</em><br><em>– underlying data store: 基础数据存储</em><br><em>– retain: 保留</em></p>
+<p>Spring Data的目的是为数据访问提供一个熟悉且一致的，基于Spring的编程模型，同时仍保留了基础数据存储的特质。<br><em>– data access: 数据访问</em><br><em>– the special traits: 特质</em><br><em>– underlying data store: 基础数据存储</em><br><em>– retain: 保留</em></p>
+</blockquote>
+<p>It makes it easy to use data access technologies, relational and non-relational databases, map-reduce frameworks, and cloud-based data services. This is an umbrella project which contains many subprojects that are specific to a given database. The projects are developed by working together with many of the companies and developers that are behind these exciting technologies.</p>
+<blockquote>
+<p>他（Spring Data）使得数据访问技术，关系型和非关系型数据库，mapReduce框架，还有基于云的数据服务更易于使用。这是一个总括项目，其包含了众多的为给定数据库开发的子项目。这些项目是通过与这些令人激动的技术背后的许多公司和开发人员共同开发的。<br><em>– map-reduce: 由Google提出的一个软件架构，用于大规模数据集（大于1TB）的并行运算</em><br><em>– umbrella project: 总括项目，可以理解为聚合项目</em><br><em>– cloud-based data services: 基于云的数据服务</em></p>
+</blockquote>
+<h3 id="Features-特性"><a href="#Features-特性" class="headerlink" title="Features 特性"></a>Features 特性</h3><ul>
+<li>Powerful repository and custom object-mapping abstractions</li>
+<li>Dynamic query derivation from repository method names</li>
+<li>Implementation domain base classes providing basic properties</li>
+<li>Support for transparent auditing (created, last changed)</li>
+<li>Possibility to integrate custom repository code</li>
+<li>Easy Spring integration via JavaConfig and custom XML namespaces</li>
+<li>Advanced integration with Spring MVC controllers</li>
+<li>Experimental support for cross-store persistence</li>
+</ul>
+<blockquote>
+<ul>
+<li>强大的存储库和自定义对象映射抽象</li>
+<li>从存储库的方法名称来进行动态的查询推导</li>
+<li>支持数据变动可见（透明化）</li>
+<li>可以集成自定义的存储库代码</li>
+<li>可以通过JavaConfig或自定义的XML命名空间来集成Spring</li>
+<li>与Spring MVC 控制器的高级集成</li>
+<li>跨库持久化（实验性支持）</li>
+</ul>
+<p><em>– custom object-mapping abstractions: 自定义对象映射抽象</em><br><em>– dynamic query derivation: 动态查询推导（Spring Data 可以通过Repo接口的方法名称来推导生成对应的sql查询语句）</em><br><em>– transparent auditing: 透明审计（这里我翻译为了数据变动可见）</em><br><em>– integrate: 集成（动词）</em><br><em>– integration: 集成（名词）</em><br><em>– experimental: 实验性的</em><br><em>– cross-store persistence: 跨存储持久性</em></p>
+</blockquote>
+<h3 id="Main-modules-主要模块"><a href="#Main-modules-主要模块" class="headerlink" title="Main modules 主要模块"></a>Main modules 主要模块</h3><ul>
+<li>Spring Data Commons - Core Spring concepts underpinning every Spring Data module.</li>
+<li>Spring Data JDBC - Spring Data repository support for JDBC.</li>
+<li>Spring Data JDBC Ext - Support for database specific extensions to standard JDBC including support for Oracle RAC fast connection failover, AQ JMS support and support for using advanced data types.</li>
+<li>Spring Data JPA - Spring Data repository support for JPA.</li>
+<li>Spring Data KeyValue - <code>Map</code> based repositories and SPIs to easily build a Spring Data module for key_value stores.</li>
+<li>Spring Data LDAP - Spring Data repository support for Spring LDAP.</li>
+<li>Spring Data MongoDB - Spring based, object-document support and repositories for MongoDB.</li>
+<li>Spring Data Redis - Easy configuration and access to Redis from Spring applications.</li>
+<li>Spring Data REST - Exports Spring Data repositories as hypermedia-driven RESTful resources.</li>
+<li>Spring Data for Apache Cassandra - Easy configuration and access to Apache Cassandra or large scale, highly available, data oriented Spring applications.</li>
+<li>Spring Data for Apache Geode - Easy configuration and access to Apache Geode for highly consistent, low latency, data oriented Spring applications.</li>
+<li>Spring Data for Apache Solr - Easy configuration and access to Apache Solr for your search oriented Spring applications.</li>
+<li>Spring Data for Pivotal GemFire - Easy configuration and access to Pivotal GemFire for your high consistent low latency/high through-put, data oriented Spring applications.</li>
+</ul>
+<blockquote>
+<ul>
+<li>Spring Data Commons - 支撑着每一个Spring Data模块的核心概念</li>
+<li>Spring Data JDBC - Spring Data 库对JDBC的支持</li>
+<li>Spring Data JDBC Ext - 支持标准JDBC的数据库特定扩展，包括了对Oracle快速连接故障转移的支持，AQ JMS支持以及高级数据类型使用的支持</li>
+<li>Spring Data JPA - Spring Data库对JPA的支持</li>
+<li>Spring Data KeyValue - 轻松构建基于Map以及SPI的用于键值存储的Spring Data模块</li>
+<li>Spring Data LDAP - Spring Data 库对Spring LDAP的支持</li>
+<li>Spring Data MongoDB - 基于Spring的文档对象模型的支持以及适用MongoDB的库</li>
+<li>Spring Data Redis - 轻松配置且易于从Spring应用中访问Redis</li>
+<li>Spring Data REST - 将Spring Data存储库导出为超媒体驱动的RESTful资源</li>
+<li>Spring Data for Apache Cassandra - 轻松配置并访问Apache Cassandra或大规模、高可用，面向数据的Spring应用</li>
+<li>Spring Data for Apache Geode - 易于配置和访问Apache Geode，以实现高度一致、低延迟、面向数据的Spring应用</li>
+<li>Spring Data for Apache Solr - 易于配置，并可访问面向搜索的Spring应用的Apache Solr</li>
+<li>Spring Data for Pivotal GemFire -  轻松配置和访问Pivotal GemFire，以实现高度一致，低延迟/高吞吐量的面向数据的Spring应用程序</li>
+</ul>
 </blockquote>
 
           
@@ -1327,439 +1766,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gmwenterprise.github.io/2019/11/04/springmvc-global-exp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gmw">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Gmw的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/04/springmvc-global-exp/" itemprop="url">SpringMvc处理全局异常</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-04T10:16:01+08:00">
-                2019-11-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>处理全局异常的方法主要为两种：</p>
-<ul>
-<li>实现<code>HandlerExceptionResolver</code>接口</li>
-<li><code>@ControllerAdvice</code>注解</li>
-</ul>
-<p>第一种方法的一个局限性是，必须返回<code>ModelAndView</code>实例，如果有返回Json数据需求的话，就力不从心了;</p>
-<p>第二种方法我使用的比较多，通过给处理类加上<code>@ControllerAdvice</code>注解或<code>@RestControllerAdvice</code>注解，然后给类中的方法加上<code>@ExceptionHandler</code>注解并指定异常类型，便使得其中的方法成为了指定异常处理器。返回的类型类似于Controller，添加了<code>@ResponseBody</code>注解便会返回REST资源，不添加则返回视图。</p>
-<p>假定这样的需求：以.json结尾的请求出现异常则返回Json数据；以.page结尾的请求出现异常则返回视图，那么只需要这么写：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringMvcExceptionAdvice</span> </span>&#123;</span><br><span class="line">  <span class="meta">@ExceptionHandler</span>(Throwable.class)</span><br><span class="line">  <span class="function"><span class="keyword">public</span> Object <span class="title">throwableHandler</span><span class="params">(HttpServletRequest request, Throwable exp)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (request.getRequestURL().toString().endsWith(<span class="string">".json"</span>)) &#123;</span><br><span class="line">      <span class="keyword">return</span> AjaxResponse.fail(<span class="string">"请求JSON数据异常"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"errorPage"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>异常处理器的参数可以注入request，response，exception，类似于controller却有不同。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gmwenterprise.github.io/2019/10/10/how-detectable-use/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gmw">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Gmw的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/10/10/how-detectable-use/" itemprop="url">异常代码检测执行器Detectable（模仿java.utils.Optional类）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-10T14:29:19+08:00">
-                2019-10-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>工作中经常遇到一些代码，比如微服务调用的方法就是个很基本的增删改查功能，非要给你抛出一个<code>Exception</code>，很反感，我不是一个喜欢在代码里加try…catch…的人，也不太愿意抛异常，因为在我看来有一些错误是应该在开发过程中就完全避免的。但团队协作开发，，，以及一些公司自带的依赖实在是难以启齿。故仿照着<code>java.util.Optional</code>写了一个差不多模式的类：<code>Detectable</code>。没错，连名字风格都一样。</p>
-<h2 id="主要构成"><a href="#主要构成" class="headerlink" title="主要构成"></a>主要构成</h2><ol>
-<li><code>final class Detectable</code>，提供两个公开的静态方法，类似于<code>Optional.ofNullable</code>方法;</li>
-<li><code>functionalInterface Runner</code>，没有返回值的执行器；</li>
-<li><code>functionalInterface RunnerWithReturnValue</code>，有返回值的执行器</li>
-<li><code>functionalInterface ElseRun</code>，没有返回值的最终执行器。</li>
-</ol>
-<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Runner</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> <span class="keyword">throws</span> Throwable</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RunnerWithReturnValue</span>&lt;<span class="title">R</span>&gt; </span>&#123;</span><br><span class="line">  <span class="function">R <span class="title">run</span><span class="params">()</span> <span class="keyword">throws</span> Throwable</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 其实直接使用&#123;<span class="doctag">@link</span> java.lang.Runnable&#125;也可以</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ElseRun</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Detectable</span>&lt;<span class="title">R</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> R returnValue;</span><br><span class="line">  <span class="keyword">private</span> Throwable throwable;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="title">Detectable</span><span class="params">(R returnValue, Throwable throwable)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.returnValue = returnValue;</span><br><span class="line">    <span class="keyword">this</span>.throwable = throwable;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> R <span class="title">orElse</span><span class="params">(R backup)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.throwable == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.returnValue;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.throwable.printStackTrace();</span><br><span class="line">    <span class="keyword">return</span> backup;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">orElseRun</span><span class="params">(ElseRun runner)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.throwable != <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.throwable.printStackTrace();</span><br><span class="line">      runner.run();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Throwable <span class="title">getThrowableIfError</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.throwable;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// #########################################</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> Detectable&lt;?&gt; ofThrowable(Runner runner) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      runner.run();</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> Detectable&lt;&gt;(<span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> Detectable&lt;&gt;(<span class="keyword">null</span>, t);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;R&gt; <span class="function">Detectable&lt;R&gt; <span class="title">ofThrowable</span><span class="params">(RunnerWithReturnValue&lt;R&gt; runner)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      R value = runner.run();</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> Detectable&lt;&gt;(value, <span class="keyword">null</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> Detectable&lt;&gt;(<span class="keyword">null</span>, t);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] params)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 执行普通方法</span></span><br><span class="line">    Detectable</span><br><span class="line">      .ofThrowable(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"这个方法始终抛出一个异常"</span>);</span><br><span class="line">      &#125;)</span><br><span class="line">      .orElseRun(() -&gt; System.err.println(<span class="string">"产生异常！"</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 执行带有返回值的方法</span></span><br><span class="line">    <span class="comment">// 如果com.mysql.cj.jdbc.Driver不存在，则driverClass为null</span></span><br><span class="line">    Class&lt;?&gt; driverClass = Detectable</span><br><span class="line">      .ofThrowable(() -&gt; Class.forName(<span class="string">"com.mysql.cj.jdbc.Driver"</span>))</span><br><span class="line">      .orElse(<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取异常</span></span><br><span class="line">    <span class="comment">// 如果代码没有异常则返回null</span></span><br><span class="line">    Throwable throwable = Detectable</span><br><span class="line">      .ofThrowable(() -&gt; &#123;</span><br><span class="line">        Class.forName(<span class="string">"java.error.ThisClassDoesNotExist"</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">      .getThrowableIfError();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 异常向下转型</span></span><br><span class="line">    ClassNotFoundException exp = (ClassNotFoundException) throwable;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实也就模仿了Optional常用的使用方式，总体比较简单，但总算不用再写恶心的try…catch…了</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gmwenterprise.github.io/2019/09/10/git-common-usage/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gmw">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Gmw的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/10/git-common-usage/" itemprop="url">Git常用汇总</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T14:22:07+08:00">
-                2019-09-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>由于在开发过程中经常使用vscode自带的工具进行一些简单的sync、merge等操作，使得我很难熟记git的命令，故记录于此，免得以后到处google。</p>
-<h3 id="几个术语"><a href="#几个术语" class="headerlink" title="几个术语"></a>几个术语</h3><ul>
-<li>workingtree 工作区（当前本地文件夹）</li>
-<li>index / state 暂存区（add之后commit之前）</li>
-<li>HEAD 当前活跃分支的游标，也是workingtree、index的修改最终要提交到的位置<br>几个概念：</li>
-<li>git相对于其他VCS工具，主要的一个区别是，操作的是“修改”，而不是“文件”。这个很重要，对理解git的很多命令有帮助</li>
-<li>修改的提交过程是：workingtree -&gt; index -&gt; HEAD （本地），提交到了index和HEAD的修改都可以通过命令回退，但workingtree的修改一旦撤回，则不可找回，将彻底回退到指定的状态</li>
-<li>当前文件夹，特指当前执行命令所在的文件夹位置</li>
-<li>版本库中的每一个提交节点，类似于一个列表，各个分支其实就是不同的指针，分别指向特定的节点，而HEAD就是指向当前分支的游标；切换分支实际上就是切换HEAD游标指向的分支指针</li>
-</ul>
-<h3 id="初始化repository"><a href="#初始化repository" class="headerlink" title="初始化repository"></a>初始化repository</h3><ul>
-<li><code>git init</code> # 用于将当前文件夹初始化为一个repo</li>
-<li><code>git clone 「remote repo site」</code> # 克隆远程仓库于本地文件夹<br>本地的git单独分支操作</li>
-<li><code>git add 「singlefile」</code> # 将workingtree的指定文件的修改提交至index</li>
-<li><code>git add .</code> # 将workingtree的当前文件夹所有修改提交至index</li>
-<li><code>git branch 「branch_name」</code> # 创建分支</li>
-<li><code>git branch --set-upstream-to 「local_branch」 origin/「origin_branch」</code> # 关联本地分支与远程分支</li>
-<li><code>git checkout 「branch_name」</code> # 切换到现有分支</li>
-<li><code>git checkout -b 「branch_name」</code> # 切换到一个新的分支（创建并切换）</li>
-<li><code>git checkout -- 「file_path」</code> # 撤销workingtree指定文件的修改（不可找回）</li>
-<li><code>git config --list</code> # 查询当前repo的一些配置</li>
-<li><code>git config --list --global</code> # 查询全局配置</li>
-<li><code>git config user.name &quot;yourname&quot;</code> # 配置你的用户名</li>
-<li><code>git config user.email &quot;youremail&quot;</code> # 配置你的邮箱</li>
-<li><code>git diff</code> # 查看workingtree与index的区别</li>
-<li><code>git diff --cached</code> # 查看index与HEAD的区别</li>
-<li><code>git diff HEAD</code> # 查看workingtree与HEAD的区别</li>
-<li><code>git diff HEAD -- 「file_path」</code> # 查看workingtree与HEAD指定文件的区别</li>
-<li><code>git log</code> # 查看提交历史记录，每一条记录都对应一个版本号</li>
-<li><code>git log --pretty=oneline</code> # 查看提交历史记录，显示于一行</li>
-<li><code>git reset --mixed HEAD</code> # 回退index，使其对应HEAD最新版本，–mixed为默认值，可以省略为：git reset HEAD</li>
-<li><code>git reset --mixed HEAD 「file_path」</code> # 回退index指定文件，使其对应HEAD最新版本</li>
-<li><code>git reset --hard HEAD</code> # 回退workingtree，使其对应HEAD最新版本（慎用，工作区不可找回）</li>
-<li><code>git reset --soft HEAD~</code> # 回退HEAD到前一个版本，workingtree和index都不会改变</li>
-<li><code>git reset HEAD~「number」</code> # 回退到前第number个版本（–「mode」可用）</li>
-<li><code>git reset 「version number」</code> # 回退到指定版本（–「mode」可用）</li>
-<li><code>git reflog</code> # 查看当前用户的命令历史</li>
-<li><code>git rm 「file_path」</code> # 从版本库中（index &amp; HEAD）删除指定文件</li>
-<li><code>git status</code> # 查看当前修改状态</li>
-</ul>
-<h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><ul>
-<li><code>git remote add origin 「remote git repository address」</code> # 将本地已有的仓库与指定远程仓库关联，yourname为你的远程仓库账户名，yourrepo为你的远程仓库名，origin为远程仓库命名，这是git默认，不用修改（一看就是远程仓库）</li>
-<li><code>git push -u origin master</code> # 将本地库内容推送到远程库。第一次推送时，“-u”参数加上后，不但会推送内容，还会把本地的master分支与origin的master分支关联起来，之后就可以省略这个参数了</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1803,7 +1816,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1825,7 +1838,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
