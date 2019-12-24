@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,learn,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言/简介本文源自于笔者阅读《Java编程思想》这本书时所记录的知识点以及对于联想到的一些东西的思考。作为一个Java码农，毕业一年半了却一直没有好好了解一下java的IO系统，实在是不应该，故以此文来整理一下。 开始记录File类 java.io.File这个类是一个工具类库，提供了很方便的本地文件操作。File既可以表示一个文件，也可以表示一个文件夹，虽然类名为File但其实用Path更为恰当">
+<meta name="keywords" content="java,learn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习Java I&#x2F;O系统">
+<meta property="og:url" content="http://gmwenterprise.github.io/2019/12/22/learn-java-io/index.html">
+<meta property="og:site_name" content="Gmw的博客">
+<meta property="og:description" content="前言/简介本文源自于笔者阅读《Java编程思想》这本书时所记录的知识点以及对于联想到的一些东西的思考。作为一个Java码农，毕业一年半了却一直没有好好了解一下java的IO系统，实在是不应该，故以此文来整理一下。 开始记录File类 java.io.File这个类是一个工具类库，提供了很方便的本地文件操作。File既可以表示一个文件，也可以表示一个文件夹，虽然类名为File但其实用Path更为恰当">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.loli.net/2019/12/24/z4fcZj1NTX3xaHK.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/24/eylOEWi5d9Zw6AQ.png">
+<meta property="og:updated_time" content="2019-12-24T09:05:23.986Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习Java I&#x2F;O系统">
+<meta name="twitter:description" content="前言/简介本文源自于笔者阅读《Java编程思想》这本书时所记录的知识点以及对于联想到的一些东西的思考。作为一个Java码农，毕业一年半了却一直没有好好了解一下java的IO系统，实在是不应该，故以此文来整理一下。 开始记录File类 java.io.File这个类是一个工具类库，提供了很方便的本地文件操作。File既可以表示一个文件，也可以表示一个文件夹，虽然类名为File但其实用Path更为恰当">
+<meta name="twitter:image" content="https://i.loli.net/2019/12/24/z4fcZj1NTX3xaHK.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://gmwenterprise.github.io/2019/12/22/learn-java-io/">
+
+
+
+
+
+  <title>学习Java I/O系统 | Gmw的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Gmw的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gmwenterprise.github.io/2019/12/22/learn-java-io/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gmw">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gmw的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">学习Java I/O系统</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-22T00:27:09+08:00">
+                2019-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言-简介"><a href="#前言-简介" class="headerlink" title="前言/简介"></a>前言/简介</h2><p>本文源自于笔者阅读《Java编程思想》这本书时所记录的知识点以及对于联想到的一些东西的思考。作为一个Java码农，毕业一年半了却一直没有好好了解一下java的IO系统，实在是不应该，故以此文来整理一下。</p>
+<h2 id="开始记录"><a href="#开始记录" class="headerlink" title="开始记录"></a>开始记录</h2><h3 id="File类"><a href="#File类" class="headerlink" title="File类"></a>File类</h3><blockquote>
+<p><code>java.io.File</code>这个类是一个工具类库，提供了很方便的本地文件操作。File既可以表示一个文件，也可以表示一个文件夹，虽然类名为File但其实用Path更为恰当，因为它实质上引用的是一个路径，而不是文件或文件夹。另外，有一个更方便的类可以替代File的操作：<code>java.nio.Path</code></p>
+</blockquote>
+<p>常用操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">processDirs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  File f1 = <span class="keyword">new</span> File(<span class="string">"C:\\Windows"</span>);</span><br><span class="line">  System.out.println(f1.isFile()); <span class="comment">// false</span></span><br><span class="line">  System.out.println(f1.isDirectory()); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">  File f2 = <span class="keyword">new</span> File(<span class="string">"C:\\Windows\\notepad.exe"</span>);</span><br><span class="line">  System.out.println(f2.isFile()); <span class="comment">// true</span></span><br><span class="line">  System.out.println(f2.isDirectory()); <span class="comment">// false</span></span><br><span class="line">  System.out.println(f2.canRead()); <span class="comment">// true</span></span><br><span class="line">  System.out.println(f2.canWrite()); <span class="comment">// true</span></span><br><span class="line">  <span class="comment">// 是否可执行</span></span><br><span class="line">  System.out.println(f2.canExecute()); <span class="comment">// true</span></span><br><span class="line">  System.out.println(f2.length()); <span class="comment">// 181248</span></span><br><span class="line"></span><br><span class="line">  File f3 = <span class="keyword">new</span> File(<span class="string">"C:\\Windows\\nothing"</span>);</span><br><span class="line">  System.out.println(f3.isFile()); <span class="comment">// false</span></span><br><span class="line">  System.out.println(f3.isDirectory()); <span class="comment">// false</span></span><br><span class="line">  </span><br><span class="line">  File f4 = <span class="keyword">new</span> File(<span class="string">"../."</span>);</span><br><span class="line">  <span class="comment">// 返回构造方法传入的路径（格式化为合法路径）</span></span><br><span class="line">  System.out.println(f4.getPath()); <span class="comment">// ..\.</span></span><br><span class="line">  <span class="comment">// 返回绝对路径（这个路径无法在win10资源管理器中的地址栏输入访问，会提示找不到）</span></span><br><span class="line">  System.out.println(f4.getAbsolutePath()); <span class="comment">// C:\Users\Me\AppData\Local\Temp\0000016f2c87ea13\..\.</span></span><br><span class="line">  <span class="comment">// 返回规范路径。规范路径会把'..', '.'转换成标准的绝对路径</span></span><br><span class="line">  System.out.println(f4.getCanonicalPath()); <span class="comment">// C:\Users\Me\AppData\Local\Temp</span></span><br><span class="line">  Arrays.stream(Objects.requireNonNull(f4.listFiles()))</span><br><span class="line">    .map(File::getName)</span><br><span class="line">    .forEach(System.out::println); <span class="comment">// 输出Temp文件夹下所有文件、文件夹的名称</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 还有很多有用的方法这里不再一一赘述</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Path类"><a href="#Path类" class="headerlink" title="Path类"></a>Path类</h3><h3 id="In-Out简介"><a href="#In-Out简介" class="headerlink" title="In / Out简介"></a>In / Out简介</h3><p>所谓的“流”是一个编程语言中的抽象概念，它表示任何有能力产出数据的数据源或有能力接收数据的接收器。“流”屏蔽了实际的I/O设备中处理数据的细节。对于Java语言来说，掌握流的操作就能基本地掌握数据地输入输出控制。</p>
+<p><code>java.io.InputStream</code>与<code>java.io.OutputStream</code>是I/O流中最顶级的两个抽象类，所有的I/O流相关的操作类都要直接或间接继承这两个类。其中，<code>InputStream</code>用于从流中读取数据到内存；而<code>OutputStream</code>则是从内存中输出数据到流。而<code>InputStream</code>的创建则必须指定一个数据源，用于为流提供数据；当然，<code>OutputStream</code>也需要一个接收数据的接收端用于初始化其输出数据到什么地方。</p>
+<p>用一段代码来简单地描述一下这两个抽象类的使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Serializable <span class="title">deepCopy</span><span class="params">(Serializable serializableObj)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="comment">// 从内存中写入数据到输出流，最终目的地是字节流</span></span><br><span class="line">    <span class="keyword">var</span> byteArrayOutputStream = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">    <span class="comment">// 使用对象输出流来装饰字节输出流，装饰器模式的实际应用</span></span><br><span class="line">    <span class="keyword">var</span> objectOutputStream = <span class="keyword">new</span> ObjectOutputStream(byteArrayOutputStream);</span><br><span class="line">    objectOutputStream.writeObject(serializableObj);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从数据源中读取数据到内存，数据源则是先前的字节流数组</span></span><br><span class="line">    <span class="keyword">var</span> byteArrayInputStream = <span class="keyword">new</span> ByteArrayInputStream(byteArrayOutputStream.toByteArray());</span><br><span class="line">    <span class="keyword">var</span> objectInputStream = <span class="keyword">new</span> ObjectInputStream(byteArrayInputStream);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> result = (Serializable) objectInputStream.readObject();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 关闭流</span></span><br><span class="line">    objectInputStream.close();</span><br><span class="line">    byteArrayInputStream.close();</span><br><span class="line">    objectOutputStream.close();</span><br><span class="line">    byteArrayOutputStream.close();</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这一段代码实现了一个java当中很实用的一个功能：深拷贝。原理是将内存中的对象序列化为字节流，再重新读取字节流，如此便实现了一个对象的深度拷贝，不论是其中的值还是引用，都具有完全不同 / 全新的地址。而<code>Object.clone()</code>只能实现浅拷贝，对于对象的引用成员只能拷贝其地址而无法拷贝真实数据。</p>
+<p>实际上其中的<code>ByteArrayStream</code>可以替换为其他的数据源 / 接收器，比如文件流，而且文件流还能实现数据的持久化。</p>
+<h3 id="In-Out当中的设计模式：装饰器模式"><a href="#In-Out当中的设计模式：装饰器模式" class="headerlink" title="In / Out当中的设计模式：装饰器模式"></a>In / Out当中的设计模式：装饰器模式</h3><blockquote>
+<p>装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。<br>这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能。</p>
+<p>与代理模式的区别：<em>装饰器模式应当为所装饰的对象提供增强功能，而代理模式对所代理对象的使用施加控制，并不提供对象本身的增强功能。—— 阎宏：《java与模式》</em></p>
+</blockquote>
+<p>Java的I/O系统在设计时，将类型分成了两部分：一部分是确定能够访问数据源的基础<code>InputStream</code>；而另一部分则是提供额外功能的扩展<code>InputStream</code>:</p>
+<p><img src="https://i.loli.net/2019/12/24/z4fcZj1NTX3xaHK.png" alt="InputStream结构"></p>
+<p><code>OutputStream</code>也是如此：</p>
+<p><img src="https://i.loli.net/2019/12/24/eylOEWi5d9Zw6AQ.png" alt="OutputStream结构"></p>
+<p>使用方法大致如下：</p>
+<ol>
+<li>首先确定一个数据源，比如想要从文件中读取数据的话，就使用文件流：<code>var fileIn = new FileInputStream(new File(targetPath))</code>；</li>
+<li>想要使用缓冲流来为文件流添加额外的读取缓冲能力，就是用缓冲流包装文件流：<code>var bufIn = new BufferedInputStream(fileIn)</code>;</li>
+<li>想要格式化读取文件中的基础数据：<code>var dataIn = new DataInputStream(bufIn)</code>。</li>
+</ol>
+<p><code>DataInputStream</code>提供了平台无关的基础数据读取功能，可以很方便地读取基本类型数据如<code>char</code>, <code>int</code>, <code>long</code>, <code>boolean</code>等。<br>使用地过程就是这么简单，想要添加新的扩展方法只需要用新的扩展类包装原本的类就好了；层层嵌套，便能够添加各种功能。</p>
+<h3 id="InputStream类型"><a href="#InputStream类型" class="headerlink" title="InputStream类型"></a><code>InputStream</code>类型</h3><p><strong><code>InputStream</code>的作用是用来表示那些从不同数据源产生输入的类</strong>。这些数据源包括：</p>
+<ul>
+<li>字节数组：<code>ByteArrayInputStream</code></li>
+<li>String对象：<code>StringBufferInputStream</code> <em>注:这个类已过时，被<code>StringReader</code>所取代</em></li>
+<li>文件：<code>FileInputStream</code></li>
+<li>管道（一端输入，另一端输出）：<code>PipedInputStream</code></li>
+<li>其他数据源</li>
+<li>其他种类的流组成的序列</li>
+</ul>
+<p><code>FilterInputStream</code>这个类被描述为一个抽象类，它是<code>BufferedInputStream</code>、<code>DataInputStream</code>、<code>LineNumberInputStream</code>、<code>PushbackInputStream</code>的基类。其他的输入流都可以作为这几个类的数据源，它可以增强其他几个<code>InputStream</code>类的功能；但实际上代码中<code>FilterInputStream</code>并没有被<code>abstract</code>关键字修饰，它的构造函数仅接受一个<code>InputStream</code>作为参数，其他几个主要的方法都是直接调用接收的<code>InputStream</code>来执行。</p>
+<p>简单一点的说法：输入流从数据源读取数据到JVM(read)。</p>
+<h3 id="OutputStream类型"><a href="#OutputStream类型" class="headerlink" title="OutputStream类型"></a><code>OutputStream</code>类型</h3><p><strong><code>OutputStream</code>表示了数据即将去往的目的地/接收端</strong>：字节数组、文件、管道。当然，输出流也具有一个装饰器类的基类：<code>FilterOutputStream</code>。</p>
+<p>也可以这么说：数据从JVM经输出流发往接收端(write)。</p>
+<h4 id="OutputStream-flush"><a href="#OutputStream-flush" class="headerlink" title="OutputStream.flush"></a><code>OutputStream.flush</code></h4><p><code>OutputStream.flush()</code>这个方法的作用是将缓冲区的内容真正输出到数据目的地，以保证数据全部输出。因为在实际使用输出流时，通常会搭配缓存以减少真正物理写入的操作。</p>
+<blockquote>
+<p>为什么要有<code>flush()</code>？因为向磁盘、网络写入数据的时候，出于效率的考虑，操作系统并不是输出一个字节就立刻写入到文件或者发送到网络，而是把输出的字节先放到内存的一个缓冲区里（本质上就是一个<code>byte[]</code>数组），等到缓冲区写满了，再一次性写入文件或者网络。对于很多IO设备来说，一次写一个字节和一次写1000个字节，花费的时间几乎是完全一样的，所以<code>OutputStream</code>有个<code>flush()</code>方法，能强制把缓冲区内容输出。<br><em>（本段内容取自<a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1298069169635361" target="_blank" rel="noopener">廖雪峰官方java教程</a>）</em></p>
+</blockquote>
+<h3 id="I-O的阻塞"><a href="#I-O的阻塞" class="headerlink" title="I/O的阻塞"></a>I/O的阻塞</h3><p><strong><code>InputStream.read()</code>以及<code>OutputStream.write()</code>这两个方法都是阻塞的</strong>。阻塞是指当代码执行到这一行时，必须等待<code>read()</code>或<code>write()</code>执行完毕才能够执行下一行，当前线程也会进入阻塞状态。</p>
+<h3 id="Reader和Writer"><a href="#Reader和Writer" class="headerlink" title="Reader和Writer"></a><code>Reader</code>和<code>Writer</code></h3><p><code>Reader</code>和<code>Writer</code>在Java的I/O系统中提供了兼容Unicode与面向字符的功能。设计这两个类继承层次结构主要是为了国际化，因为老的I/O流无法很好地处理16位的Unicode字符（Java本身的<code>char</code>就是16位的Unicode），所以设计这两个类就是为了在所有的I/O操作中都支持Unicode。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/learn/" rel="tag"># learn</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/18/how-docker-use/" rel="next" title="如何使用docker部署jar应用以及前端应用">
+                <i class="fa fa-chevron-left"></i> 如何使用docker部署jar应用以及前端应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Gmw</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言-简介"><span class="nav-number">1.</span> <span class="nav-text">前言/简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始记录"><span class="nav-number">2.</span> <span class="nav-text">开始记录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#File类"><span class="nav-number">2.1.</span> <span class="nav-text">File类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Path类"><span class="nav-number">2.2.</span> <span class="nav-text">Path类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#In-Out简介"><span class="nav-number">2.3.</span> <span class="nav-text">In / Out简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#In-Out当中的设计模式：装饰器模式"><span class="nav-number">2.4.</span> <span class="nav-text">In / Out当中的设计模式：装饰器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InputStream类型"><span class="nav-number">2.5.</span> <span class="nav-text">InputStream类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OutputStream类型"><span class="nav-number">2.6.</span> <span class="nav-text">OutputStream类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#OutputStream-flush"><span class="nav-number">2.6.1.</span> <span class="nav-text">OutputStream.flush</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I-O的阻塞"><span class="nav-number">2.7.</span> <span class="nav-text">I/O的阻塞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reader和Writer"><span class="nav-number">2.8.</span> <span class="nav-text">Reader和Writer</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gmw</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

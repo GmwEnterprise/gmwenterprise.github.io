@@ -229,6 +229,427 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gmwenterprise.github.io/2019/12/22/learn-java-io/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gmw">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gmw的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/22/learn-java-io/" itemprop="url">学习Java I/O系统</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-22T00:27:09+08:00">
+                2019-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言-简介"><a href="#前言-简介" class="headerlink" title="前言/简介"></a>前言/简介</h2><p>本文源自于笔者阅读《Java编程思想》这本书时所记录的知识点以及对于联想到的一些东西的思考。作为一个Java码农，毕业一年半了却一直没有好好了解一下java的IO系统，实在是不应该，故以此文来整理一下。</p>
+<h2 id="开始记录"><a href="#开始记录" class="headerlink" title="开始记录"></a>开始记录</h2><h3 id="File类"><a href="#File类" class="headerlink" title="File类"></a>File类</h3><blockquote>
+<p><code>java.io.File</code>这个类是一个工具类库，提供了很方便的本地文件操作。File既可以表示一个文件，也可以表示一个文件夹，虽然类名为File但其实用Path更为恰当，因为它实质上引用的是一个路径，而不是文件或文件夹。另外，有一个更方便的类可以替代File的操作：<code>java.nio.Path</code></p>
+</blockquote>
+<p>常用操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">processDirs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  File f1 = <span class="keyword">new</span> File(<span class="string">"C:\\Windows"</span>);</span><br><span class="line">  System.out.println(f1.isFile()); <span class="comment">// false</span></span><br><span class="line">  System.out.println(f1.isDirectory()); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">  File f2 = <span class="keyword">new</span> File(<span class="string">"C:\\Windows\\notepad.exe"</span>);</span><br><span class="line">  System.out.println(f2.isFile()); <span class="comment">// true</span></span><br><span class="line">  System.out.println(f2.isDirectory()); <span class="comment">// false</span></span><br><span class="line">  System.out.println(f2.canRead()); <span class="comment">// true</span></span><br><span class="line">  System.out.println(f2.canWrite()); <span class="comment">// true</span></span><br><span class="line">  <span class="comment">// 是否可执行</span></span><br><span class="line">  System.out.println(f2.canExecute()); <span class="comment">// true</span></span><br><span class="line">  System.out.println(f2.length()); <span class="comment">// 181248</span></span><br><span class="line"></span><br><span class="line">  File f3 = <span class="keyword">new</span> File(<span class="string">"C:\\Windows\\nothing"</span>);</span><br><span class="line">  System.out.println(f3.isFile()); <span class="comment">// false</span></span><br><span class="line">  System.out.println(f3.isDirectory()); <span class="comment">// false</span></span><br><span class="line">  </span><br><span class="line">  File f4 = <span class="keyword">new</span> File(<span class="string">"../."</span>);</span><br><span class="line">  <span class="comment">// 返回构造方法传入的路径（格式化为合法路径）</span></span><br><span class="line">  System.out.println(f4.getPath()); <span class="comment">// ..\.</span></span><br><span class="line">  <span class="comment">// 返回绝对路径（这个路径无法在win10资源管理器中的地址栏输入访问，会提示找不到）</span></span><br><span class="line">  System.out.println(f4.getAbsolutePath()); <span class="comment">// C:\Users\Me\AppData\Local\Temp\0000016f2c87ea13\..\.</span></span><br><span class="line">  <span class="comment">// 返回规范路径。规范路径会把'..', '.'转换成标准的绝对路径</span></span><br><span class="line">  System.out.println(f4.getCanonicalPath()); <span class="comment">// C:\Users\Me\AppData\Local\Temp</span></span><br><span class="line">  Arrays.stream(Objects.requireNonNull(f4.listFiles()))</span><br><span class="line">    .map(File::getName)</span><br><span class="line">    .forEach(System.out::println); <span class="comment">// 输出Temp文件夹下所有文件、文件夹的名称</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 还有很多有用的方法这里不再一一赘述</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Path类"><a href="#Path类" class="headerlink" title="Path类"></a>Path类</h3><h3 id="In-Out简介"><a href="#In-Out简介" class="headerlink" title="In / Out简介"></a>In / Out简介</h3><p>所谓的“流”是一个编程语言中的抽象概念，它表示任何有能力产出数据的数据源或有能力接收数据的接收器。“流”屏蔽了实际的I/O设备中处理数据的细节。对于Java语言来说，掌握流的操作就能基本地掌握数据地输入输出控制。</p>
+<p><code>java.io.InputStream</code>与<code>java.io.OutputStream</code>是I/O流中最顶级的两个抽象类，所有的I/O流相关的操作类都要直接或间接继承这两个类。其中，<code>InputStream</code>用于从流中读取数据到内存；而<code>OutputStream</code>则是从内存中输出数据到流。而<code>InputStream</code>的创建则必须指定一个数据源，用于为流提供数据；当然，<code>OutputStream</code>也需要一个接收数据的接收端用于初始化其输出数据到什么地方。</p>
+<p>用一段代码来简单地描述一下这两个抽象类的使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Serializable <span class="title">deepCopy</span><span class="params">(Serializable serializableObj)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="comment">// 从内存中写入数据到输出流，最终目的地是字节流</span></span><br><span class="line">    <span class="keyword">var</span> byteArrayOutputStream = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">    <span class="comment">// 使用对象输出流来装饰字节输出流，装饰器模式的实际应用</span></span><br><span class="line">    <span class="keyword">var</span> objectOutputStream = <span class="keyword">new</span> ObjectOutputStream(byteArrayOutputStream);</span><br><span class="line">    objectOutputStream.writeObject(serializableObj);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从数据源中读取数据到内存，数据源则是先前的字节流数组</span></span><br><span class="line">    <span class="keyword">var</span> byteArrayInputStream = <span class="keyword">new</span> ByteArrayInputStream(byteArrayOutputStream.toByteArray());</span><br><span class="line">    <span class="keyword">var</span> objectInputStream = <span class="keyword">new</span> ObjectInputStream(byteArrayInputStream);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> result = (Serializable) objectInputStream.readObject();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 关闭流</span></span><br><span class="line">    objectInputStream.close();</span><br><span class="line">    byteArrayInputStream.close();</span><br><span class="line">    objectOutputStream.close();</span><br><span class="line">    byteArrayOutputStream.close();</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这一段代码实现了一个java当中很实用的一个功能：深拷贝。原理是将内存中的对象序列化为字节流，再重新读取字节流，如此便实现了一个对象的深度拷贝，不论是其中的值还是引用，都具有完全不同 / 全新的地址。而<code>Object.clone()</code>只能实现浅拷贝，对于对象的引用成员只能拷贝其地址而无法拷贝真实数据。</p>
+<p>实际上其中的<code>ByteArrayStream</code>可以替换为其他的数据源 / 接收器，比如文件流，而且文件流还能实现数据的持久化。</p>
+<h3 id="In-Out当中的设计模式：装饰器模式"><a href="#In-Out当中的设计模式：装饰器模式" class="headerlink" title="In / Out当中的设计模式：装饰器模式"></a>In / Out当中的设计模式：装饰器模式</h3><blockquote>
+<p>装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。<br>这种模式创建了一个装饰类，用来包装原有的类，并在保持类方法签名完整性的前提下，提供了额外的功能。</p>
+<p>与代理模式的区别：<em>装饰器模式应当为所装饰的对象提供增强功能，而代理模式对所代理对象的使用施加控制，并不提供对象本身的增强功能。—— 阎宏：《java与模式》</em></p>
+</blockquote>
+<p>Java的I/O系统在设计时，将类型分成了两部分：一部分是确定能够访问数据源的基础<code>InputStream</code>；而另一部分则是提供额外功能的扩展<code>InputStream</code>:</p>
+<p><img src="https://i.loli.net/2019/12/24/z4fcZj1NTX3xaHK.png" alt="InputStream结构"></p>
+<p><code>OutputStream</code>也是如此：</p>
+<p><img src="https://i.loli.net/2019/12/24/eylOEWi5d9Zw6AQ.png" alt="OutputStream结构"></p>
+<p>使用方法大致如下：</p>
+<ol>
+<li>首先确定一个数据源，比如想要从文件中读取数据的话，就使用文件流：<code>var fileIn = new FileInputStream(new File(targetPath))</code>；</li>
+<li>想要使用缓冲流来为文件流添加额外的读取缓冲能力，就是用缓冲流包装文件流：<code>var bufIn = new BufferedInputStream(fileIn)</code>;</li>
+<li>想要格式化读取文件中的基础数据：<code>var dataIn = new DataInputStream(bufIn)</code>。</li>
+</ol>
+<p><code>DataInputStream</code>提供了平台无关的基础数据读取功能，可以很方便地读取基本类型数据如<code>char</code>, <code>int</code>, <code>long</code>, <code>boolean</code>等。<br>使用地过程就是这么简单，想要添加新的扩展方法只需要用新的扩展类包装原本的类就好了；层层嵌套，便能够添加各种功能。</p>
+<h3 id="InputStream类型"><a href="#InputStream类型" class="headerlink" title="InputStream类型"></a><code>InputStream</code>类型</h3><p><strong><code>InputStream</code>的作用是用来表示那些从不同数据源产生输入的类</strong>。这些数据源包括：</p>
+<ul>
+<li>字节数组：<code>ByteArrayInputStream</code></li>
+<li>String对象：<code>StringBufferInputStream</code> <em>注:这个类已过时，被<code>StringReader</code>所取代</em></li>
+<li>文件：<code>FileInputStream</code></li>
+<li>管道（一端输入，另一端输出）：<code>PipedInputStream</code></li>
+<li>其他数据源</li>
+<li>其他种类的流组成的序列</li>
+</ul>
+<p><code>FilterInputStream</code>这个类被描述为一个抽象类，它是<code>BufferedInputStream</code>、<code>DataInputStream</code>、<code>LineNumberInputStream</code>、<code>PushbackInputStream</code>的基类。其他的输入流都可以作为这几个类的数据源，它可以增强其他几个<code>InputStream</code>类的功能；但实际上代码中<code>FilterInputStream</code>并没有被<code>abstract</code>关键字修饰，它的构造函数仅接受一个<code>InputStream</code>作为参数，其他几个主要的方法都是直接调用接收的<code>InputStream</code>来执行。</p>
+<p>简单一点的说法：输入流从数据源读取数据到JVM(read)。</p>
+<h3 id="OutputStream类型"><a href="#OutputStream类型" class="headerlink" title="OutputStream类型"></a><code>OutputStream</code>类型</h3><p><strong><code>OutputStream</code>表示了数据即将去往的目的地/接收端</strong>：字节数组、文件、管道。当然，输出流也具有一个装饰器类的基类：<code>FilterOutputStream</code>。</p>
+<p>也可以这么说：数据从JVM经输出流发往接收端(write)。</p>
+<h4 id="OutputStream-flush"><a href="#OutputStream-flush" class="headerlink" title="OutputStream.flush"></a><code>OutputStream.flush</code></h4><p><code>OutputStream.flush()</code>这个方法的作用是将缓冲区的内容真正输出到数据目的地，以保证数据全部输出。因为在实际使用输出流时，通常会搭配缓存以减少真正物理写入的操作。</p>
+<blockquote>
+<p>为什么要有<code>flush()</code>？因为向磁盘、网络写入数据的时候，出于效率的考虑，操作系统并不是输出一个字节就立刻写入到文件或者发送到网络，而是把输出的字节先放到内存的一个缓冲区里（本质上就是一个<code>byte[]</code>数组），等到缓冲区写满了，再一次性写入文件或者网络。对于很多IO设备来说，一次写一个字节和一次写1000个字节，花费的时间几乎是完全一样的，所以<code>OutputStream</code>有个<code>flush()</code>方法，能强制把缓冲区内容输出。<br><em>（本段内容取自<a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1298069169635361" target="_blank" rel="noopener">廖雪峰官方java教程</a>）</em></p>
+</blockquote>
+<h3 id="I-O的阻塞"><a href="#I-O的阻塞" class="headerlink" title="I/O的阻塞"></a>I/O的阻塞</h3><p><strong><code>InputStream.read()</code>以及<code>OutputStream.write()</code>这两个方法都是阻塞的</strong>。阻塞是指当代码执行到这一行时，必须等待<code>read()</code>或<code>write()</code>执行完毕才能够执行下一行，当前线程也会进入阻塞状态。</p>
+<h3 id="Reader和Writer"><a href="#Reader和Writer" class="headerlink" title="Reader和Writer"></a><code>Reader</code>和<code>Writer</code></h3><p><code>Reader</code>和<code>Writer</code>在Java的I/O系统中提供了兼容Unicode与面向字符的功能。设计这两个类继承层次结构主要是为了国际化，因为老的I/O流无法很好地处理16位的Unicode字符（Java本身的<code>char</code>就是16位的Unicode），所以设计这两个类就是为了在所有的I/O操作中都支持Unicode。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gmwenterprise.github.io/2019/12/18/how-docker-use/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gmw">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gmw的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/18/how-docker-use/" itemprop="url">如何使用docker部署jar应用以及前端应用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-18T21:00:22+08:00">
+                2019-12-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>主要是为了学习一下docker，提前熟悉容器化相关概念。</p>
+<h2 id="主要步骤"><a href="#主要步骤" class="headerlink" title="主要步骤"></a>主要步骤</h2><h3 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h3><p>安装的方式主要参照官方文档。由于我的服务器用的是ubuntu18.04LTS，所以我简单整理一下ubuntu的安装方式：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 卸载旧版本（安装前执行以下，防止安装出什么差错）</span><br><span class="line">sudo apt-get remove docker docker-engine docker.io containerd runc</span><br><span class="line"><span class="meta">#</span> 更新包索引</span><br><span class="line">sudo apt-get update</span><br><span class="line"><span class="meta">#</span> 安装以下包，以允许通过HTTPS来使用apt存储库</span><br><span class="line">sudo apt-get install \</span><br><span class="line">    apt-transport-https \</span><br><span class="line">    ca-certificates \</span><br><span class="line">    curl \</span><br><span class="line">    gnupg-agent \</span><br><span class="line">    software-properties-common</span><br><span class="line"><span class="meta">#</span> 添加docker官方的GPG密钥</span><br><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line"><span class="meta">#</span> 使用以下命令来建立稳​​定的存储库，以便docker的安装</span><br><span class="line">sudo add-apt-repository \</span><br><span class="line">   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \</span><br><span class="line"><span class="meta">   $</span>(lsb_release -cs) \</span><br><span class="line">   stable"</span><br><span class="line"><span class="meta">#</span> 再次更新存储库索引</span><br><span class="line">sudo apt-get update</span><br><span class="line"><span class="meta">#</span> 安装docker</span><br><span class="line">sudo apt-get install docker-ce docker-ce-cli containerd.io</span><br><span class="line"><span class="meta">#</span> 查看安装好的docker版本</span><br><span class="line">docker version</span><br><span class="line"><span class="meta">#</span> 运行一个hello world镜像</span><br><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<p>如此便安装好了最新版的docker。以上安装过程全部出自<a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank" rel="noopener">官方文档</a>。</p>
+<h3 id="使用过程简介"><a href="#使用过程简介" class="headerlink" title="使用过程简介"></a>使用过程简介</h3><p>使用的过程很简单。</p>
+<p>docker的镜像是只读的，可以从一个镜像中创建出一个容器，然后运行这个容器。容器有着满足程序基本需求的最小系统，占用资源也极低（相对于虚拟机）。镜像可以从官方镜像仓库中下载，也可以自己制作然后发布到官方仓库中让别人使用。docker官方提供了各种各样的官方镜像（offical images），比如openjdk、nginx、centos、ubuntu、mysql、mongodb等等。为了方便我将使用openjdk、mysql，以及nginx来部署我的应用。</p>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>spring-boot打包后的程序就是一个jar文件，可以轻松地通过命令行来执行：<code>java -jar app.jar</code>。</p>
+<p>为此，只需要一个可以执行java的环境即可。<a href="https://hub.docker.com/_/openjdk" target="_blank" rel="noopener">openjdk</a>官网有着详细的使用说明，这里我简单总结一下我的使用方式：</p>
+<ol>
+<li><p>创建一个Dockerfile文件用于基于openjdk镜像来生成我的应用镜像：</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">11</span></span><br><span class="line"><span class="keyword">ADD</span> ./application.jar /usr</span><br><span class="line"><span class="keyword">CMD</span> ["java", "-jar", "/usr/application.jar"]</span><br><span class="line"><span class="comment"># 非常简单，几乎没有额外的设置，就创建好了可以执行的镜像</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拉取官方mysql镜像，设置好初始化必要设置后直接启动，作为应用的数据库</p>
+</li>
+</ol>
+<h3 id="未完待续【2019年12月18日21点45分】"><a href="#未完待续【2019年12月18日21点45分】" class="headerlink" title="未完待续【2019年12月18日21点45分】"></a>未完待续【2019年12月18日21点45分】</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gmwenterprise.github.io/2019/12/16/how-docker-image-make/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gmw">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gmw的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/12/16/how-docker-image-make/" itemprop="url">如何创建一个docker镜像</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-16T10:26:14+08:00">
+                2019-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gmwenterprise.github.io/2019/12/13/docker-common-usage/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -248,7 +669,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/12/13/docker-common-usage/" itemprop="url">docker-common-usage</a></h1>
+                <a class="post-title-link" href="/2019/12/13/docker-common-usage/" itemprop="url">docker常用命令</a></h1>
         
 
         <div class="post-meta">
@@ -300,7 +721,7 @@
       
         
           
-            <p>Docker 常用命令<br>启动docker<br>sudo service docker start</p>
+            <h3 id="常用用法"><a href="#常用用法" class="headerlink" title="常用用法"></a>常用用法</h3><p>Docker 常用命令<br>启动docker<br>sudo service docker start</p>
 <p>停止docker<br>sudo service docker stop</p>
 <p>重启docker<br>sudo service docker restart</p>
 <p>列出Docker CLI命令<br>docker<br>docker container –help</p>
@@ -308,7 +729,26 @@
 <p>Execute Docker image<br>docker run hello-world</p>
 <p>列出镜像列表<br>docker image ls</p>
 <p>列出docker容器 (running, all, all in quiet mode)<br>docker container ls<br>docker container ls –all<br>docker container ls -aq</p>
-<p>作者：凌雲木<br>链接：(<a href="https://www.jianshu.com/p/cef32b054968)[https://www.jianshu.com/p/cef32b054968]" target="_blank" rel="noopener">https://www.jianshu.com/p/cef32b054968)[https://www.jianshu.com/p/cef32b054968]</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>作者：凌雲木<br>链接：<a href="https://www.jianshu.com/p/cef32b054968" target="_blank" rel="noopener">https://www.jianshu.com/p/cef32b054968</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><ul>
+<li><code>docker image ls</code> 查看所有已安装镜像</li>
+<li><code>docker container run [IMAGE]</code> 运行镜像</li>
+<li><code>docker container ls</code> 查看所有运行中容器信息</li>
+<li><code>docker container ls -all</code> 查看所有容器信息，包括已经停止的</li>
+<li><code>docker container stop [CONTAINER_ID]</code> 停止容器，会执行清理工作</li>
+<li><code>docker container kill [CONTAINER_ID]</code> 杀死容器，强行停止</li>
+<li><code>docker container rm [CONTAINER_ID]</code> 删除容器</li>
+<li><code>docker container start [CONTAINER_ID]</code> 启动现有容器</li>
+<li><code>docker container logs [CONTAINER_ID]</code> 查看容器里面Shell的输出</li>
+<li><code>docker container exec -it [CONTAINER_ID]</code> 进入一个正在运行的容器</li>
+<li><code>docker container cp [containID]:[/path/to/file] .</code> 将容器中指定目录/文件拷贝到当前目录</li>
+<li><code>docker ps</code> 查看容器运行情况</li>
+</ul>
+<h3 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h3><ul>
+<li><code>docker run [IMAGE]</code> 运行镜像</li>
+<li><code>docker search [IMAGE]</code> 在docker hub中搜索镜像</li>
+<li><code>docker pull [IMAGE]</code> 从docker hub中下载指定镜像</li>
+</ul>
 
           
         
@@ -1302,470 +1742,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gmwenterprise.github.io/2019/11/18/markdown-common-usage/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gmw">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Gmw的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/18/markdown-common-usage/" itemprop="url">markdown-common-usage</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-18T10:42:15+08:00">
-                2019-11-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="常用语法"><a href="#常用语法" class="headerlink" title="常用语法"></a>常用语法</h3><h4 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h4><blockquote>
-<p>语法格式：** ‘#’+’空格’+’文本’ **</p>
-</blockquote>
-<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><blockquote>
-<p>无序列表语法格式：** ‘-‘ + ‘空格’ ＋ ‘文本’ **</p>
-</blockquote>
-<ul>
-<li>文本一</li>
-<li>文本二</li>
-<li>文本三</li>
-</ul>
-<blockquote>
-<p>有序列表语法格式：** ‘数字’ + ‘.’ + ‘空格’ + ‘文本’ **</p>
-</blockquote>
-<ol>
-<li>文本一</li>
-<li>文本二</li>
-<li>文本三</li>
-</ol>
-<blockquote>
-<p>任务列表语法格式：** ‘-‘ + ‘空格’ + ‘[ ]’ + ‘文本’ **</p>
-</blockquote>
-<ul>
-<li><input checked disabled type="checkbox"> 文本一</li>
-<li><input disabled type="checkbox"> 文本二</li>
-<li><input disabled type="checkbox"> 文本三</li>
-</ul>
-<h4 id="链接和图片"><a href="#链接和图片" class="headerlink" title="链接和图片"></a>链接和图片</h4><p>在 Markdown 中插入链接不需要其他按钮，你只需要使用<code>［显示文本］(链接地址)</code>这样的格式语法即可。例如：<br><a href="https://gold.xitu.io" target="_blank" rel="noopener">稀土掘金</a><br>插入图片的语法与插入链接的语法很像，只是前面多了一个 <code>!</code>.语法如下：<br><code>![图片的标注](图片链接地址)</code></p>
-<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><blockquote>
-<p>语法：** ‘&gt;’+’空格’+’文本’ **</p>
-</blockquote>
-<p>例如：</p>
-<blockquote>
-<p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。</p>
-</blockquote>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>如下是代码段的语法：</p>
-<pre>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这是代码段</span><br></pre></td></tr></table></figure>
-
-</pre>
-
-<p>例如：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubbleSort</span><span class="params">(alist)</span>:</span></span><br><span class="line"> <span class="keyword">for</span> passnum <span class="keyword">in</span> range(len(alist)<span class="number">-1</span>,<span class="number">0</span>,<span class="number">-1</span>):</span><br><span class="line"> <span class="comment">#print alist,passnum</span></span><br><span class="line"> <span class="keyword">for</span> i <span class="keyword">in</span> range(passnum):</span><br><span class="line"> <span class="keyword">if</span> alist[i]&gt;alist[i+<span class="number">1</span>]:</span><br><span class="line"> temp = alist[i]</span><br><span class="line"> alist[i] = alist[i+<span class="number">1</span>]</span><br><span class="line"> alist[i+<span class="number">1</span>] = temp</span><br><span class="line"> <span class="keyword">return</span> alist</span><br></pre></td></tr></table></figure>
-
-<h4 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h4><p><strong>Markdown　Extra</strong>　表格语法：</p>
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th>价格</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>iPhone</td>
-<td>$560</td>
-</tr>
-<tr>
-<td>iPad</td>
-<td>$780</td>
-</tr>
-<tr>
-<td>iMac</td>
-<td>$1000</td>
-</tr>
-</tbody></table>
-<p>可以使用冒号来定义对齐方式：</p>
-<table>
-<thead>
-<tr>
-<th align="left">项目</th>
-<th align="right">价格</th>
-<th align="center">数量</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">iPhone</td>
-<td align="right">6000 元</td>
-<td align="center">5</td>
-</tr>
-<tr>
-<td align="left">iPad</td>
-<td align="right">3800 元</td>
-<td align="center">12</td>
-</tr>
-<tr>
-<td align="left">iMac</td>
-<td align="right">10000 元</td>
-<td align="center">234</td>
-</tr>
-</tbody></table>
-<h4 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h4><p>以上是最常见的 Markdown 的语法和格式，如果你还希望深入的学习 Markdown，可以参考这里<a href="https://www.appinn.com/markdown/" target="_blank" rel="noopener">Markdown语法</a>。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gmwenterprise.github.io/2019/11/15/mybatis-generator-usage/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gmw">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Gmw的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/15/mybatis-generator-usage/" itemprop="url">mybatis-generator插件的用法简单总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-15T22:40:44+08:00">
-                2019-11-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gmwenterprise.github.io/2019/11/14/aliyun-ubuntu-init/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gmw">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Gmw的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/11/14/aliyun-ubuntu-init/" itemprop="url">从阿里云上安装ubuntu server作为一个运行javaweb程序的服务器</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-14T10:25:27+08:00">
-                2019-11-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>写这篇文章的目的在于详细记录一下初始化一台服务器的一些基本操作，本来是可以用的，结果最近笔者的服务器遭到了黑客攻击，丢失了好几条<strong>宝贵</strong>的数据不说，还被威胁说不给0.03个btc就删了我的备份。。。</p>
-<p>因为我图方便，希望能够在家里或者公司都能自由连接上我的服务器以便开发我的个人小博客网站，所以开放了端口。。。</p>
-<p><strong>血的教训！</strong></p>
-<p>以下是正文</p>
-<hr>
-<p>使用的镜像为ubuntu18.04，惊喜的是系统自带SSH，不需要像老版本一样需要安装额外的ssh包才能使用xshell进行远程登录。</p>
-<h4 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h4><p>我先前使用的数据库是mysql8.0，所以此时我要给服务器安装mysql8.0，但是apt search能找到的包只有mysql5.7，所以得自己另寻办法：</p>
-<ol>
-<li>从这个<a href="https://dev.mysql.com/downloads/repo/apt/" target="_blank" rel="noopener">链接</a>去下载一个mysql-apt-config-xxxxxx.deb包，然后通过xftp上传到服务器。我将它上传到了根目录；</li>
-<li>安装：<code>dpkg -i /mysql-apt-config_0.8.14-1_all.deb</code>，会弹出粉色背景的安装界面，根据需求选择后选择OK；</li>
-<li><code>apt update</code>更新下载列表，然后<code>apt upgrade</code>更新。至此，已可以通过<code>apt install mysql-server</code>来安装mysql8；</li>
-<li><code>apt install mysql-server</code>即可安装，选择密码加密方式时选择了mysql5.7的mysql_native_password加密方式，因为目前默认的客户端管理工具都不支持新版加密方式；</li>
-<li>安装好后，修改mysql.user表root用户的host字段为’%’，然后重启mysql服务<code>service mysql restart</code>便开启了mysql8的远程登录。</li>
-<li>为了安全性的考虑，只好设置Mysql数据库的3306端口IP限制，每次换个地方，换了网络，就要把自己的外网IP给替换为当前的限制IP，这样也算是比较有效降低了被黑客入侵的风险。。。</li>
-</ol>
-<h4 id="安装jdk"><a href="#安装jdk" class="headerlink" title="安装jdk"></a>安装jdk</h4><h4 id="安装redis"><a href="#安装redis" class="headerlink" title="安装redis"></a>安装redis</h4><h4 id="尝试使用docker"><a href="#尝试使用docker" class="headerlink" title="尝试使用docker"></a>尝试使用docker</h4><p>未完待续…</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1816,7 +1792,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1838,7 +1814,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

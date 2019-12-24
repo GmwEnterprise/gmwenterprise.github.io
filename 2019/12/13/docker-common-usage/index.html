@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Docker 常用命令启动dockersudo service docker start 停止dockersudo service docker stop 重启dockersudo service docker restart 列出Docker CLI命令dockerdocker container –help 显示Docker版本和信息docker –versiondocker versiond">
+<meta name="description" content="常用用法Docker 常用命令启动dockersudo service docker start 停止dockersudo service docker stop 重启dockersudo service docker restart 列出Docker CLI命令dockerdocker container –help 显示Docker版本和信息docker –versiondocker vers">
 <meta name="keywords" content="docker">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker-common-usage">
+<meta property="og:title" content="docker常用命令">
 <meta property="og:url" content="http://gmwenterprise.github.io/2019/12/13/docker-common-usage/index.html">
 <meta property="og:site_name" content="Gmw的博客">
-<meta property="og:description" content="Docker 常用命令启动dockersudo service docker start 停止dockersudo service docker stop 重启dockersudo service docker restart 列出Docker CLI命令dockerdocker container –help 显示Docker版本和信息docker –versiondocker versiond">
+<meta property="og:description" content="常用用法Docker 常用命令启动dockersudo service docker start 停止dockersudo service docker stop 重启dockersudo service docker restart 列出Docker CLI命令dockerdocker container –help 显示Docker版本和信息docker –versiondocker vers">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-13T03:28:55.512Z">
+<meta property="og:updated_time" content="2019-12-16T02:27:22.878Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="docker-common-usage">
-<meta name="twitter:description" content="Docker 常用命令启动dockersudo service docker start 停止dockersudo service docker stop 重启dockersudo service docker restart 列出Docker CLI命令dockerdocker container –help 显示Docker版本和信息docker –versiondocker versiond">
+<meta name="twitter:title" content="docker常用命令">
+<meta name="twitter:description" content="常用用法Docker 常用命令启动dockersudo service docker start 停止dockersudo service docker stop 重启dockersudo service docker restart 列出Docker CLI命令dockerdocker container –help 显示Docker版本和信息docker –versiondocker vers">
 
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>docker-common-usage | Gmw的博客</title>
+  <title>docker常用命令 | Gmw的博客</title>
   
 
 
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">docker-common-usage</h1>
+          <h1 class="post-title" itemprop="name headline">docker常用命令</h1>
         
 
         <div class="post-meta">
@@ -300,7 +300,7 @@
       
 
       
-        <p>Docker 常用命令<br>启动docker<br>sudo service docker start</p>
+        <h3 id="常用用法"><a href="#常用用法" class="headerlink" title="常用用法"></a>常用用法</h3><p>Docker 常用命令<br>启动docker<br>sudo service docker start</p>
 <p>停止docker<br>sudo service docker stop</p>
 <p>重启docker<br>sudo service docker restart</p>
 <p>列出Docker CLI命令<br>docker<br>docker container –help</p>
@@ -308,7 +308,26 @@
 <p>Execute Docker image<br>docker run hello-world</p>
 <p>列出镜像列表<br>docker image ls</p>
 <p>列出docker容器 (running, all, all in quiet mode)<br>docker container ls<br>docker container ls –all<br>docker container ls -aq</p>
-<p>作者：凌雲木<br>链接：(<a href="https://www.jianshu.com/p/cef32b054968)[https://www.jianshu.com/p/cef32b054968]" target="_blank" rel="noopener">https://www.jianshu.com/p/cef32b054968)[https://www.jianshu.com/p/cef32b054968]</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>作者：凌雲木<br>链接：<a href="https://www.jianshu.com/p/cef32b054968" target="_blank" rel="noopener">https://www.jianshu.com/p/cef32b054968</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><ul>
+<li><code>docker image ls</code> 查看所有已安装镜像</li>
+<li><code>docker container run [IMAGE]</code> 运行镜像</li>
+<li><code>docker container ls</code> 查看所有运行中容器信息</li>
+<li><code>docker container ls -all</code> 查看所有容器信息，包括已经停止的</li>
+<li><code>docker container stop [CONTAINER_ID]</code> 停止容器，会执行清理工作</li>
+<li><code>docker container kill [CONTAINER_ID]</code> 杀死容器，强行停止</li>
+<li><code>docker container rm [CONTAINER_ID]</code> 删除容器</li>
+<li><code>docker container start [CONTAINER_ID]</code> 启动现有容器</li>
+<li><code>docker container logs [CONTAINER_ID]</code> 查看容器里面Shell的输出</li>
+<li><code>docker container exec -it [CONTAINER_ID]</code> 进入一个正在运行的容器</li>
+<li><code>docker container cp [containID]:[/path/to/file] .</code> 将容器中指定目录/文件拷贝到当前目录</li>
+<li><code>docker ps</code> 查看容器运行情况</li>
+</ul>
+<h3 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h3><ul>
+<li><code>docker run [IMAGE]</code> 运行镜像</li>
+<li><code>docker search [IMAGE]</code> 在docker hub中搜索镜像</li>
+<li><code>docker pull [IMAGE]</code> 从docker hub中下载指定镜像</li>
+</ul>
 
       
     </div>
@@ -348,6 +367,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/16/how-docker-image-make/" rel="prev" title="如何创建一个docker镜像">
+                如何创建一个docker镜像 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -399,8 +422,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -415,7 +447,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -437,7 +469,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -460,6 +492,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用用法"><span class="nav-number">1.</span> <span class="nav-text">常用用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器"><span class="nav-number">2.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#镜像"><span class="nav-number">3.</span> <span class="nav-text">镜像</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
