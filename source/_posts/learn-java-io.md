@@ -84,6 +84,9 @@ public Serializable deepCopy(Serializable serializableObj) throws Exception {
     objectOutputStream.close();
     byteArrayOutputStream.close();
     return result;
+
+    // 这种序列化方式存在一定的安全隐患，因为实例直接由JVM通过字节数组生成，不会执行构造方法
+    // 仅适用于Java程序，如果要和其他程序通信必须使用通用的序列化方法，例如JSON、XML
 }
 ```
 
@@ -148,3 +151,19 @@ Java的I/O系统在设计时，将类型分成了两部分：一部分是确定�
 ### `Reader`和`Writer`
 
 `Reader`和`Writer`在Java的I/O系统中提供了兼容Unicode与面向字符的功能。设计这两个类继承层次结构主要是为了国际化，因为老的I/O流无法很好地处理16位的Unicode字符（Java本身的`char`就是16位的Unicode），所以设计这两个类就是为了在所有的I/O操作中都支持Unicode。
+
+### `RandomAccessFile`
+
+支持对文件**随机访问**的类。
+
+> *In computer science, random access (more precisely and more generally called direct access) is the ability to access an arbitrary element of a sequence in equal time or any datum from a population of addressable elements roughly as easily and efficiently as any other, no matter how many elements may be in the set.*
+> 
+> *-- From Wikipedia*
+
+它不继承于`InputStream`或`OutputStream`，仅实现了`DataOutput`、`DataInput`、`Closeable`这三个接口，直接由`Object`派生而来，本质上的功能类似于将`DataInputStream`和`DataOutputStream`组合起来使用，且添加了其他有用的方法。
+
+`RandomAccessFile`很适合网络中的文件断点续传、多线程下载。
+
+### 新I/O
+
+也就是NIO，位于`java.nio.*`。引入NIO的目的在于充分提高速度。实际上旧的I/O包已经使用nio重新实现过，所以即便不显示使用NIO我们也能从中受益。
