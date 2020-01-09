@@ -1,5 +1,5 @@
 ---
-title: 学习Java并发（02）使用线程类Thread
+title: 学习Java并发（02）Java中使用线程
 date: 2020-01-06 10:27:38
 categories: 并发
 tags:
@@ -7,7 +7,7 @@ tags:
   - concurrency
 ---
 
-## Thread基本说明
+## 基本说明
 
 在Java中，Thread类表示一个线程实例。Java支持多线程开发，JVM中可存在多个执行线程。
 
@@ -17,94 +17,87 @@ JVM在以下两种情况下会结束运行：
 - 主动调用`Runtime.exit`或`System.exit`.
 - 所有非守护线程都已执行结束.
 
-## 创建一个Thread
+## Java中线程的状态
 
-直接创建一个线程并启动的方式如下。
+Java中线程有6种状态：
+- NEW: 线程刚刚创建，未执行.
+- RUNNABLE: 线程启动后，便处于这个状态；线程因I/O阻塞时，也处于这个状态
+- BLOCKED: 线程因等待锁阻塞
+- WAITING: 
+- TIMED_WAITING: 
+- TERMINATED: 
 
+## 创建一个线程
+
+首先要新建一个任务。通过实现Runnable接口即可创建一个没有返回值的任务。
 ``` java
-// 创建一个任务
-Runnable task = () -> System.out.printf("Current thread: %s%n", Thread.currentThread());
-// 创建一个线程实例
-Thread thread = new Thread(task);
-// 启动线程
-thread.start();
-System.out.printf("Current thread: %s%n", Thread.currentThread());
+// 方法1
+public Task implements Runnable {
+  @Override
+  public void run() { print("Task run !"); }
+}
+// 方法2
+Runnable task = () -> print("Task run !");
+```
+创建好了任务后，将这个任务实例作为Thread的构造参数传入并构建Thread实例：
+``` java
+Thread t = new Thread(task);
+// 调用start()启动线程
+t.start();
+```
+调用了start方法后，该线程就启动了。
+
+实际上也可以选择继承Thread类来覆盖其run()方法来定义任务，然而Java只允许继承一个类，但支持多接口实现，所以为了可扩展性通常会选择实现Runnable的方式。
+
+## 设置线程的优先级
+
+Java中线程的优先级分为10档，即数值1-10。Thread类本身提供了三档优先级常量，分别为`Thread.MIN_PRIORITY`, `Thread.NORM_PRIORITY`, `Thread.MAX_PRIORITY`，值分别为1，5，10。值越大，优先级越高，调度器为线程分配时间片概率也就更大。设置方法：
+``` java
+// 需要在启动前设置
+t.setPriority(Thread.MAX_PRIORITY);
+t.start();
 ```
 
-其中`Thread.currentThread()`用来获取当前线程，写在主线程的printf方法将打印main线程，而写在task中的printf方法将打印子线程。
+## 设置线程为守护线程
 
-## Thread常用的自带方法
-
-### void run()
-
-很简单，调用传入的Runnable的run方法，仅调用方法而不开启线程。
-
-### void start()
-
-开启线程。内部调用本地C代码实现的native方法start0()。当执行了start方法后，这个线程就已经创建成功并进入就绪状态了。
-
-### void setPriority(int)
-
-设置线程的优先级。Java中线程的优先级分为10级，即1-10。通常使用三档优先级来设置：
+设置为守护线程后，其会随着JVM的结束而结束。当JVM结束时，如果有守护线程正在执行代码，其会突然终止在当前行代码，且不会往下继续执行（哪怕有finally块）。设置的方式如下：
 ``` java
-/**
-  * The minimum priority that a thread can have.
-  */
-public static final int MIN_PRIORITY = 1;
-
-/**
-  * The default priority that is assigned to a thread.
-  */
-public static final int NORM_PRIORITY = 5;
-
-/**
-  * The maximum priority that a thread can have.
-  */
-public static final int MAX_PRIORITY = 10;
+t.setDaemon(true); // true即开启守护线程，为false则不开启。非守护线程设置时默认为false
+t.start();
+```
+作为守护线程，其创建 / 派生出的任何子线程都默认为守护线程，即：
+``` java
+Runnable daemon = () -> {
+  print("该线程为守护线程 " + Thread.currentThread().isDaemon());
+  new Thread(() -> print("派生线程默认为守护线程 " + Thread.currentThread().isDaemon())).start();
+}
+new Thread(daemon).start();
 ```
 
-优先级的设置在start方法执行前设置。
+## 使线程定时睡眠
 
-### void setDaemon(boolean)
-
-设置是否为守护线程。守护线程会在JVM结束时自动结束。结束时假如代码块中有finally块，并不会执行。（类似于线程突然中止在当前行代码，不会向下执行下去）
-
-### void join()
-
-使当前线程等待目标线程执行完毕：
+使线程睡眠，指线程放弃当前执行权，在指定的时间内进入阻塞状态。当指定时间过了以后，线程进入就绪状态，重新参与CPU资源的竞争。
+使当前线程睡眠的方式如下：
 ``` java
-public static void main(String[] param) throws InterruptedException {
-    // 初始化一个睡眠3秒的任务
-    Thread t = new Thread(() -> {
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    });
-    t.start();
-    t.join();
-    System.out.println("done."); // 会在3秒后执行
-
-    // 调用t.join()的是主线程
-    // 随后主线程开始等待子线程的执行结束
-    // 子线程睡眠3秒后即结束
-    // 主线程等待完毕
+try {
+  // 1
+  Thread.sleep(1000); // 睡眠1000ms也就是1s
+  // 2
+  TimeUnit.MILLISECONDS.sleep(100); // 睡眠100ms
+  // 3
+  TimeUnit.SECONDS.sleep(1); // 睡眠1s
+} catch (InterruptedException e) {
+  print("睡眠阻塞被中断");
 }
 ```
-假如在主线程开启了很多个子线程任务，想要等待所有的任务执行完毕，可以轮询调用所有线程的join方法。
+后两种方式更具有可读性。还有一种特别的使用方式：`Thread.sleep(0)`，睡眠0秒，其作用是立刻使当前线程进入就绪态，重新参与CPU资源的分配。在某些场景下会有作用。
 
-### boolean isInterrupted()
+线程睡眠实际上是使线程阻塞的一种方式，同时睡眠阻塞是可以被打断的，通过捕获`InterruptedException`来处理中断信号。
 
-查看当前线程是否为中断状态。详细用法见`void interrupt()`。
+使线程睡眠并不会使线程放弃当前持有的锁。
 
-### void interrupt()
+## 线程的让步
 
-中断目标线程。调用了这个方法后，目标线程的`isInterrupted()`方法返回true，即中断标志设为true。对于某些方法，还要求捕获`InterruptedException`。对于要求捕获这个异常的方法来说，一旦补货到了这个异常，中断标志又将重置，所以不要在catch块里判断中断标志。
+线程的让步，是指当前线程放弃已获取到的CPU时间片，
 
-### static void yield()
-
-### static Thread currentThread()
-
-获取当前线程。
-
+## 阻塞线程
