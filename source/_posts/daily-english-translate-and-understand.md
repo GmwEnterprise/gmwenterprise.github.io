@@ -7,7 +7,7 @@ tags:
 ---
 # Documentation
 
-## jdk
+## Java Development Kit
 
 ### java.util.concurrent.DelayQueue
 
@@ -22,3 +22,9 @@ This class is a member of the **Java Collections Framework**.
 此类以及它的迭代器实现了所有的源自Collection与Iterator接口的optional方法。不保证iterator方法提供的迭代器能够以通常的顺序遍历。
 
 此类为Java Collections Framework的成员。
+
+### java.lang.Number
+
+The abstract class `Number` is the superclass of platform classes representing numeric values that are convertible to the primitive types `byte`, `double`, `float`, `int`, `long` and `short`. The specific semantics of the conversion from the numeric value of a particular `Number` implementation to a given primitive type is defined by the `Number` implementation in question. For platform classes, the conversion is often analogous to a narrowing primitive conversion or a widening primitive conversion as defined in *The Java Language Specification* for converting between primitive types. Therefore, conversions may lose information about the overall magnitude of a numeric value, may lose precision, and may even return a result of a different sign then the input. See the documentation of a given `Number` implementation for conversion details.
+
+抽象类Number是代表了可以转换为原始类型`byte`, `double`, `float`, `int`, `long`,  `short`的数值类型的平台类的超类。从特定的Number实现到给定的原始类型的转换的具体语义由所讨论的Number实现来定义。对于平台类来说，转换通常类似于在Java语言规范中定义的原始类型之间进行转换的变窄的原始转换或变宽的原始转换。因此，转换可能会丢失有关数值总大小的信息，可能会丢失精度，甚至可能返回一个与输入不同的符号结果。具体转换细节请查看给定Number实现的文档。
